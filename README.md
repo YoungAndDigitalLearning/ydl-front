@@ -1,0 +1,2 @@
+# frontend
+DjangoBlockchained submodule frontend
