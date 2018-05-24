@@ -1,4 +1,5 @@
 <template>
+<transition name="slide">
   <aside class="profile-sidebar">
     <div class="djb-profile-picture">
       <img src="http://via.placeholder.com/64x64"/>
@@ -10,6 +11,7 @@
       <p>(Student)</p>
     </div>
   </aside>
+</transition>
 </template>
 
 <script>
