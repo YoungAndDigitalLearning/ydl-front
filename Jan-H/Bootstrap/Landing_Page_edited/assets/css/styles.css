@@ -1,0 +1,12 @@
+.h1, h1 {
+  text-align:center;
+}
+
+.close_modal {
+	margin-right: 5px; 
+}
+
+#landing_article{
+	background-color: rgba(163, 163, 163, 0.8);
+	color: white;
+}
