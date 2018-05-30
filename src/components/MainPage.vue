@@ -39,7 +39,7 @@
         <div class="row">
           <div class="col-md-8 offset-md-2">
             <h1 class="text-center">Young&Digital Learning</h1>
-            <ydl-article v-for="article in article_entry" v-bind:article_entry='article' v-bind:key="article.id"></ydl-article>
+            <ydl-article v-for="article in articleEntry" v-bind:articleEntry='article' v-bind:key="article.id"></ydl-article>
           </div>
         </div>
       </div>
@@ -62,7 +62,8 @@ export default {
   name: "MainPage",
   data () {
     return {
-      showModal: false
+      showModal: false,
+      articleEntry: {}
     }
   },
   components: {
