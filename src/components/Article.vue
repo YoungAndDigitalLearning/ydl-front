@@ -1,4 +1,3 @@
-props:['article_entry']
 <template>
   <div id="landing_article" class="article-clean">
     <div class="container">
@@ -11,7 +10,7 @@ props:['article_entry']
                   <a href="#">{{article_entry.author}}</a>
                   <span class="date">Sept 8th, 2016 </span>
               </p>
-              <img v-if="article_entry.image != ''" class="img-fluid" src="assets/img/desk.jpg">
+              <img v-if="article_entry.image != ''" class="img-fluid" src="article_entry.image">
             </div>
           <div v-html="article_entry.text" class="text"></div>
         </div>
@@ -23,16 +22,11 @@ props:['article_entry']
 <script>
 export default {
   name: "Article",
-  data () {
-    return {
-      article_entry: {}
+  props: {
+    article_entry: {
+      type: Object,
+      required: true
     }
-  },
-  created: function () {
-    fetch("../assets/json/article.json").then(response => response.json()).then(json => {
-      this.article_entry = json.article_entry
-    }
-    )
   }
 }
 </script>
