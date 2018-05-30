@@ -39,7 +39,7 @@
         <div class="row">
           <div class="col-md-8 offset-md-2">
             <h1 class="text-center">Young&Digital Learning</h1>
-            <ydl-article v-for="article in article_entry" v-bind:article_entry='article' v-bind:key="article.id"></ydl-article>
+            <ydl-article v-for="article in articleEntries" v-bind:article_entry='article' v-bind:key="article.id"></ydl-article>
           </div>
         </div>
       </div>
@@ -56,14 +56,31 @@ import "bootstrap-vue/dist/bootstrap-vue.css"
 
 import Login from "@/components/Login"
 import Article from "@/components/Article"
-// require("./../assets/css/Article-Clean.css")
+
+import axios from "axios"
 
 export default {
   name: "MainPage",
   data () {
     return {
-      showModal: false
+      showModal: false,
+      articleEntries: [
+        {
+          id: 123456,
+          headline: "Gemeinssam mehr als Sprachen lernen!",
+          author: "me",
+          text: "<p>Sed lobortis mi. Suspendisse vel placerat ligula. <span style=\"text-decoration: underline;\">Vivamus</span> ac sem lac. Ut vehicula rhoncus elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit pulvinar dictum vel in justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae.</p><p>Praesent sed lobortis mi. Suspendisse vel placerat ligula. Vivamus ac lacus. <strong>Ut vehicula rhoncus</strong> elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit <em>pulvinar dict</em> vel in justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae.</p><h2>Aliquam In Arcu </h2><p>Suspendisse vel placerat ligula. Vivamus ac sem lac. Ut vehicula rhoncus elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit pulvinar dictum vel in justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae.</p><p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae. Suspendisse vel placerat ligula. Vivamus ac sem lac. Ut vehicula rhoncus elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit pulvinar dictum vel in justo.</p>",
+          image: "https://sass-lang.com/assets/img/styleguide/seal-color-aef0354c.png"
+        }
+      ]
     }
+  },
+  created () {
+    axios.get("http://localhost/article.json")
+      .then(function (response) {
+        console.log(response.data)
+        this.articleEntries = response.data
+      })
   },
   components: {
     "ydl-login": Login,
