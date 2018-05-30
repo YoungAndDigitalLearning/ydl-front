@@ -39,6 +39,7 @@
         <div class="row">
           <div class="col-md-8 offset-md-2">
             <h1 class="text-center">Young&Digital Learning</h1>
+            <ydl-article v-for="article in article_entry" v-bind:article_entry='article' v-bind:key="article.id"></ydl-article>
           </div>
         </div>
       </div>
@@ -54,6 +55,7 @@ import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap-vue/dist/bootstrap-vue.css"
 
 import Login from "@/components/Login"
+import Article from "@/components/Article"
 // require("./../assets/css/Article-Clean.css")
 
 export default {
@@ -64,7 +66,8 @@ export default {
     }
   },
   components: {
-    "ydl-login": Login
+    "ydl-login": Login,
+    "ydl-article": Article
   }
 }
 </script>
