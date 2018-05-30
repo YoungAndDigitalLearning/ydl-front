@@ -39,11 +39,7 @@
         <div class="row">
           <div class="col-md-8 offset-md-2">
             <h1 class="text-center">Young&Digital Learning</h1>
-<<<<<<< HEAD
             <ydl-article v-for="article in articleEntries" v-bind:article_entry='article' v-bind:key="article.id"></ydl-article>
-=======
-            <ydl-article v-for="article in articleEntry" v-bind:articleEntry='article' v-bind:key="article.id"></ydl-article>
->>>>>>> 2fc065413e5a5c1f1acaf9dbb23fc27ba3e8196a
           </div>
         </div>
       </div>
@@ -68,7 +64,6 @@ export default {
   data () {
     return {
       showModal: false,
-<<<<<<< HEAD
       articleEntries: [
         {
           id: 123456,
@@ -76,11 +71,15 @@ export default {
           author: "me",
           text: "<p>Sed lobortis mi. Suspendisse vel placerat ligula. <span style=\"text-decoration: underline;\">Vivamus</span> ac sem lac. Ut vehicula rhoncus elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit pulvinar dictum vel in justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae.</p><p>Praesent sed lobortis mi. Suspendisse vel placerat ligula. Vivamus ac lacus. <strong>Ut vehicula rhoncus</strong> elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit <em>pulvinar dict</em> vel in justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae.</p><h2>Aliquam In Arcu </h2><p>Suspendisse vel placerat ligula. Vivamus ac sem lac. Ut vehicula rhoncus elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit pulvinar dictum vel in justo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae.</p><p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae. Suspendisse vel placerat ligula. Vivamus ac sem lac. Ut vehicula rhoncus elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit pulvinar dictum vel in justo.</p>",
           image: "https://sass-lang.com/assets/img/styleguide/seal-color-aef0354c.png"
+        },
+        {
+          id: 123456,
+          headline: "Noch ein Article!",
+          author: "you",
+          text: "Moin",
+          image: "https://sass-lang.com/assets/img/styleguide/seal-color-aef0354c.png"
         }
       ]
-=======
-      articleEntry: {}
->>>>>>> 2fc065413e5a5c1f1acaf9dbb23fc27ba3e8196a
     }
   },
   created () {
