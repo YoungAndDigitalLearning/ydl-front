@@ -5,7 +5,7 @@
     <div id="login_modal" class="fade show" tabindex="-1" role="dialog" style="margin:auto;">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="login-dark" style="height:525px;">
+          <div class="login-dark" style="height:550px;">
             <button class="close" type="button" data-dismiss="modal" @click="$emit('close')" aria-label="Close" style="color:rgb(255,255,255);margin:0 5 0 0;">
               <span class="close_modal" aria-hidden="true">×</span>
             </button>
@@ -18,8 +18,9 @@
               <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Password"></div>
               <div class="form-group">
                 <button class="btn btn-primary btn-block" type="submit">Log In</button>
+                <button class="btn btn-primary btn-block">Konto erstellen</button>
               </div>
-              <a href="#" class="forgot">Forgot your email or password?</a>
+              <a href="#" class="forgot">Passwort vergessen</a>
             </form>
           </div>
         </div>
@@ -38,6 +39,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/css/Login-Form-Dark.css";
+@import "../assets/fonts/ionicons.min.css";
 
 .modal-mask {
   position: fixed;
@@ -68,5 +70,10 @@ export default {
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+}
+
+.close {
+  margin-right: 15px;
+  font-size: 35px;
 }
 </style>
