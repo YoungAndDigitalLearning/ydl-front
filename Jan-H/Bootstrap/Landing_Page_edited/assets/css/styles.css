@@ -1,0 +1,15 @@
+.h1, h1 {
+  text-align:center;
+}
+
+img {
+  display:block;
+  margin:auto;
+  margin-top:5px;
+  margin-bottom:5px;
+}
+
+.text-left {
+  text-decoration:underline;
+}
+
