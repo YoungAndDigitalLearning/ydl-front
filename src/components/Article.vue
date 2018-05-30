@@ -10,7 +10,7 @@
                   <a href="#">{{article_entry.author}}</a>
                   <span class="date">Sept 8th, 2016 </span>
               </p>
-              <img v-if="article_entry.image != ''" class="img-fluid" src="article_entry.image">
+              <img v-if="article_entry.image != ''" class="img-fluid" v-bind:src="article_entry.image">
             </div>
           <div v-html="article_entry.text" class="text"></div>
         </div>

@@ -73,7 +73,7 @@ export default {
           image: "https://sass-lang.com/assets/img/styleguide/seal-color-aef0354c.png"
         },
         {
-          id: 123456,
+          id: 123457,
           headline: "Noch ein Article!",
           author: "you",
           text: "Moin",
@@ -83,7 +83,7 @@ export default {
     }
   },
   created () {
-    axios.get("http://localhost/article.json")
+    axios.get("../assets/json/article.json")
       .then(function (response) {
         console.log(response.data)
         this.articleEntries = response.data

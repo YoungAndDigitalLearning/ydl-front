@@ -7,6 +7,7 @@ import vueResource from "vue-resource"
 
 Vue.config.productionTip = false
 Vue.use(vueResource)
+Vue.http.headers.common["Access-Control-Allow-Origin"] = "http://localhost/"
 
 /* eslint-disable no-new */
 new Vue({
