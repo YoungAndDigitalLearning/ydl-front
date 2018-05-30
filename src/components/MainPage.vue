@@ -39,7 +39,11 @@
         <div class="row">
           <div class="col-md-8 offset-md-2">
             <h1 class="text-center">Young&Digital Learning</h1>
+<<<<<<< HEAD
             <ydl-article v-for="article in articleEntries" v-bind:article_entry='article' v-bind:key="article.id"></ydl-article>
+=======
+            <ydl-article v-for="article in articleEntry" v-bind:articleEntry='article' v-bind:key="article.id"></ydl-article>
+>>>>>>> 2fc065413e5a5c1f1acaf9dbb23fc27ba3e8196a
           </div>
         </div>
       </div>
@@ -64,6 +68,7 @@ export default {
   data () {
     return {
       showModal: false,
+<<<<<<< HEAD
       articleEntries: [
         {
           id: 123456,
@@ -73,6 +78,9 @@ export default {
           image: "https://sass-lang.com/assets/img/styleguide/seal-color-aef0354c.png"
         }
       ]
+=======
+      articleEntry: {}
+>>>>>>> 2fc065413e5a5c1f1acaf9dbb23fc27ba3e8196a
     }
   },
   created () {
