@@ -35,7 +35,7 @@
             <span class="navbar-text">
               <a href="#" class="login" @click="showLogin = true" data-toggle="modal" data-target="#login_modal">Log In</a>
             </span>
-            <a class="btn btn-light action-button" role="button" href="#">Sign Up</a>
+            <a class="btn btn-light action-button" @click="showSignup = true" role="button" href="#">Sign Up</a>
           </div>
         </div>
       </nav>
@@ -46,6 +46,7 @@
     <div id="login_screen">
       <ydl-login v-if="showLogin" @close="showLogin = false"></ydl-login>
     </div>
+    <ydl-signup v-if="showSignup" @close="showSignup = false"></ydl-signup>
   </div>
 </template>
 
@@ -54,16 +55,19 @@ import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap-vue/dist/bootstrap-vue.css"
 
 import Login from "@/components/Login"
+import Signup from "@/components/Signup"
 
 export default {
   name: "App",
   data () {
     return {
-      showLogin: false
+      showLogin: false,
+      showSignup: false
     }
   },
   components: {
-    "ydl-login": Login
+    "ydl-login": Login,
+    "ydl-signup": Signup
   }
 }
 </script>
