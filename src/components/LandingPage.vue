@@ -66,6 +66,11 @@ export default {
 
 .card {
   margin-bottom: 40px;
-  background-color: rgba(255, 255, 255, 0.95) !important;
+  background-color: rgba(200, 200, 200, 0.95) !important;
+}
+
+.text-center {
+  margin-top: 30px;
+  margin-bottom: 70px;
 }
 </style>

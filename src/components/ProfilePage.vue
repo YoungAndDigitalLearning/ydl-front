@@ -1,14 +1,5 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 col-lg-10 d-flex">
-        <header>
-          <h2 class="text-left">Y&amp;D Learning</h2>
-          <p>Mehr als nur Sprache lernen</p>
-        </header>
-      </div>
-      <div class="col"><img src="assets/img/desk.jpg" style="height:80px;"></div>
-    </div>
+  <div class="container profile">
     <div class="row">
       <div class="col-md-4 col-lg-3">
         <nav class="navbar navbar-light navbar-expand-md">
@@ -72,5 +63,10 @@ export default {
 <style lang="scss" scoped>
 html {
   height: 100%;
+}
+
+.profile {
+  background-color: white;
+  padding: 15px;
 }
 </style>
