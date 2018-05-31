@@ -36,7 +36,7 @@ export default {
           image: "https://sass-lang.com/assets/img/styleguide/seal-color-aef0354c.png"
         },
         {
-          id: 123457,
+          id: 123459,
           headline: "Wir sind umgezogen!",
           author: "adminstrator",
           text: "<p>Auf einen besseren Server.</p>",
