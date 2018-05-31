@@ -1,22 +1,16 @@
 <template>
-  <div id="landing_article" class="article-clean">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-10 col-xl-8 offset-lg-1 offset-xl-2">
-          <div class="intro">
-            <h1 class="text-center"> {{ article_entry.headline }} </h1>
-              <p class="text-center">
-                  <span class="by">by</span>
-                  <a href="#">{{article_entry.author}}</a>
-                  <span class="date">Sept 8th, 2016 </span>
-              </p>
-              <img v-if="article_entry.image != ''" class="img-fluid" v-bind:src="article_entry.image">
-            </div>
-          <div v-html="article_entry.text" class="text"></div>
-        </div>
-      </div>
-    </div>
+<div class="card article-clean">
+  <img v-if="article_entry.image != ''" class="card-img-top" src="../assets/img/DSC00174.jpg" alt="Card image cap">
+  <div class="card-body intro">
+    <h2 class="card-title">{{ article_entry.headline }}</h2>
+      <p class="text-center">
+        <span class="by">by</span>
+        <a href="#">{{article_entry.author}}</a>
+        <span class="date">Sept 8th, 2016 </span>
+      </p>
+    <div v-html="article_entry.text"></div>
   </div>
+</div>
 </template>
 
 <script>
@@ -33,4 +27,12 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/css/Article-Clean.css";
+
+.card {
+  border-radius: 0;
+}
+
+.card-img-top {
+  border-radius: 0;
+}
 </style>
