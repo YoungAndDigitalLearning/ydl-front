@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <div class="header-dark">
       <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search">
         <div class="container">
@@ -86,11 +87,15 @@ export default {
   position: fixed;
   width: 100%;
   padding: 0px;
+  z-index: 1;
+  background-color: #000000;
 }
 
 .ydl-content {
   padding-top: 90px;
   padding-bottom: 90px;
+  z-index: 0;
+  overflow:auto;
 }
 
 html {
