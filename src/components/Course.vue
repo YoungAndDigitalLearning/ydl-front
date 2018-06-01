@@ -1,8 +1,8 @@
 <template>
-  <li class="list-group-item">
-  <h4> {{course.title}} </h4>
-  <div v-html="course.details"></div>
-  </li>
+    <a class="list-group-item list-group-item-action" href="www.google.de">
+      <h4> {{course.title}} </h4>
+      <div v-html="course.details"></div>
+    </a>
 </template>
 
 <script>
@@ -18,5 +18,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+a {
+  text-decoration: none;
+  color: black;
+}
 </style>
