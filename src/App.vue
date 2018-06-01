@@ -15,15 +15,13 @@
                 <a class="nav-link" href="/#/">Home</a>
               </li>
               <li class="nav-item" role="presentation">
-                <a class="nav-link" href="/#/profile">Profile (temp)</a>
+                <a class="nav-link" href="/#/profile">Profile (tmp)</a>
               </li>
-              <li class="dropdown">
-                <a class="dropdown-toggle nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">Erkunden </a>
-                <div class="dropdown-menu" role="menu">
-                  <a class="dropdown-item" role="presentation" href="#">First Item</a>
-                  <a class="dropdown-item" role="presentation" href="#">Second Item</a>
-                  <a class="dropdown-item" role="presentation" href="#">Third Item</a>
-                </div>
+              <li class="nav-item" role="presentation">
+                <a class="nav-link" href="/#/courseview">Course View (tmp)</a>
+              </li>
+              <li class="nav-item" role="presentation">
+                <a class="btn btn-light action-button" @click="showCreateCourse = true">Create Course (tmp)</a>
               </li>
             </ul>
             <form class="form-inline mr-auto" target="_self">
@@ -47,6 +45,7 @@
       <ydl-login v-if="showLogin" @close="showLogin = false"></ydl-login>
     </div>
     <ydl-signup v-if="showSignup" @close="showSignup = false"></ydl-signup>
+    <ydl-createcourse v-if="showCreateCourse" @close="showCreateCourse = false"></ydl-createcourse>
   </div>
 </template>
 
@@ -56,18 +55,21 @@ import "bootstrap-vue/dist/bootstrap-vue.css"
 
 import Login from "@/components/Login"
 import Signup from "@/components/Signup"
+import CreateCourse from "@/components/CreateCourse"
 
 export default {
   name: "App",
   data () {
     return {
       showLogin: false,
-      showSignup: false
+      showSignup: false,
+      showCreateCourse: false
     }
   },
   components: {
     "ydl-login": Login,
-    "ydl-signup": Signup
+    "ydl-signup": Signup,
+    "ydl-createcourse": CreateCourse
   }
 }
 </script>

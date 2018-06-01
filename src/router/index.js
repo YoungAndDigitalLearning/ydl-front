@@ -4,6 +4,7 @@ import BootstrapVue from "bootstrap-vue"
 
 import LandingPage from "@/components/LandingPage"
 import ProfilePage from "@/components/ProfilePage"
+import CoursePage from "@/components/CoursePage"
 
 Vue.use(Router)
 Vue.use(BootstrapVue)
@@ -20,6 +21,11 @@ export default new Router({
       path: "/profile",
       name: "skbprofile",
       component: ProfilePage
+    },
+    {
+      path: "/courseview",
+      name: "skbcourse",
+      component: CoursePage
     }
   ]
 })
