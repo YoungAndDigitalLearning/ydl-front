@@ -9,7 +9,7 @@
                 <button class="close" type="button" data-dismiss="modal" @click="$emit('close')" aria-label="Close" style="color:rgb(255,255,255);margin:0 5 0 0;">
                   <span class="close_modal" aria-hidden="true">×</span>
                 </button>
-                <form method="post">
+                <form @submit.prevent="authenticate">
                   <h2 class="sr-only">Login Form</h2>
                   <div class="illustration">
                     <i class="icon ion-ios-locked-outline"></i>
@@ -32,8 +32,19 @@
 </template>
 
 <script>
+import axios from "axios"
+
 export default {
-  name: "Login"
+  name: "Login",
+  methods: {
+    authenticate () {
+      axios.post("api/token-auth/")
+        .then(function (response) {
+          console.log(response.data)
+          this.articleEntries = response.data
+        })
+    }
+  }
 }
 </script>
 
