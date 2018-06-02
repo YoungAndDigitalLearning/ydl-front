@@ -18,9 +18,17 @@ Nulla facilisi. Pellentesque non posuere neque, sit amet blandit sem. Proin ut d
 
 <script>
 import CourseWeek from "@/components/CourseWeek"
+import axios from "axios"
 
 export default {
   name: "courseview",
+  mounted () {
+    axios.get("api/courses/")
+      .then(function (response) {
+        console.log(response.data)
+        // this.articleEntries = response.data
+      })
+  },
   components: {
     "ydl-courseweek": CourseWeek
   }

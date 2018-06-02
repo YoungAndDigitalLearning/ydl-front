@@ -14,8 +14,6 @@
 <script>
 import Article from "@/components/Article"
 
-import axios from "axios"
-
 export default {
   name: "MainPage",
   data () {
@@ -44,13 +42,6 @@ export default {
         }
       ]
     }
-  },
-  created () {
-    axios.get("../assets/json/article.json")
-      .then(function (response) {
-        console.log(response.data)
-        this.articleEntries = response.data
-      })
   },
   components: {
     "ydl-article": Article
