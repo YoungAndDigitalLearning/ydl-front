@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fir=yes">
     <div class="header-dark">
       <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search">
         <div class="container">
@@ -31,9 +31,9 @@
                 </label><input class="form-control search-field" type="search" name="search" id="search-field"></div>
             </form>
             <span class="navbar-text">
-              <a href="#" class="login" @click="showLogin = true" data-toggle="modal" data-target="#login_modal">Log In</a>
+              <a href="/#/login" class="login">Log In</a>
             </span>
-            <a class="btn btn-light action-button" @click="showSignup = true" role="button" href="#">Sign Up</a>
+            <a class="btn btn-light action-button" @click="showSignup = true" role="button" href="/#/signup">Sign Up</a>
           </div>
         </div>
       </nav>
@@ -41,11 +41,6 @@
     <div class="ydl-content">
       <router-view/>
     </div>
-    <div id="login_screen">
-      <ydl-login v-if="showLogin" @close="showLogin = false"></ydl-login>
-    </div>
-    <ydl-signup v-if="showSignup" @close="showSignup = false"></ydl-signup>
-    <ydl-createcourse v-if="showCreateCourse" @close="showCreateCourse = false"></ydl-createcourse>
   </div>
 </template>
 
