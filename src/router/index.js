@@ -6,6 +6,8 @@ import LandingPage from "@/components/LandingPage"
 import ProfilePage from "@/components/ProfilePage"
 import CoursePage from "@/components/CoursePage"
 import Sandbox from "@/components/Sandbox"
+import Login from "@/components/Login"
+import Signup from "@/components/Signup"
 
 Vue.use(Router)
 Vue.use(BootstrapVue)
@@ -32,6 +34,16 @@ export default new Router({
       path: "/sandbox",
       name: "sandbox",
       component: Sandbox
+    },
+    {
+      path: "/login",
+      name: "skblogin",
+      component: Login
+    },
+    {
+      path: "/signup",
+      name: "skbsignup",
+      component: Signup
     }
   ]
 })

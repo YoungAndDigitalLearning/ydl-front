@@ -2,26 +2,26 @@
   <transition name="modal">
     <div class="modal-mask">
       <div class="modal-wrapper">
-        <div id="login_modal" class="fade show" tabindex="-1" role="dialog" style="margin:auto;">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="login-dark" style="height:550px;">
-                <button class="close" type="button" data-dismiss="modal" @click="$emit('close')" aria-label="Close" style="color:rgb(255,255,255);margin:0 5 0 0;">
-                  <span class="close_modal" aria-hidden="true">×</span>
-                </button>
-                <form @submit.prevent="authenticate">
-                  <h2 class="sr-only">Login Form</h2>
-                  <div class="illustration">
-                    <i class="icon ion-ios-locked-outline"></i>
-                  </div>
-                  <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Email"></div>
-                  <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Password"></div>
-                  <div class="form-group">
-                    <button class="btn btn-primary btn-block" type="submit">Log In</button>
-                    <button class="btn btn-primary btn-block">Konto erstellen</button>
-                  </div>
-                  <a href="#" class="forgot">Passwort vergessen</a>
-                </form>
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="sign-up-dark">
+              <div class="form-container">
+              <a class="close-button" type="button" href="/#/" aria-label="Close">
+                  <i class="icon ion-close-circled"></i>
+              </a>
+              <div class="illustration">
+                <i class="icon ion-ios-locked-outline"></i>
+              </div>
+              <form @submit.prevent="authenticate">
+                <h2 class="sr-only">Login Form</h2>
+                <div class="form-group"><input class="form-control" type="text" name="username" placeholder="Benutzername"></div>
+                <div class="form-group"><input class="form-control" type="text" name="password" placeholder="Passwort"></div>
+                <div class="form-group">
+                  <button class="btn btn-primary btn-block" type="submit">Log In</button>
+                  <a class="btn btn-primary btn-block" href="/#/signup">Konto erstellen</a>
+                </div>
+                <a href="#" class="forgot">Passwort vergessen</a>                
+              </form>
               </div>
             </div>
           </div>
@@ -52,16 +52,84 @@ export default {
 @import "../assets/css/Login-Form-Dark.css";
 @import "../assets/fonts/ionicons.min.css";
 
+@import "../assets/fonts/ionicons.min.css";
+
+/* Signup */
+
+.modal-content {
+  width: 100%;
+  height: 65%;
+  overflow: auto; 
+}
+
+.sign-up-dark {
+  background-image: url(../assets/img/star-sky.jpg);
+  background-size:cover;
+
+  form {
+    .btn-primary {
+      background-color: #214a80;
+      border: none;
+      padding: 11px;
+    }
+  }
+
+  /* contains the icons and the form */
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color:#1e2833;
+    padding: 40px;
+    margin: 40px 70px;
+  }
+
+  .form-control {
+    background: none;
+    border: none;
+    border-bottom: 1px solid #434a52;
+    border-radius: 0;
+    outline: none;
+    box-shadow: none;
+    color: inherit;
+
+    &:focus {
+      border-color: #2980ef;
+    }
+  }
+
+  .close-button {
+    flex: 1;
+    align-self: flex-end;
+    font-size: 32px;
+    color: white;
+
+    &:hover {
+      color: #e03131;
+      transition: 250ms;
+    }
+  }
+
+  .illustration {
+    text-align: center;
+    padding: 15px 0 20px;
+    font-size: 100px;
+    color: #2980ef;
+  }
+}
+
+/* Signup Transition */
+
 .modal-mask {
-  position: fixed;
+  overflow: auto; 
   z-index: 9998;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, 0.5);
   display: table;
-  transition: opacity .3s ease;
+  transition: opacity 0.3s ease;
 }
 
 .modal-wrapper {
@@ -81,10 +149,5 @@ export default {
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
-}
-
-.close {
-  margin-right: 15px;
-  font-size: 35px;
 }
 </style>
