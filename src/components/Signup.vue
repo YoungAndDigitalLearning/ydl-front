@@ -6,9 +6,9 @@
           <div class="modal-content">
             <div class="sign-up-dark">
               <div class="form-container">
-              <div class="close-button" type="button" @click="$emit('close')" aria-label="Close">
+              <a class="close-button" type="button" href="/#/" aria-label="Close">
                   <i class="icon ion-close-circled"></i>
-              </div>
+              </a>
               <div class="illustration">
                 <i class="icon ion-android-create"></i>
               </div>
@@ -48,10 +48,15 @@ export default {
 
 /* Signup */
 
+.modal-content {
+  width: 100%;
+  height: 65%;
+  overflow: auto; 
+}
+
 .sign-up-dark {
   background-image: url(../assets/img/star-sky.jpg);
   background-size:cover;
-  width: 600px;
 
   form {
     .btn-primary {
@@ -89,9 +94,11 @@ export default {
     flex: 1;
     align-self: flex-end;
     font-size: 32px;
+    color: white;
 
     &:hover {
-      color: #e03131
+      color: #e03131;
+      transition: 250ms;
     }
   }
 
@@ -106,7 +113,7 @@ export default {
 /* Signup Transition */
 
 .modal-mask {
-  position: fixed;
+  overflow: auto; 
   z-index: 9998;
   top: 0;
   left: 0;
