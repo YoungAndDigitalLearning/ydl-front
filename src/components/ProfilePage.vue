@@ -2,7 +2,7 @@
   <div class="container profile">
     <div class="row title">
       <div class="col-md-6">
-        <h2 class="greeting"> Hallo XY </h2>
+        <h2 class="greeting"> Hallo {{user.firstName}} {{user.lastName}} </h2>
       </div>
       <div class="col-md-6 controls">
         <a class="btn btn-light action-button control-btn embed" href="">Einstellungen</a>
@@ -18,8 +18,9 @@
       <div class="col-md-2 col-lg-2">
         <ul class="nav navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active" href="#">Meine Kurse</a>
-            <ul class="nav navbar-nav my-courses" v-for="course in courses" v-bind:key="course.id">
+            <a class="nav-link active" href="#">Übersicht</a>
+            <a class="nav-link" href="#">Meine Kurse</a>
+            <ul class="nav navbar-nav my-courses" v-for="course in user.courses" v-bind:key="course.id">
               <li class="nav-item"> <a class="nav-link embed" href="#">{{course.title}}</a></li>
             </ul>
           </li>
@@ -30,12 +31,12 @@
       </div>
       <div class="col-md-4 col-lg-8 bdr">
         <ul class="list-group">
-          <ydl-course v-for="course in courses" v-bind:key="course.id" v-bind:course="course"></ydl-course>
+          <ydl-course v-for="course in user.courses" v-bind:key="course.id" v-bind:course="course"></ydl-course>
         </ul>
       </div>
       <div class="col-md-4 col-lg-2">
         <h5>Aktuelle Termine</h5>
-        <ydl-calendar v-bind:tasks="tasks"></ydl-calendar>
+        <ydl-calendar v-bind:tasks="user.tasks"></ydl-calendar>
       </div>
     </div>
   </div>
@@ -49,60 +50,70 @@ export default {
   name: "ProfilePage",
   data () {
     return {
-      courses: [
-        {
-          id: 1,
-          title: "Japanisch",
-          details: "<p> Es gibt neue Details </p>"
-        },
-        {
-          id: 2,
-          title: "Französisch",
-          details: "<p> Es gibt neue Details </p>"
-        },
-        {
-          id: 3,
-          title: "Spanisch",
-          details: "<p> Es gibt neue Details </p>"
-        },
-        {
-          id: 4,
-          title: "Schwedisch",
-          details: "<p> Es gibt neue Details </p>"
-        }
-      ],
-      tasks: [
-        {
-          id: 1,
-          title: "Japanisch - Hausaufgabe 2",
-          deadline: "xx.xx.xxxx"
-        },
-        {
-          id: 2,
-          title: "Japanisch - Klausur",
-          deadline: "xx.xx.xxxx"
-        },
-        {
-          id: 3,
-          title: "Spanisch - Vortrag",
-          deadline: "xx.xx.xxxx"
-        },
-        {
-          id: 4,
-          title: "Französisch - Präsentation",
-          deadline: "xx.xx.xxxx"
-        },
-        {
-          id: 5,
-          title: "Schwedisch - Test",
-          deadline: "xx.xx.xxxx"
-        },
-        {
-          id: 6,
-          title: "Schwedisch - Hausaufgabe 3",
-          deadline: "xx.xx.xxxx"
-        }
-      ]
+      user: {
+        id: 1234567,
+        firstName: "Paul",
+        lastName: "Müller",
+        courses: [
+          {
+            id: 1,
+            title: "Japanisch",
+            details: "<p> Es gibt neue Details </p>"
+          },
+          {
+            id: 2,
+            title: "Französisch",
+            details: "<p> Es gibt neue Details </p>"
+          },
+          {
+            id: 3,
+            title: "Spanisch",
+            details: "<p> Es gibt neue Details </p>"
+          },
+          {
+            id: 3,
+            title: "Spanisch",
+            details: "<p> Es gibt neue Details </p>"
+          },
+          {
+            id: 4,
+            title: "Schwedisch",
+            details: "<p> Es gibt neue Details </p>"
+          }
+        ],
+        tasks: [
+          {
+            id: 1,
+            title: "Japanisch - Hausaufgabe 2",
+            deadline: "xx.xx.xxxx"
+          },
+          {
+            id: 2,
+            title: "Japanisch - Klausur",
+            deadline: "xx.xx.xxxx"
+          },
+          {
+            id: 3,
+            title: "Spanisch - Vortrag",
+            deadline: "xx.xx.xxxx"
+          },
+          {
+            id: 4,
+            title: "Französisch - Präsentation",
+            deadline: "xx.xx.xxxx"
+          },
+          {
+            id: 5,
+            title: "Schwedisch - Test",
+            deadline: "xx.xx.xxxx"
+          },
+          {
+            id: 6,
+            title: "Schwedisch - Hausaufgabe 3",
+            deadline: "xx.xx.xxxx"
+          }
+        ]
+      }
     }
   },
   components: {
