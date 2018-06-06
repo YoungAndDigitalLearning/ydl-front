@@ -31,6 +31,11 @@ export default new Router({
       component: CoursePage
     },
     {
+      path: "/course",
+      name: "skbcoursedetail",
+      component: CoursePage
+    },
+    {
       path: "/sandbox",
       name: "sandbox",
       component: Sandbox
