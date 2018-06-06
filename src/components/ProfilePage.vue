@@ -76,16 +76,16 @@ export default {
               ],
               organisation: [
                 {name: "orga2", email: "orga@office.de"},
-                {name: "orga2", email: "orga@office.de"},
+                {name: "orga2", email: "orga@office.de"}
               ]
             },
             content: {
               article: [
-                {text: "<h3> Was sie in diesem Kurs erwartet </h3> <p> Lernen Sie Japanisch mit einem sehr kompetenden Lehrer in Schrift und Wort </p>"}, 
-                {text: "<h3> Foo </h3> <p> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. </p>"}, 
-                {text: "<h1> Hello World 1 </h1>"}, 
-                {text: "<h1> Hello World 1 </h1>"}, 
-                {text: "<h1> Hello World 1 </h1>"}, 
+                {text: "<h3> Was sie in diesem Kurs erwartet </h3> <p> Lernen Sie Japanisch mit einem sehr kompetenden Lehrer in Schrift und Wort </p>"},
+                {text: "<h3> Foo </h3> <p> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. </p>"},
+                {text: "<h1> Hello World 1 </h1>"},
+                {text: "<h1> Hello World 1 </h1>"},
+                {text: "<h1> Hello World 1 </h1>"}
               ]
             }
           },

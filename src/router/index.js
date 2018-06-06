@@ -6,7 +6,7 @@ import LandingPage from "@/components/LandingPage"
 import ProfilePage from "@/components/ProfilePage"
 import CoursePage from "@/components/CoursePage"
 import Sandbox from "@/components/Sandbox"
-import Login from "@/components/Login"
+import LoginPage from "@/components/LoginPage"
 import Signup from "@/components/Signup"
 
 Vue.use(Router)
@@ -43,7 +43,7 @@ export default new Router({
     {
       path: "/login",
       name: "skblogin",
-      component: Login
+      component: LoginPage
     },
     {
       path: "/signup",
