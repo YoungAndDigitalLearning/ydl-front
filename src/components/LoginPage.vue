@@ -41,6 +41,9 @@ export default {
 
 @import "../assets/fonts/ionicons.min.css";
 
+// import all bootstrap sass files
+@import "node_modules/bootstrap/scss/bootstrap";
+
 /* Login */
 .log-in-dark {
     display: flex;
@@ -65,6 +68,13 @@ export default {
     padding: 40px;
     width: 350px;
     height: 500px;
+
+    @include media-breakpoint-down(sm)
+    {
+      // make form container full screen
+      width: 100%;
+      height: 100%;
+    }
   }
 
   .form-control {
@@ -81,23 +91,25 @@ export default {
     }
   }
 
-  .close-button {
-    flex: 1;
-    align-self: flex-end;
-    font-size: 32px;
-    color: white;
-
-    &:hover {
-      color: #e03131;
-      transition: 250ms;
-    }
-  }
-
   .illustration {
     text-align: center;
     padding: 15px 0 20px;
     font-size: 100px;
     color: #2980ef;
+
+    @include media-breakpoint-down(xs)
+    {
+      // reduce bottom padding
+      padding-bottom: 10px;
+      // make the logo smaller
+      font-size: 80px;
+    }
+
+    @include media-breakpoint-only(sm)
+    {
+      // hide the logo in portrait mode
+      font-size: 0px;
+    }
   }
 }
 </style>
