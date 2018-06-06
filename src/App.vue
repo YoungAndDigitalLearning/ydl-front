@@ -45,9 +45,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "./assets/css/Article-Clean.css";
 @import "./assets/css/Header-Dark.css";
-@import "./assets/css/Login-Form-Dark.css";
 @import "./assets/css/styles.css";
 
 #app {
