@@ -7,7 +7,7 @@ import ProfilePage from "@/components/ProfilePage"
 import CoursePage from "@/components/CoursePage"
 import Sandbox from "@/components/Sandbox"
 import LoginPage from "@/components/LoginPage"
-import Signup from "@/components/Signup"
+import SignupPage from "@/components/SignupPage"
 
 Vue.use(Router)
 Vue.use(BootstrapVue)
@@ -48,7 +48,7 @@ export default new Router({
     {
       path: "/signup",
       name: "skbsignup",
-      component: Signup
+      component: SignupPage
     }
   ]
 })

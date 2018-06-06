@@ -1,5 +1,5 @@
 <template>
-  <div class="sign-up-dark">
+  <div class="log-in-dark">
     <div class="form-container">
       <div class="illustration">
         <i class="icon ion-ios-locked-outline"></i>
@@ -41,13 +41,8 @@ export default {
 
 @import "../assets/fonts/ionicons.min.css";
 
-/* Signup */
-
-.modal-content {
-  overflow: auto;
-}
-
-.sign-up-dark {
+/* Login */
+.log-in-dark {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -104,38 +99,5 @@ export default {
     font-size: 100px;
     color: #2980ef;
   }
-}
-
-/* Signup Transition */
-
-.modal-mask {
-  // overflow: auto;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  // background-color: rgba(0, 0, 0, 0.5);
-  display: table;
-  transition: opacity 0.3s ease;
-}
-
-.modal-wrapper {
-  display: table-cell;
-  vertical-align: middle;
-}
-
-.modal-enter {
-  opacity: 0;
-}
-
-.modal-leave-active {
-  opacity: 0;
-}
-
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
 }
 </style>
