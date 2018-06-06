@@ -14,15 +14,6 @@
               <li class="nav-item" role="presentation">
                 <a class="nav-link" href="/#/">Home</a>
               </li>
-              <li class="nav-item" role="presentation">
-                <a class="nav-link" href="/#/profile">Profile (tmp)</a>
-              </li>
-              <li class="nav-item" role="presentation">
-                <a class="nav-link" href="/#/courseview">Course View (tmp)</a>
-              </li>
-              <li class="nav-item" role="presentation">
-                <a class="btn btn-light action-button" @click="showCreateCourse = true">Create Course (tmp)</a>
-              </li>
             </ul>
             <form class="form-inline mr-auto" target="_self">
               <div class="form-group">
@@ -48,24 +39,8 @@
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap-vue/dist/bootstrap-vue.css"
 
-import Login from "@/components/Login"
-import Signup from "@/components/Signup"
-import CreateCourse from "@/components/CreateCourse"
-
 export default {
-  name: "App",
-  data () {
-    return {
-      showLogin: false,
-      showSignup: false,
-      showCreateCourse: false
-    }
-  },
-  components: {
-    "ydl-login": Login,
-    "ydl-signup": Signup,
-    "ydl-createcourse": CreateCourse
-  }
+  name: "App"
 }
 </script>
 
@@ -97,6 +72,7 @@ export default {
   padding-bottom: 90px;
   z-index: 0;
   overflow:auto;
+  height: 100%;
 }
 
 html {
