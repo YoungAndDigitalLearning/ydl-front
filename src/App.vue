@@ -48,6 +48,9 @@ export default {
 @import "./assets/css/Header-Dark.css";
 @import "./assets/css/styles.css";
 
+// import all bootstrap sass files
+@import "node_modules/bootstrap/scss/bootstrap";
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -71,6 +74,12 @@ export default {
   z-index: 0;
   overflow:auto;
   height: 100%;
+
+  @include media-breakpoint-down(sm)
+  {
+    // deactivate the padding
+    padding: 0px;
+  }
 }
 
 html {
