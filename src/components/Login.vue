@@ -20,7 +20,7 @@
                   <button class="btn btn-primary btn-block" type="submit">Log In</button>
                   <a class="btn btn-primary btn-block" href="/#/signup">Konto erstellen</a>
                 </div>
-                <a href="#" class="forgot">Passwort vergessen</a>                
+                <a href="#" class="forgot">Passwort vergessen</a>
               </form>
               </div>
             </div>
@@ -57,9 +57,7 @@ export default {
 /* Signup */
 
 .modal-content {
-  width: 100%;
-  height: 65%;
-  overflow: auto; 
+  overflow: auto;
 }
 
 .sign-up-dark {
@@ -80,8 +78,8 @@ export default {
     flex-direction: column;
     justify-content: center;
     background-color:#1e2833;
-    padding: 40px;
-    margin: 40px 70px;
+    padding: 20px;
+    margin: 20px 70px;
   }
 
   .form-control {
@@ -121,13 +119,13 @@ export default {
 /* Signup Transition */
 
 .modal-mask {
-  overflow: auto; 
+  // overflow: auto;
   z-index: 9998;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  // background-color: rgba(0, 0, 0, 0.5);
   display: table;
   transition: opacity 0.3s ease;
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="calendar">
     <ul class="list-group">
-      <a v-for="task in tasks" :key="task.key" :task="taks" href="#" class="list-group-item list-group-item-action heading">
+      <a v-for="task in tasks" :key="task.key" :task="task" href="#" class="list-group-item list-group-item-action heading">
         {{ task.title }}
       </a>
     </ul>
@@ -14,7 +14,7 @@ export default {
   name: "Calendar",
   props: {
     tasks: {
-      type: Object,
+      type: Array,
       required: true
     }
   }

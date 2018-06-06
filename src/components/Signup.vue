@@ -51,7 +51,7 @@ export default {
 .modal-content {
   width: 100%;
   height: 65%;
-  overflow: auto; 
+  overflow: auto;
 }
 
 .sign-up-dark {
@@ -73,7 +73,7 @@ export default {
     justify-content: center;
     background-color:#1e2833;
     padding: 40px;
-    margin: 40px 70px;
+    margin: 20px 70px;
   }
 
   .form-control {
@@ -113,13 +113,13 @@ export default {
 /* Signup Transition */
 
 .modal-mask {
-  overflow: auto; 
+  overflow: auto;
   z-index: 9998;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  // background-color: rgba(0, 0, 0, 0.5);
   display: table;
   transition: opacity 0.3s ease;
 }
