@@ -1,41 +1,28 @@
 <template>
-  <transition name="modal">
-    <div class="modal-mask">
-      <div class="modal-wrapper">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="sign-up-dark">
-              <div class="form-container">
-              <a class="close-button" type="button" href="/#/" aria-label="Close">
-                  <i class="icon ion-close-circled"></i>
-              </a>
-              <div class="illustration">
-                <i class="icon ion-ios-locked-outline"></i>
-              </div>
-              <form @submit.prevent="authenticate">
-                <h2 class="sr-only">Login Form</h2>
-                <div class="form-group"><input class="form-control" type="text" name="username" placeholder="Benutzername"></div>
-                <div class="form-group"><input class="form-control" type="text" name="password" placeholder="Passwort"></div>
-                <div class="form-group">
-                  <button class="btn btn-primary btn-block" type="submit">Log In</button>
-                  <a class="btn btn-primary btn-block" href="/#/signup">Konto erstellen</a>
-                </div>
-                <a href="#" class="forgot">Passwort vergessen</a>
-              </form>
-              </div>
-            </div>
-          </div>
-        </div>
+  <div class="sign-up-dark">
+    <div class="form-container">
+      <div class="illustration">
+        <i class="icon ion-ios-locked-outline"></i>
       </div>
+      <form @submit.prevent="authenticate">
+        <h2 class="sr-only">Login Form</h2>
+        <div class="form-group"><input class="form-control" type="text" name="username" placeholder="Benutzername"></div>
+        <div class="form-group"><input class="form-control" type="text" name="password" placeholder="Passwort"></div>
+        <div class="form-group">
+          <button class="btn btn-primary btn-block" type="submit">Logs In</button>
+          <a class="btn btn-primary btn-block" href="/#/signup">Konto erstellen</a>
+        </div>
+        <a href="#" class="forgot">Passwort vergessen</a>
+      </form>
     </div>
-  </transition>
+  </div>
 </template>
 
 <script>
 import axios from "axios"
 
 export default {
-  name: "Login",
+  name: "LoginPage",
   methods: {
     authenticate () {
       axios.post("api/token-auth/")
@@ -61,8 +48,10 @@ export default {
 }
 
 .sign-up-dark {
-  background-image: url(../assets/img/star-sky.jpg);
-  background-size:cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 
   form {
     .btn-primary {
@@ -78,8 +67,9 @@ export default {
     flex-direction: column;
     justify-content: center;
     background-color:#1e2833;
-    padding: 20px;
-    margin: 20px 70px;
+    padding: 40px;
+    width: 350px;
+    height: 500px;
   }
 
   .form-control {
