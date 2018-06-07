@@ -11,13 +11,13 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     /* Proxy for removing the cross origin error */
-    proxyTable: ({
-      "/api": {
-        "target": "http://localhost:8000",
-        "changeOrigin": true,
-        "secure": false
-      }
-    }),
+    // proxyTable: ({
+    //   "/api": {
+    //     "target": "http://localhost:8000",
+    //     "changeOrigin": true,
+    //     "secure": false
+    //   }
+    // }),
 
     // Various Dev Server settings
     host: '0.0.0.0', // can be overwritten by process.env.HOST

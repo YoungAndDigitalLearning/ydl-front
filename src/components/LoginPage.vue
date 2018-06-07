@@ -6,8 +6,8 @@
       </div>
       <form @submit.prevent="authenticate">
         <h2 class="sr-only">Login Form</h2>
-        <div class="form-group"><input class="form-control" type="text" name="username" placeholder="Benutzername"></div>
-        <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Passwort"></div>
+        <div class="form-group"><input v-model="form.username" class="form-control" type="text" name="username" placeholder="Benutzername"></div>
+        <div class="form-group"><input v-model="form.password" class="form-control" type="password" name="password" placeholder="Passwort"></div>
         <div class="form-group">
           <button class="btn btn-primary btn-block" type="submit">Log In</button>
           <a class="btn btn-primary btn-block" href="/#/signup">Konto erstellen</a>
@@ -23,12 +23,24 @@ import axios from "axios"
 
 export default {
   name: "LoginPage",
+  data () {
+    return {
+      form: {
+        username: "",
+        password: ""
+      }
+    }
+  },
   methods: {
     authenticate () {
-      axios.post("api/token-auth/")
-        .then(function (response) {
-          console.log(response.data)
-          this.articleEntries = response.data
+      axios.post("http://35.185.239.7:2222/api/token-auth/", this.form)
+        .then(response => {
+          console.log(response)
+          this.$session.start()
+          this.$session.set("jwt", response.data.token)
+        })
+        .catch(function (error) {
+          console.log(error)
         })
     }
   }
