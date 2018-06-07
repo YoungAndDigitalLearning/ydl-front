@@ -11,12 +11,12 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     /* Proxy for removing the cross origin error */
-    proxyTable: ({
+    /*proxyTable: ({
       "/api": {
         "target": "http://localhost:8000",
         "changeOrigin": true,
         "secure": false
-      }
+      }*/
     }),
 
     // Various Dev Server settings
