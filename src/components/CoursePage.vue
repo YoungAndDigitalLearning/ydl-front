@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card" v-if="open">
     <div class="card-header"><h1>{{ course.title }}</h1>A1.1</div>
     <div class="card-body">
       <div class="leader-board flex-container">
@@ -46,7 +46,7 @@
 
 <script>
 import CourseWeek from "@/components/CourseWeek"
-// import axios from "axios"
+import axios from "axios"
 
 export default {
   name: "courseview",
@@ -58,16 +58,17 @@ export default {
   },
   data () {
     return {
-      toRender: this.course
+      toRender: this.course,
+      open: false
     }
   },
-  // mounted () {
-  //   axios.get("api/courses/")
-  //     .then(function (response) {
-  //       console.log(response.data)
-  //       // this.articleEntries = response.data
-  //     })
-  // },
+  mounted () {
+    axios.get("api/courses/")
+      .then(function (response) {
+        console.log(response.data)
+        // this.articleEntries = response.data
+      })
+  },
   components: {
     "ydl-courseweek": CourseWeek
   }
