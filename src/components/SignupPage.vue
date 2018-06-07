@@ -4,15 +4,15 @@
       <div class="illustration">
         <i class="icon ion-android-create"></i>
       </div>
-      <form method="post">
+      <form @submit.prevent="handleSubmit">
         <h2 class="sr-only">Login Form</h2>
         <div class="form-group"><input class="form-control" type="text" name="titel" placeholder="Titel"></div>
         <div class="form-row">
           <div class="form-group col-md-6"><input class="form-control" type="text" name="vorname" placeholder="Vorname"></div>
           <div class="form-group col-md-6"><input class="form-control" type="text" name="nachname" placeholder="Nachname"></div>
         </div>
-        <div class="form-group"><input class="form-control" type="text" name="username" placeholder="Username"></div>
-        <div class="form-group"><input class="form-control" type="password" name="password1" placeholder="Password"></div>
+        <div class="form-group"><input class="form-control" type="text" name="username" placeholder="Username" required v-model="user.username"></div>
+        <div class="form-group"><input class="form-control" type="password" name="password1" placeholder="Password" required v-model="user.password"></div>
         <div class="form-group"><input class="form-control" type="password" name="password2" placeholder="Confirm Password"></div>
         <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Email"></div>
         <div class="form-group"><input class="form-control" type="text" name="address" placeholder="Address"></div>
@@ -25,8 +25,29 @@
 </template>
 
 <script>
+import axios from "axios"
+
 export default {
-  name: "SignupPage"
+  name: "SignupPage",
+  data () {
+    return {
+      user: {
+        username: "",
+        password: ""
+      },
+      response: {}
+    }
+  },
+  methods: {
+    handleSubmit () {
+      axios.post("http://35.185.239.7:2222/api/users/", this.user).then(Response => {
+        console.log(Response.status)
+        if (Response.status === 201) {
+          this.$router.push("/profile")
+        }
+      })
+    }
+  }
 }
 </script>
 
