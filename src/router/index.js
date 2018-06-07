@@ -9,6 +9,9 @@ import Sandbox from "@/components/Sandbox"
 import LoginPage from "@/components/LoginPage"
 import SignupPage from "@/components/SignupPage"
 
+import VueSession from "vue-session"
+
+Vue.use(VueSession)
 Vue.use(Router)
 Vue.use(BootstrapVue)
 
