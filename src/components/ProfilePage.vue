@@ -1,8 +1,8 @@
 <template>
-  <div class="container profile">
+  <div v-if="loading === false" class="container profile">
     <div class="row title">
       <div class="col-md-6">
-        <h2 class="greeting"> Hallo {{user.firstName}} {{user.lastName}} </h2>
+        <h2 class="greeting"> Hallo {{user.firstName}} {{user.lastName}}</h2>
       </div>
       <div class="col-md-6 controls">
         <a class="btn btn-light action-button control-btn embed" href="">Einstellungen</a>
@@ -16,157 +16,66 @@
     </div>
     <div class="row">
       <div class="col-md-2 col-lg-2">
-        <ul class="nav navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" href="#">Übersicht</a>
-            <a class="nav-link" @click="showOverView">Meine Kurse</a>
-            <ul class="nav navbar-nav my-courses" v-for="course in user.courses" v-bind:key="course.id">
-              <li class="nav-item">
-                <a class="nav-link embed" @click="showCourseDetail(course, $event)">{{course.title}}</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a class="nav-link" href="#">Alle Kurse</a>
-          </li>
-        </ul>
+        <ydl-sidebar v-bind:courseId="user.courses"></ydl-sidebar>
       </div>
       <div class="col-md-4 col-lg-8 bdr">
-        <ydl-course  v-if="user.overview" v-bind:courses="user.courses"></ydl-course>
+        <ydl-course  ref="overview" v-if="true" v-bind:courseId="user.courses"></ydl-course>
         <ydl-course-detail ref="details" v-if="user.detailview" v-bind:course="{}"></ydl-course-detail>
+        <button @click="showCourseDetail()"> Test detail </button>
+        <button @click="showOverView()"> Test overview </button>
       </div>
       <div class="col-md-4 col-lg-2">
         <h5>Aktuelle Termine</h5>
-        <ydl-calendar v-bind:tasks="user.tasks"></ydl-calendar>
+        <!-- <ydl-calendar v-bind:tasks="user.tasks"></ydl-calendar> -->
       </div>
     </div>
   </div>
 </template>
 
-<script>
+<script ref="ydl-course ydl-course-detail">
 import Course from "@/components/Course"
 import Calendar from "@/components/Calendar"
 import CoursePage from "@/components/CoursePage"
+import SideBar from "@/components/SideBar"
+
+import axios from "axios"
 
 export default {
   name: "ProfilePage",
   data () {
     return {
-      user: {
-        id: 1234567,
-        firstName: "Paul",
-        lastName: "Müller",
-        overview: true,
-        detailview: false,
-        courses: [
-          {
-            id: 31,
-            title: "Japanisch",
-            details: "<p> Es gibt neue Details </p>",
-            administration: {
-              leader: [
-                {name: "Heinz Heinz", email: "heinz.heinz@heinz.de"}
-              ],
-              trainer: [
-                {name: "Trainer1", email: "trainer@trainer.de"},
-                {name: "Trainer2", email: "trainer@trainer.de"},
-                {name: "Trainer3", email: "trainer@trainer.de"},
-                {name: "Trainer4", email: "trainer@trainer.de"},
-                {name: "Trainer5", email: "trainer@trainer.de"}
-              ],
-              organisation: [
-                {name: "orga2", email: "orga@office.de"},
-                {name: "orga2", email: "orga@office.de"}
-              ]
-            },
-            content: {
-              article: [
-                {text: "<h3> Was sie in diesem Kurs erwartet </h3> <p> Lernen Sie Japanisch mit einem sehr kompetenden Lehrer in Schrift und Wort </p>"},
-                {text: "<h3> Foo </h3> <p> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. </p>"},
-                {text: "<h1> Hello World 1 </h1>"},
-                {text: "<h1> Hello World 1 </h1>"},
-                {text: "<h1> Hello World 1 </h1>"}
-              ]
-            }
-          },
-          {
-            id: 32,
-            title: "Französisch",
-            details: "<p> Es gibt neue Details </p>",
-            description: "our cool course"
-          },
-          {
-            id: 33,
-            title: "Spanisch",
-            details: "<p> Es gibt neue Details </p>",
-            description: "our cool course"
-          },
-          {
-            id: 34,
-            title: "Spanisch",
-            details: "<p> Es gibt neue Details </p>",
-            description: "our cool course"
-          },
-          {
-            id: 35,
-            title: "Schwedisch",
-            details: "<p> Es gibt neue Details </p>",
-            description: "our cool course"
-          }
-        ],
-        tasks: [
-          {
-            id: 11,
-            title: "Japanisch - Hausaufgabe 2",
-            deadline: "xx.xx.xxxx"
-          },
-          {
-            id: 12,
-            title: "Japanisch - Klausur",
-            deadline: "xx.xx.xxxx"
-          },
-          {
-            id: 13,
-            title: "Spanisch - Vortrag",
-            deadline: "xx.xx.xxxx"
-          },
-          {
-            id: 14,
-            title: "Französisch - Präsentation",
-            deadline: "xx.xx.xxxx"
-          },
-          {
-            id: 15,
-            title: "Schwedisch - Test",
-            deadline: "xx.xx.xxxx"
-          },
-          {
-            id: 16,
-            title: "Schwedisch - Hausaufgabe 3",
-            deadline: "xx.xx.xxxx"
-          }
-        ]
-      }
+      user: {},
+      loading: true
     }
   },
   components: {
     "ydl-course": Course,
     "ydl-calendar": Calendar,
-    "ydl-course-detail": CoursePage
+    "ydl-course-detail": CoursePage,
+    "ydl-sidebar": SideBar
   },
   methods: {
     showCourseDetail (course, event) {
       this.user.overview = false
       this.user.detailview = true
       // this.$emit('course', event.target.course)
-      this.$refs.details.course = course
+      this.$refs.overview.open = false
+      this.$refs.details.open = true
       console.log(course)
       console.log(event.target)
     },
     showOverView () {
-      this.user.detailview = false
-      this.user.overview = true
+      this.$refs.details.open = false
+      this.$refs.overview.open = true
     }
+  },
+  mounted () {
+    axios.get("http://jsontest/user/user.json")
+      .then(response => {
+        this.user = response.data
+        this.loading = false
+      })
+    console.log("user: " + this.user)
   }
 }
 </script>
@@ -194,41 +103,6 @@ hr {
   background-color: white;
   color: black;
   padding: 15px;
-}
-
-.nav-link {
-  color: black;
-}
-
-.nav-link:hover {
-  background-color: black;
-  color: white;
-  transition: 300ms;
-}
-
-.embed:hover {
-  background-color: #444444;
-  color: white;
-  transition: 300ms;
-}
-
-.active {
-  text-decoration: underline;
-  color: white;
-  background-color: black;
-}
-
-.list-group {
-  color: black;
-}
-
-.my-courses {
-  text-align: right;
-  margin-left: 10px;
-}
-
-.my-courses > li > a{
-  padding-right: 5px;
 }
 
 .greeting {

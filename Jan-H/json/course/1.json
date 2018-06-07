@@ -1,0 +1,39 @@
+"course"{
+	"id": 1,
+	"title": "Japanisch",
+	"news": "Abgabe der Hausaufgabe 3 am 12.5.2019",
+	"administration": {
+		"leader": [
+			{"name": "Heinz Heinz", "email": "heinz@heinz.de"}
+		],
+		"trainer": [
+			{"name": "Paul", "email": "paul@trainer.de"},
+			{"name": "Peter", "email": "peter@trainer.de"},
+			{"name": "Lisa", "email": "lisa@trainer.de"},
+			{"name": "Marie", "email": "marie@trainer.de"}
+		],
+		"orga": [
+			{"name": "Günther", "email": "guenther@orga.de"},
+			{"name": "Waltraud", "email": "waltraud@orga.de"},
+		]
+	},
+	"content": {
+		"article": [
+			{
+				"id": 1337,
+				"hedline": "Wilkommen im Kurs Japanisch", 
+				"text": "<p>Lernen Sie in diesem Kurs Japanisch, in Wort und Schrift<p>"
+			},
+		],
+		"files": [],
+		"links": [],
+	},
+	"courseweek": [
+		{
+			"timespace": "Woche 3: 09.05.19 - 13.05.19",
+			"description": "",
+			"files": "",
+			"links": ""
+		}
+	]
+}
