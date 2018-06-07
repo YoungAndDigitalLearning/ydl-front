@@ -24,8 +24,10 @@
     "sass-loader": "^7.0.1",
     "vue": "^2.5.2",
     "vue-a11y-calendar": "^0.3.0",
+    "vue-cookie": "^1.1.4",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.1",
+    "vue-session": "^1.0.0",
     "vue2-event-calendar": "^0.4.3",
     "yarn": "^1.7.0"
   },
