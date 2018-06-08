@@ -14,18 +14,24 @@ import axios from "axios"
 
 export default {
   name: "Course",
-  props: {
-    courses: {
-      type: Array,
-      required: true
+  data () {
+    return {
+      allCourses: {},
+      courses: []
     }
   },
   mounted () {
-    axios.get("api/Allcourses/")
+    axios.get("http://jsontest/courses/allcourses.json")
       .then(function (response) {
         console.log(response.data)
-        // this.articleEntries = response.data
+        this.allCourses = response.data
       })
+    for (var id in this.allCourses.free) {
+      axios.get("http://jsontest/courses/" + id + ".json")
+        .then(response => {
+          this.courses.push(response.data)
+        })
+    }
   }
 }
 </script>
