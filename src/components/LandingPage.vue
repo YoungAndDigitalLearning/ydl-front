@@ -2,7 +2,7 @@
   <div>
     <div class="container hero">
       <div class="row">
-        <div class="col-md-8 offset-md-2">
+        <div class="no-padding col-md-8 offset-md-2">
           <h1 class="text-center">Young&Digital Learning</h1>
           <ydl-article v-for="article in articleEntries" v-bind:article_entry='article' v-bind:key="article.id"></ydl-article>
         </div>
@@ -55,13 +55,29 @@ export default {
 @import "./../assets/css/Login-Form-Dark.css";
 @import "./../assets/css/styles.css";
 
+// import all bootstrap sass files
+@import "node_modules/bootstrap/scss/bootstrap";
+
 .card {
   margin-bottom: 40px;
   background-color: rgba(200, 200, 200, 0.95) !important;
 }
 
+@include media-breakpoint-down(sm)
+{
+  .no-padding {
+    padding: 0px;
+  }
+}
+
 .text-center {
   margin-top: 30px;
   margin-bottom: 70px;
+
+  @include media-breakpoint-down(sm)
+  {
+    margin-top: 70px;
+    margin-bottom: 50px;
+  }
 }
 </style>
