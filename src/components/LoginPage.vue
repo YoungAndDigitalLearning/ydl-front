@@ -36,9 +36,13 @@ export default {
       axios.post("http://35.185.239.7:2222/api/token-auth/", this.form)
         .then(response => {
           console.log(response)
-          this.$session.start()
-          this.$session.set("jwt", response.data.token)
-          this.$router.push("/profile")
+          if (response.status === 200 && "token" in response.data) {
+            this.$session.start()
+            this.$session.set("jwt", response.data.token)
+            console.log(response.data.token)
+            this.$emit("toggleLoggedIn")
+            this.$router.push("/profile")
+          }
         })
         .catch(function (error) {
           console.log(error)

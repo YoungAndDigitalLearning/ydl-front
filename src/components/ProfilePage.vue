@@ -76,6 +76,11 @@ export default {
         this.loading = false
       })
     console.log("user: " + this.user)
+  },
+  beforeCreate () {
+    if (!this.$session.exists()) {
+      this.$router.push("/#")
+    }
   }
 }
 </script>
