@@ -2,7 +2,7 @@
   <div>
     <div class="container hero">
       <div class="row">
-        <div class="no-padding col-md-8 offset-md-2">
+        <div class="no-padding col-md-10 offset-md-1">
           <h1 class="text-center">Young&Digital Learning</h1>
           <ydl-article v-for="article in articleEntries" v-bind:article_entry='article' v-bind:key="article.id"></ydl-article>
         </div>
@@ -60,7 +60,10 @@ export default {
 
 .card {
   margin-bottom: 40px;
-  background-color: rgba(200, 200, 200, 0.95) !important;
+  // background-color: rgba(197, 204, 5, 0.8) !important;
+  // background-color: rgba(253, 198, 5,0.5) !important;
+  background-color: rgba(6, 137, 179, 0.95) !important;
+  box-shadow: 2px;
 }
 
 @include media-breakpoint-down(sm)
@@ -71,8 +74,11 @@ export default {
 }
 
 .text-center {
-  margin-top: 30px;
-  margin-bottom: 70px;
+  margin-top: 10px;
+  margin-bottom: 40px;
+  color: #0689b3;
+  background-color: rgba(197, 204, 5, 0.5) !important;
+  padding: 30px;
 
   @include media-breakpoint-down(sm)
   {
