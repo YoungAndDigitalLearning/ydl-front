@@ -1,8 +1,8 @@
 <template>
-  <div class="container profile">
+  <div v-if="loading === false" class="container profile">
     <div class="row title">
       <div class="col-md-6">
-        <h2 class="greeting"> Hallo {{user.firstName}} {{user.lastName}} </h2>
+        <h2 class="greeting"> Hallo {{user.firstName}} {{user.lastName}}</h2>
       </div>
       <div class="col-md-6 controls">
         <a class="btn btn-light action-button control-btn embed" href="">Einstellungen</a>
@@ -16,37 +16,29 @@
     </div>
     <div class="row">
       <div class="col-md-2 col-lg-2">
-        <ul class="nav navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" href="#">Übersicht</a>
-            <a class="nav-link" @click="showOverView">Meine Kurse</a>
-            <ul class="nav navbar-nav my-courses" v-for="course in user.courses" v-bind:key="course.id">
-              <li class="nav-item">
-                <a class="nav-link embed" @click="showCourseDetail(course, $event)">{{course.title}}</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a class="nav-link" href="#">Alle Kurse</a>
-          </li>
-        </ul>
+        <ydl-sidebar v-bind:courseId="user.courses"></ydl-sidebar>
       </div>
       <div class="col-md-4 col-lg-8 bdr">
-        <ydl-course  v-if="user.overview" v-bind:courses="user.courses"></ydl-course>
+        <ydl-course  ref="overview" v-if="true" v-bind:courseId="user.courses"></ydl-course>
         <ydl-course-detail ref="details" v-if="user.detailview" v-bind:course="{}"></ydl-course-detail>
+        <button @click="showCourseDetail()"> Test detail </button>
+        <button @click="showOverView()"> Test overview </button>
       </div>
       <div class="col-md-4 col-lg-2">
         <h5>Aktuelle Termine</h5>
-        <ydl-calendar v-bind:tasks="user.tasks"></ydl-calendar>
+        <!-- <ydl-calendar v-bind:tasks="user.tasks"></ydl-calendar> -->
       </div>
     </div>
   </div>
 </template>
 
-<script>
+<script ref="ydl-course ydl-course-detail">
 import Course from "@/components/Course"
 import Calendar from "@/components/Calendar"
 import CoursePage from "@/components/CoursePage"
+import SideBar from "@/components/SideBar"
+
+import axios from "axios"
 
 import axios from "axios"
 
@@ -54,7 +46,8 @@ export default {
   name: "ProfilePage",
   data () {
     return {
-      user: {}
+      user: {},
+      loading: true
     }
   },
   // data () {
@@ -159,7 +152,8 @@ export default {
   components: {
     "ydl-course": Course,
     "ydl-calendar": Calendar,
-    "ydl-course-detail": CoursePage
+    "ydl-course-detail": CoursePage,
+    "ydl-sidebar": SideBar
   },
   mounted (){  
     axios.get("http://jsontest/user.json")
@@ -171,14 +165,23 @@ export default {
       this.user.overview = false
       this.user.detailview = true
       // this.$emit('course', event.target.course)
-      this.$refs.details.course = course
+      this.$refs.overview.open = false
+      this.$refs.details.open = true
       console.log(course)
       console.log(event.target)
     },
     showOverView () {
-      this.user.detailview = false
-      this.user.overview = true
+      this.$refs.details.open = false
+      this.$refs.overview.open = true
     }
+  },
+  mounted () {
+    axios.get("http://jsontest/user/user.json")
+      .then(response => {
+        this.user = response.data
+        this.loading = false
+      })
+    console.log("user: " + this.user)
   }
 }
 </script>
@@ -206,41 +209,6 @@ hr {
   background-color: white;
   color: black;
   padding: 15px;
-}
-
-.nav-link {
-  color: black;
-}
-
-.nav-link:hover {
-  background-color: black;
-  color: white;
-  transition: 300ms;
-}
-
-.embed:hover {
-  background-color: #444444;
-  color: white;
-  transition: 300ms;
-}
-
-.active {
-  text-decoration: underline;
-  color: white;
-  background-color: black;
-}
-
-.list-group {
-  color: black;
-}
-
-.my-courses {
-  text-align: right;
-  margin-left: 10px;
-}
-
-.my-courses > li > a{
-  padding-right: 5px;
 }
 
 .greeting {
