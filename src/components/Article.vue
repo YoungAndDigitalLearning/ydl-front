@@ -31,12 +31,18 @@ export default {
 
 .card {
   margin-top: 25px;
-  border-radius: 0;
-  color: #000000;
+  color: #ffffff;
+  border-radius: 15px;
+}
+
+.card-img-top {
+  height: 25%;
+  width: 25%;
 }
 
 .card-text > p{
-  color:#000000;
+  color:#ffffff;
+
 }
 
 .card-img-top {
@@ -45,10 +51,10 @@ export default {
 }
 
 p {
-  color:black;
+  color:#ffffff;
 }
 
 .text-center > p{
-  color: black;
+  color: #ffffff;
 }
 </style>
