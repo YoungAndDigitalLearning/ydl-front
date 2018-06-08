@@ -21,10 +21,15 @@
                   <i class="fa fa-search"></i>
                 </label><input class="form-control search-field" type="search" name="search" id="search-field"></div>
             </form>
-            <span class="navbar-text">
-              <a href="/#/login" class="login">Log In</a>
-            </span>
-            <a class="btn btn-light action-button" @click="showSignup = true" role="button" href="/#/signup">Sign Up</a>
+            <div v-if="!loggedIn">
+              <span class="navbar-text">
+                <a href="/#/login" class="login" @toggleLoggedIn="toggleLogin">Log In</a>
+              </span>
+              <a class="btn btn-light action-button" role="button" href="/#/signup">Sign Up</a>
+            </div>
+            <div v-else>
+              <a class="btn btn-light action-button" role="button" @click="logout">Log Out</a>
+            </div>
           </div>
         </div>
       </nav>
@@ -40,7 +45,27 @@ import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap-vue/dist/bootstrap-vue.css"
 
 export default {
-  name: "App"
+  name: "App",
+  data () {
+    return {
+      loggedIn: false
+    }
+  },
+  methods: {
+    logout () {
+      this.$session.destroy()
+      this.$router.push("/")
+    },
+    toggleLogin () {
+      this.loggedIn = this.$session.exists()
+    }
+  },
+  watch: {
+    login () {
+      this.loggedIn = this.$session.exists()
+      console.log(this.loggedIn)
+    }
+  }
 }
 </script>
 
