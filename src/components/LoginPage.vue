@@ -38,6 +38,7 @@ export default {
           console.log(response)
           this.$session.start()
           this.$session.set("jwt", response.data.token)
+          this.$router.push("/profile")
         })
         .catch(function (error) {
           console.log(error)
