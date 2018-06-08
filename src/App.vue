@@ -89,8 +89,8 @@ export default {
   position: fixed;
   width: 100%;
   padding: 0px;
-  z-index: 1;
-  background-color: #000000;
+  z-index: 999;
+  background-color: rgba(6, 137, 179, 1);
 }
 
 .ydl-content {
@@ -109,7 +109,8 @@ export default {
 
 html {
     height: 100%;
-    background:url(./assets/img/mountain_bg.jpg);
+    // background:url(./assets/img/mountain_bg.jpg);
+    background-color: white;
     background-repeat: no-repeat;
     background-position: center top;
     background-size: cover;

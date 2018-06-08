@@ -6,7 +6,7 @@
       </div>
       <div class="col-md-6 controls">
         <a class="btn btn-light action-button control-btn embed" href="">Einstellungen</a>
-        <a class="btn btn-light action-button control-btn embed" href="">Log Out</a>
+        <a class="btn btn-light action-button control-btn embed" href="" @click="logout">Log Out</a>
       </div>
     </div>
     <div class="row">
@@ -19,10 +19,8 @@
         <ydl-sidebar v-bind:courseId="user.courses"></ydl-sidebar>
       </div>
       <div class="col-md-4 col-lg-8 bdr">
-        <ydl-course  ref="overview" v-if="true" v-bind:courseId="user.courses"></ydl-course>
-        <ydl-course-detail ref="details" v-if="user.detailview" v-bind:course="{}"></ydl-course-detail>
-        <button @click="showCourseDetail()"> Test detail </button>
-        <button @click="showOverView()"> Test overview </button>
+        <ydl-course  v-if="overview" v-on:load-details="console.log('hi')" v-bind:courseId="user.courses"></ydl-course>
+        <ydl-course-detail v-if="!overview" v-model="detailCourseId"></ydl-course-detail>
       </div>
       <div class="col-md-4 col-lg-2">
         <h5>Aktuelle Termine</h5>
@@ -45,7 +43,9 @@ export default {
   data () {
     return {
       user: {},
-      loading: true
+      loading: true,
+      overview: true,
+      detailCourseId: 0
     }
   },
   components: {
@@ -53,21 +53,6 @@ export default {
     "ydl-calendar": Calendar,
     "ydl-course-detail": CoursePage,
     "ydl-sidebar": SideBar
-  },
-  methods: {
-    showCourseDetail (course, event) {
-      this.user.overview = false
-      this.user.detailview = true
-      // this.$emit('course', event.target.course)
-      this.$refs.overview.open = false
-      this.$refs.details.open = true
-      console.log(course)
-      console.log(event.target)
-    },
-    showOverView () {
-      this.$refs.details.open = false
-      this.$refs.overview.open = true
-    }
   },
   mounted () {
     axios.get("http://jsontest/user/user.json")
@@ -79,7 +64,23 @@ export default {
   },
   beforeCreate () {
     if (!this.$session.exists()) {
-      this.$router.push("/#")
+      // this.$router.push("/#")
+    }
+  },
+  methods: {
+    showCourseDetail (id) {
+      console.log("Triggered")
+      this.overview = false
+      this.detailCourseId = id
+      console.log("Id of course to show: " + id)
+    },
+    showOverView () {
+      this.$refs.details.open = false
+      this.$refs.overview.open = true
+    },
+    logout () {
+      this.$session.destroy()
+      this.$router.push("/")
     }
   }
 }
@@ -91,7 +92,7 @@ html {
 }
 
 hr {
-  border: 2px solid black;
+  border: 2px solid #0689b3;
 }
 
 .controls {
@@ -99,7 +100,7 @@ hr {
 }
 
 .control-btn {
-  background-color: black;
+  background-color: #0689b3;
   color: white;
   border-radius: 30px;
 }
@@ -115,7 +116,7 @@ hr {
 }
 
 .bdr {
-  border-left: 1px solid black;
-  border-right: 1px solid black;
+  border-left: 1px solid #0689b3;
+  border-right: 1px solid #0689b3;
 }
 </style>

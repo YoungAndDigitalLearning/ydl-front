@@ -3,15 +3,18 @@
   <ul class="nav navbar-nav">
     <li class="nav-item">
     <a class="nav-link active" href="#">Übersicht</a>
-    <a class="nav-link" href="/#/profile" @click="showOverView">Meine Kurse</a>
+    <a class="nav-link" href="/#/profile">Meine Kurse</a>
     <ul class="nav navbar-nav my-courses" v-for="course in courses" v-bind:key="course.id">
       <li class="nav-item">
-      <a class="nav-link embed" href="/#/profile" @click="showCourseDetail(course, $event)">{{course.title}}</a>
+      <button class="nav-link embed btn" v-on:click="$emit('load-detail', course.id)">{{course.title}}</button>
       </li>
     </ul>
     </li>
     <li>
     <a class="nav-link" href="#">Alle Kurse</a>
+    </li>
+    <li>
+    <a class="nav-link" href="#">Mein Kalender</a>
     </li>
 </ul>
 </div>
@@ -40,9 +43,9 @@ export default {
     }
   },
   methods: {
-    showOverView () {
-    },
-    showCourseDetail () {
+    triggerDetailView (id) {
+      console.log("event triggered with value: " + id)
+      this.$emit("load-details", id)
     }
   }
 }
@@ -51,21 +54,21 @@ export default {
 <style lang="scss" scoped>
 a {
   text-decoration: none;
-  color: black;
+  color: #000000;
 }
 
 .nav-link {
-  color: black;
+  color: #000000;
 }
 
 .nav-link:hover {
-  background-color: black;
+  background-color: #0689b3;
   color: white;
   transition: 300ms;
 }
 
 .embed:hover {
-  background-color: #444444;
+  background-color: #0688b3a2;
   color: white;
   transition: 300ms;
 }
@@ -73,11 +76,7 @@ a {
 .active {
   text-decoration: underline;
   color: white;
-  background-color: black;
-}
-
-.list-group {
-  color: black;
+  background-color: #0689b3;
 }
 
 .my-courses {

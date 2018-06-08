@@ -40,4 +40,10 @@ a {
   text-decoration: none;
   color: black;
 }
+
+.list-group-item:hover {
+  background-color: rgba(140, 145, 3, 0.75);
+  color: white;
+  transition: 300ms;
+}
 </style>
