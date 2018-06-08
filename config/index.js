@@ -13,7 +13,7 @@ module.exports = {
     /* Proxy for removing the cross origin error */
     proxyTable: ({
       "/api": {
-        "target": "http://localhost:8000",
+        "target": "http://localhost",
         "changeOrigin": true,
         "secure": false
       }
