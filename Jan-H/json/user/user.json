@@ -1,0 +1,13 @@
+{
+	"id": 0,
+	"authtoken": 0,
+	"firstName": "Paul",
+	"lastName": "Müller",
+	"courses": [
+		{"id": 0},
+		{"id": 1},
+		{"id": 2},
+		{"id": 3},
+		{"id": 4},
+	]
+}

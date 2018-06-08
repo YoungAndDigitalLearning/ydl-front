@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card" v-if="open">
     <div class="card-header"><h1>{{ course.title }}</h1>A1.1</div>
     <div class="card-body">
       <div class="leader-board flex-container">
@@ -11,7 +11,7 @@
               <span> E-Mail: {{l.email}} </span>
             </li>
           </ul>
-          <h6> Sekretariat </h6> 
+          <h6> Sekretariat </h6>
           <ul v-for="s in course.administration.organisation" v-bind:key="s.email">
             <li>
               {{s.name}} <br>
@@ -20,7 +20,7 @@
           </ul>
         </div>
         <div>
-          <h6> Tutoren </h6> 
+          <h6> Tutoren </h6>
           <ul v-for="t in course.administration.trainer" v-bind:key="t.email">
             <li>
               {{t.name}} <br>
@@ -52,28 +52,23 @@ export default {
   name: "courseview",
   props: {
     course: {
-      type: Object, 
+      type: Object,
       required: true
     }
   },
   data () {
     return {
-      toRender: this.course
+      toRender: this.course,
+      open: false
     }
   },
-  computed: {
-    debug () {
-      console.log(this.course.id)
-      return 
-    }
+  mounted () {
+    axios.get("api/courses/")
+      .then(function (response) {
+        console.log(response.data)
+        // this.articleEntries = response.data
+      })
   },
-  // mounted () {
-  //   axios.get("api/courses/")
-  //     .then(function (response) {
-  //       console.log(response.data)
-  //       // this.articleEntries = response.data
-  //     })
-  // },
   components: {
     "ydl-courseweek": CourseWeek
   }
@@ -100,19 +95,19 @@ export default {
 }
 
 .card-body {
-  text-align: left; 
+  text-align: left;
 }
 
 .leader-board {
-  display: flex; 
+  display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  font-size: 12px; 
+  font-size: 12px;
 }
 
 .description {
-  display: flex; 
-  flex-direction: column; 
+  display: flex;
+  flex-direction: column;
   font-size: 12px;
 }
 </style>
