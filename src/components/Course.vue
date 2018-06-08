@@ -22,7 +22,7 @@ export default {
     }
   },
   mounted () {
-    console.log("SidBar courseID: " + this.courseId)
+    console.log("Course: courseID: " + this.courseId)
     for (var id in this.courseId) {
       console.log(id)
       axios.get("http://jsontest/course/" + id + ".json")
