@@ -30,31 +30,7 @@ export default {
 @import "../assets/css/Article-Clean.css";
 
 .card {
-  margin-top: 25px;
-  color: #ffffff;
-  border-radius: 15px;
-}
-
-.card-img-top {
-  height: 25%;
-  width: 25%;
-}
-
-.card-text > p{
-  color:#ffffff;
-
-}
-
-.card-img-top {
-  border-radius: 0;
   margin-bottom: 25px;
-}
-
-p {
-  color:#ffffff;
-}
-
-.text-center > p{
-  color: #ffffff;
+  width: 600px;
 }
 </style>

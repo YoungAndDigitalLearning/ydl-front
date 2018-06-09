@@ -11,9 +11,16 @@ import SignupPage from "@/components/SignupPage"
 
 import VueSession from "vue-session"
 
+import fontawesome from "@fortawesome/fontawesome"
+import freeSolid from "@fortawesome/fontawesome-free-solid/"
+import FontAwesomeIcon from "@fortawesome/vue-fontawesome"
+
+fontawesome.library.add(freeSolid)
+
 Vue.use(VueSession)
 Vue.use(Router)
 Vue.use(BootstrapVue)
+Vue.component("fa-icon", FontAwesomeIcon)
 
 export default new Router({
   // mode: "history",
