@@ -15,26 +15,6 @@ import Navbar from "@/components/Navbar.vue"
 
 export default {
   name: "App",
-  data () {
-    return {
-      loggedIn: false
-    }
-  },
-  methods: {
-    logout () {
-      this.$session.destroy()
-      this.$router.push("/")
-    },
-    toggleLogin () {
-      this.loggedIn = this.$session.exists()
-    }
-  },
-  watch: {
-    login () {
-      this.loggedIn = this.$session.exists()
-      console.log(this.loggedIn)
-    }
-  },
   components: {"ydl-navbar": Navbar}
 }
 </script>
