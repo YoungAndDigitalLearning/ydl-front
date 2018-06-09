@@ -1,0 +1,13 @@
+
+// first import our custom skript to overwrite the colors
+@import "settings";
+
+/* override default bootstrap colors */
+$theme-colors: (
+  "primary": $ydl-primary,
+  "secondary": $ydl-secondary,
+  "success": $ydl-success
+);
+
+// import all bootstrap sass files
+@import "node_modules/bootstrap/scss/bootstrap";

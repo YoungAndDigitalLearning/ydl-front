@@ -1,14 +1,10 @@
 <template>
-  <div>
-    <div class="container hero">
-      <div class="row">
-        <div class="no-padding col-md-10 offset-md-1">
-          <h1 class="text-center">Young&Digital Learning</h1>
-          <ydl-article v-for="article in articleEntries" v-bind:article_entry='article' v-bind:key="article.id"></ydl-article>
-        </div>
-      </div>
-    </div>
+<div>
+  <h1 class="text-center text-primary">Young&Digital Learning</h1>
+  <div class="ydl-article-container">
+    <ydl-article v-for="article in articleEntries" v-bind:article_entry='article' v-bind:key="article.id"></ydl-article>
   </div>
+</div>
 </template>
 
 <script>
@@ -50,21 +46,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "./../assets/css/Article-Clean.css";
-@import "./../assets/css/Header-Dark.css";
-@import "./../assets/css/Login-Form-Dark.css";
-@import "./../assets/css/styles.css";
-
-// import all bootstrap sass files
-@import "node_modules/bootstrap/scss/bootstrap";
-
-.card {
-  margin-bottom: 40px;
-  // background-color: rgba(197, 204, 5, 0.8) !important;
-  // background-color: rgba(253, 198, 5,0.5) !important;
-  background-color: rgba(6, 137, 179, 0.95) !important;
-  box-shadow: 2px;
-}
+@import "styles/global";
 
 @include media-breakpoint-down(sm)
 {
@@ -73,17 +55,15 @@ export default {
   }
 }
 
+.ydl-article-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
 .text-center {
   margin-top: 10px;
-  margin-bottom: 40px;
-  color: #0689b3;
-  background-color: rgba(197, 204, 5, 0.5) !important;
+  margin-bottom: 10px;
   padding: 30px;
-
-  @include media-breakpoint-down(sm)
-  {
-    margin-top: 70px;
-    margin-bottom: 50px;
-  }
 }
 </style>

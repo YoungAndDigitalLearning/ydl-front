@@ -38,6 +38,13 @@ module.exports = {
       '@': resolve('src'),
     }
   },
+  resolve: {
+    extensions: ['.scss'],
+    alias: {
+      // add the alias to webpack to reference the style sheet within <app>/styles via `@import "~styles/settings.scss"`
+      styles: path.join(__dirname, 'djangoblockchained-frontend/styles')
+    }
+  },
   module: {
     rules: [
       ...(config.dev.useEslint ? [createLintingRule()] : []),
