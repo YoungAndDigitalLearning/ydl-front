@@ -42,7 +42,7 @@ a {
 }
 
 .list-group-item:hover {
-  background-color: rgba(140, 145, 3, 0.75);
+  background-color: #07a7da;
   color: white;
   transition: 300ms;
 }

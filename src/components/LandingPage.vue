@@ -1,8 +1,10 @@
 <template>
-<div>
-  <h1 class="text-center text-primary">Young&Digital Learning</h1>
-  <div class="ydl-article-container">
-    <ydl-article v-for="article in articleEntries" v-bind:article_entry='article' v-bind:key="article.id"></ydl-article>
+<div class="background">
+  <div class="landing-page">
+    <h1 class="text-center text-primary">Young&Digital Learning</h1>
+    <div class="ydl-article-container">
+      <ydl-article v-for="article in articleEntries" v-bind:article_entry='article' v-bind:key="article.id"></ydl-article>
+    </div>
   </div>
 </div>
 </template>
@@ -48,6 +50,15 @@ export default {
 <style lang="scss" scoped>
 @import "styles/global";
 
+.background {
+    background-image: url("../assets/img/paper-1990111_1920.jpg");
+    background-attachment: fixed;
+}
+
+.landing-page {
+  background-color: rgba(7, 167, 218, 0.125);
+}
+
 @include media-breakpoint-down(sm)
 {
   .no-padding {
@@ -62,7 +73,7 @@ export default {
 }
 
 .text-center {
-  margin-top: 10px;
+  // margin-top: 10px;
   margin-bottom: 10px;
   padding: 30px;
 }

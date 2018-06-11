@@ -108,6 +108,8 @@ hr {
   background-color: white;
   color: black;
   padding: 15px;
+  padding-left: 7%; 
+  padding-right: 7%;
 }
 
 .greeting {
