@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-primary bg-secondary fixed-top">
+  <nav class="navbar navbar-expand-lg bg-primary fixed-top">
     <a class="navbar-brand" href="#">Y&D Learning</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <fa-icon icon="bars"/>
@@ -64,6 +64,10 @@ export default {
 
 .navbar {
   height: $ydl-header-height;
+
+  a {
+    color: #ffffff;
+  }
 
   @include media-breakpoint-down(md) {
     height: auto;
