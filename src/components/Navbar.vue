@@ -53,6 +53,7 @@ export default {
   methods: {
     logout () {
       this.$session.destroy()
+      this.$router.push("/")
     }
   }
 }
