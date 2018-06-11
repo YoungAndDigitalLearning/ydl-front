@@ -40,8 +40,8 @@ export default {
             this.$session.start()
             this.$session.set("jwt", response.data.token)
             console.log(response.data.token)
-            this.$emit("toggleLoggedIn")
-            this.$router.push("/profile")
+            this.$emit("successful-login")
+            this.$router.push("/")
           }
         })
         .catch(function (error) {

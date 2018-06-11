@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <ydl-navbar/>
+    <ydl-navbar :sucLogin="haslogin"/>
     <section class="ydl-content">
-      <router-view/>
+      <router-view v-on:successful-login="onSuccessfulLogin" />
     </section>
   </div>
 </template>
@@ -15,7 +15,18 @@ import Navbar from "@/components/Navbar.vue"
 
 export default {
   name: "App",
-  components: {"ydl-navbar": Navbar}
+  data () {
+    return {
+      haslogin: this.$session.has("jwt")
+    }
+  },
+  components: {"ydl-navbar": Navbar},
+  methods: {
+    onSuccessfulLogin () {
+      console.log("suc lofgin!")
+      this.haslogin = true
+    }
+  }
 }
 </script>
 
