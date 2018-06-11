@@ -23,7 +23,7 @@ export default {
   components: {"ydl-navbar": Navbar},
   methods: {
     onSuccessfulLogin () {
-      console.log("suc lofgin!")
+      console.log("suc login!")
       this.haslogin = true
     }
   }
