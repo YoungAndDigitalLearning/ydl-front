@@ -1,5 +1,5 @@
 <template>
-  <div class="card" v-if="open">
+  <div class="card" v-if="!loading">
     <div class="card-header"><h1>{{ course.title }}</h1>A1.1</div>
     <div class="card-body">
       <div class="leader-board flex-container">
@@ -12,7 +12,7 @@
             </li>
           </ul>
           <h6> Sekretariat </h6>
-          <ul v-for="s in course.administration.organisation" v-bind:key="s.email">
+          <ul v-for="s in course.administration.orga" v-bind:key="s.email">
             <li>
               {{s.name}} <br>
               <span> E-Mail: {{s.email}} </span>
@@ -50,24 +50,33 @@ import axios from "axios"
 
 export default {
   name: "courseview",
-  props: {
-    course: {
-      type: Object,
-      required: true
-    }
-  },
+  props: ["value"],
   data () {
     return {
       toRender: this.course,
-      open: false
+      course: {},
+      loading: true
     }
   },
   mounted () {
-    axios.get("api/courses/")
-      .then(function (response) {
+    console.log(this.value)
+    axios.get("http://jsontest/course/" + this.value + ".json")
+      .then(response => {
         console.log(response.data)
-        // this.articleEntries = response.data
+        this.course = response.data
       })
+    this.loading = false
+  },
+  watch: {
+    value: function() {
+    this.loading = true
+    axios.get("http://jsontest/course/" + this.value + ".json")
+      .then(response => {
+        console.log(response.data)
+        this.course = response.data
+      })
+    this.loading = false
+    }
   },
   components: {
     "ydl-courseweek": CourseWeek

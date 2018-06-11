@@ -1,7 +1,7 @@
 <template>
 <div v-if="open">
   <ul class="list-group" v-for="course in courses" v-bind:key="course.id">
-    <a class="list-group-item list-group-item-action" v-bind:href="'/profile/' + course.id">
+    <a class="list-group-item list-group-item-action" href="/#/profile" v-on:click="$emit('load-details', course.id)">
       <h4> {{course.title}} </h4>
       <div v-html="course.news"></div>
     </a>
