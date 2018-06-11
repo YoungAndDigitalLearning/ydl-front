@@ -6,7 +6,7 @@
     <a class="nav-link" href="/#/profile" v-on:click="$emit('load-overview')">Meine Kurse</a>
     <ul class="nav navbar-nav my-courses" v-for="course in courses" v-bind:key="course.id">
       <li class="nav-item">
-      <button class="nav-link embed btn" v-on:click="$emit('load-details', course.id)">{{course.title}}</button>
+      <a class="nav-link embed" v-on:click="$emit('load-details', course.id)">{{course.title}}</a>
       </li>
     </ul>
     </li>

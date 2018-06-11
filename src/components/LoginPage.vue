@@ -16,7 +16,7 @@
       <form @submit.prevent="validateBeforeSubmit">
         <h2 class="sr-only">Login Form</h2>
         <div class="form-group">
-          <input v-model="form.username" v-validate="'required|alpha'" class="form-control" type="text" name="username" placeholder="Username">
+          <input v-model="form.username" v-validate="'required|alpha_dash'" class="form-control" type="text" name="username" placeholder="Username">
           <span v-show="errors.has('username')" class="required">{{ errors.first("username") }}</span>
         </div>
         <div class="form-group">
@@ -74,7 +74,9 @@ export default {
             this.$session.set("jwt", response.data.token)
             console.log(response.data.token)
             this.$emit("successful-login")
-            this.$router.push("/")
+            this.$router.push("/profile")
+          }else{
+            alert(response.status)
           }
         })
         .catch(error => {
