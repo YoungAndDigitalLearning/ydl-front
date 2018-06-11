@@ -1,13 +1,19 @@
 <template>
-  <div class="log-in-dark">
+  <div class="log-in-container">
     <div class="form-container">
       <div class="illustration">
         <i class="icon ion-ios-locked-outline"></i>
       </div>
-      <form @submit.prevent="authenticate">
+      <form @submit.prevent="validateBeforeSubmit">
         <h2 class="sr-only">Login Form</h2>
-        <div class="form-group"><input v-model="form.username" class="form-control" type="text" name="username" placeholder="Benutzername"></div>
-        <div class="form-group"><input v-model="form.password" class="form-control" type="password" name="password" placeholder="Passwort"></div>
+        <div class="form-group">
+          <input v-model="form.username" v-validate="'required|alpha'" class="form-control" type="text" name="username" placeholder="Username">
+          <span v-show="errors.has('username')" class="required">{{ errors.first("username") }}</span>
+        </div>
+        <div class="form-group">
+          <input v-model="form.password" v-validate="'required'" class="form-control" type="password" name="password" placeholder="Password">
+          <span v-show="errors.has('password')" class="required">{{ errors.first("password") }}</span>
+        </div>
         <div class="form-group">
           <button class="btn btn-primary btn-block" type="submit">Log In</button>
           <a class="btn btn-primary btn-block" href="/#/signup">Konto erstellen</a>
@@ -32,6 +38,17 @@ export default {
     }
   },
   methods: {
+    validateBeforeSubmit () {
+      this.$validator.validateAll()
+        .then((result) => {
+          if (result) {
+            alert("form submitted (alert to be removed)")
+            this.authenticate()
+          } else {
+            alert("Correct the error")
+          }
+        })
+    },
     authenticate () {
       axios.post("http://35.185.239.7:2222/api/token-auth/", this.form)
         .then(response => {
@@ -53,35 +70,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/css/Login-Form-Dark.css";
 @import "../assets/fonts/ionicons.min.css";
 
-@import "../assets/fonts/ionicons.min.css";
-
-// import all bootstrap sass files
-@import "node_modules/bootstrap/scss/bootstrap";
+@import "styles/global";
 
 /* Login */
-.log-in-dark {
+.log-in-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
-
-  form {
-    .btn-primary {
-      background-color: #214a80;
-      border: none;
-      padding: 11px;
-    }
-  }
 
   /* contains the icons and the form */
   .form-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color:#1e2833;
+    background-color: $ydl-secondary;
     padding: 40px;
     width: 350px;
     height: 500px;
@@ -91,20 +96,22 @@ export default {
       // make form container full screen
       width: 100%;
       height: 100%;
+      // remove background color
+      background-color: transparent;
     }
   }
 
   .form-control {
     background: none;
     border: none;
-    border-bottom: 1px solid #434a52;
+    border-bottom: 1px solid $ydl-primary;
     border-radius: 0;
     outline: none;
     box-shadow: none;
     color: inherit;
 
     &:focus {
-      border-color: #2980ef;
+      border-color: $ydl-secondary;
     }
   }
 
@@ -112,7 +119,7 @@ export default {
     text-align: center;
     padding: 15px 0 20px;
     font-size: 100px;
-    color: #2980ef;
+    color: $ydl-primary;
 
     @include media-breakpoint-down(xs)
     {

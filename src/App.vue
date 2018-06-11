@@ -38,12 +38,11 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #e6e6e6;
   height: 100%;
 }
 
 .ydl-header {
-  background-color: $primary;
+  // background-color: $primary;
   height: $ydl-header-height;
 }
 

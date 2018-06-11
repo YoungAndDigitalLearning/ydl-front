@@ -2,6 +2,9 @@
 // first import our custom skript to overwrite the colors
 @import "settings";
 
+// import the form global classes
+@import "form";
+
 /* override default bootstrap colors */
 $theme-colors: (
   "primary": $ydl-primary,
