@@ -1,6 +1,15 @@
 <template>
   <div class="log-in-container">
     <div class="form-container">
+      <div class="ydl-alert-box">
+      <b-alert :show="dismissCountDown"
+              dismissible
+              variant="danger"
+              @dismissed="dismissCountDown=0"
+              @dismiss-count-down="countDownChanged">
+        <p v-for="(error, index) in nonFieldErrors" :key="index">{{ error }}</p>
+      </b-alert>
+      </div>
       <div class="illustration">
         <i class="icon ion-ios-locked-outline"></i>
       </div>
@@ -16,9 +25,9 @@
         </div>
         <div class="form-group">
           <button class="btn btn-primary btn-block" type="submit">Log In</button>
-          <a class="btn btn-primary btn-block" href="/#/signup">Konto erstellen</a>
+          <a class="btn btn-primary btn-block" href="/#/signup">Sign Up</a>
         </div>
-        <a href="#" class="forgot">Passwort vergessen</a>
+        <a href="#" class="forgot">Forgot Password?</a>
       </form>
     </div>
   </div>
@@ -31,6 +40,10 @@ export default {
   name: "LoginPage",
   data () {
     return {
+      dismissSecs: 4,
+      dismissCountDown: 0,
+      showDismissibleAlert: false,
+      nonFieldErrors: [],
       form: {
         username: "",
         password: ""
@@ -42,12 +55,15 @@ export default {
       this.$validator.validateAll()
         .then((result) => {
           if (result) {
-            alert("form submitted (alert to be removed)")
             this.authenticate()
-          } else {
-            alert("Correct the error")
           }
         })
+    },
+    countDownChanged (dismissCountDown) {
+      this.dismissCountDown = dismissCountDown
+    },
+    showAlert () {
+      this.dismissCountDown = this.dismissSecs
     },
     authenticate () {
       axios.post("http://35.185.239.7:2222/api/token-auth/", this.form)
@@ -61,8 +77,11 @@ export default {
             this.$router.push("/")
           }
         })
-        .catch(function (error) {
-          console.log(error)
+        .catch(error => {
+          if (error.response.status === 400) {
+            this.nonFieldErrors = error.response.data.non_field_errors
+            this.showAlert()
+          }
         })
     }
   }
@@ -73,6 +92,12 @@ export default {
 @import "../assets/fonts/ionicons.min.css";
 
 @import "styles/global";
+
+/* Alert Box */
+.ydl-alert-box {
+  position: fixed;
+  top: 200px;
+}
 
 /* Login */
 .log-in-container {
@@ -86,7 +111,6 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: $ydl-secondary;
     padding: 40px;
     width: 350px;
     height: 500px;
@@ -96,8 +120,6 @@ export default {
       // make form container full screen
       width: 100%;
       height: 100%;
-      // remove background color
-      background-color: transparent;
     }
   }
 
