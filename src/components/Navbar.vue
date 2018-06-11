@@ -63,5 +63,9 @@ export default {
 
 .navbar {
   height: $ydl-header-height;
+
+  @include media-breakpoint-down(md) {
+    height: auto;
+  }
 }
 </style>

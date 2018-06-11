@@ -68,14 +68,14 @@ export default {
     this.loading = false
   },
   watch: {
-    value: function() {
-    this.loading = true
-    axios.get("http://jsontest/course/" + this.value + ".json")
-      .then(response => {
-        console.log(response.data)
-        this.course = response.data
-      })
-    this.loading = false
+    value: function () {
+      this.loading = true
+      axios.get("http://jsontest/course/" + this.value + ".json")
+        .then(response => {
+          console.log(response.data)
+          this.course = response.data
+        })
+      this.loading = false
     }
   },
   components: {
