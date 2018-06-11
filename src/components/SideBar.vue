@@ -3,10 +3,10 @@
   <ul class="nav navbar-nav">
     <li class="nav-item">
     <a class="nav-link active" href="#">Übersicht</a>
-    <a class="nav-link" href="/#/profile">Meine Kurse</a>
+    <a class="nav-link" href="/#/profile" v-on:click="$emit('load-overview')">Meine Kurse</a>
     <ul class="nav navbar-nav my-courses" v-for="course in courses" v-bind:key="course.id">
       <li class="nav-item">
-      <button class="nav-link embed btn" v-on:click="$emit('load-detail', course.id)">{{course.title}}</button>
+      <button class="nav-link embed btn" v-on:click="$emit('load-details', course.id)">{{course.title}}</button>
       </li>
     </ul>
     </li>
@@ -84,7 +84,7 @@ a {
   margin-left: 10px;
 }
 
-.my-courses > li > a{
+.my-courses > li > button{
   padding-right: 5px;
 }
 </style>
