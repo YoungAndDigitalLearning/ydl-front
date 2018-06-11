@@ -121,16 +121,14 @@ export default {
     font-size: 100px;
     color: $ydl-primary;
 
-    @include media-breakpoint-down(xs)
-    {
+    @include media-breakpoint-down(xs) {
       // reduce bottom padding
       padding-bottom: 10px;
       // make the logo smaller
       font-size: 80px;
     }
 
-    @include media-breakpoint-only(sm)
-    {
+    @include media-breakpoint-only(sm) {
       // hide the logo in portrait mode
       font-size: 0px;
     }
