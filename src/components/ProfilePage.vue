@@ -1,28 +1,28 @@
 <template>
-  <div v-if="loading === false" class="container profile">
+  <div v-if="loading === false" class="container-fluid profile">
     <div class="row title">
-      <div class="col-md-6">
+      <div class="col-6">
         <h2 class="greeting"> Hallo {{user.firstName}} {{user.lastName}}</h2>
       </div>
-      <div class="col-md-6 controls">
+      <div class="col-6 controls">
         <a class="btn btn-light action-button control-btn embed" href="">Einstellungen</a>
         <a class="btn btn-light action-button control-btn embed" href="" @click="logout">Log Out</a>
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-12">
+      <div class="col-12">
         <hr class="seperator">
       </div>
     </div>
     <div class="row">
-      <div class="col-md-2 col-lg-2">
-        <ydl-sidebar v-bind:courseId="user.courses"></ydl-sidebar>
+      <div class="col-2 navigation">
+        <ydl-sidebar v-bind:courseId="user.courses" v-on:load-details="showCourseDetail" v-on:load-overview="showOverView"></ydl-sidebar>
       </div>
-      <div class="col-md-4 col-lg-8 bdr">
-        <ydl-course  v-if="overview" v-on:load-details="console.log('hi')" v-bind:courseId="user.courses"></ydl-course>
+      <div class="col-8 content bdr">
+        <ydl-course  v-if="overview" v-on:load-details="showCourseDetail" v-bind:courseId="user.courses"></ydl-course>
         <ydl-course-detail v-if="!overview" v-model="detailCourseId"></ydl-course-detail>
       </div>
-      <div class="col-md-4 col-lg-2">
+      <div class="col-2 cal">
         <h5>Aktuelle Termine</h5>
         <!-- <ydl-calendar v-bind:tasks="user.tasks"></ydl-calendar> -->
       </div>
@@ -75,8 +75,7 @@ export default {
       console.log("Id of course to show: " + id)
     },
     showOverView () {
-      this.$refs.details.open = false
-      this.$refs.overview.open = true
+      this.overview = true
     },
     logout () {
       this.$session.destroy()
