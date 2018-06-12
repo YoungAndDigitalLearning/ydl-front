@@ -14,7 +14,7 @@
     <a class="nav-link" href="#">Alle Kurse</a>
     </li>
     <li>
-    <a class="nav-link" href="#">Mein Kalender</a>
+    <a class="nav-link" href="#" v-on:click="$emit('load-timetable')">Mein Kalender</a>
     </li>
 </ul>
 </div>
