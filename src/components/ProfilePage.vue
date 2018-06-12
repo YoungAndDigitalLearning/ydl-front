@@ -16,15 +16,17 @@
     </div>
     <div class="row">
       <div class="col-2 navigation">
-        <ydl-sidebar v-bind:courseId="user.courses" v-on:load-details="showCourseDetail" v-on:load-overview="showOverView"></ydl-sidebar>
+        <ydl-sidebar v-bind:courseId="user.courses" v-on:load-details="showCourseDetail" v-on:load-overview="showOverView" v-on:load-timetable="showTimeTable"></ydl-sidebar>
       </div>
       <div class="col-8 content bdr">
-        <ydl-course  v-if="overview" v-on:load-details="showCourseDetail" v-bind:courseId="user.courses"></ydl-course>
-        <ydl-course-detail v-if="!overview" v-model="detailCourseId"></ydl-course-detail>
+        <ydl-course  v-if="content === 'overview'" v-on:load-details="showCourseDetail" v-bind:courseId="user.courses"></ydl-course>
+        <ydl-course-detail v-if="content === 'detail'" v-model="detailCourseId"></ydl-course-detail>
+        <ydl-timetable v-if="content === 'timetable'"></ydl-timetable>
       </div>
       <div class="col-2 cal">
         <h5>Aktuelle Termine</h5>
         <!-- <ydl-calendar v-bind:tasks="user.tasks"></ydl-calendar> -->
+        <a href="/calendar"> Alle Termine </a>
       </div>
     </div>
   </div>
@@ -35,6 +37,7 @@ import Course from "@/components/Course"
 import Calendar from "@/components/Calendar"
 import CoursePage from "@/components/CoursePage"
 import SideBar from "@/components/SideBar"
+import TimeTable from "@/components/TimeTable"
 
 import axios from "axios"
 
@@ -44,7 +47,7 @@ export default {
     return {
       user: {},
       loading: true,
-      overview: true,
+      content: "overview",
       detailCourseId: 0
     }
   },
@@ -52,7 +55,8 @@ export default {
     "ydl-course": Course,
     "ydl-calendar": Calendar,
     "ydl-course-detail": CoursePage,
-    "ydl-sidebar": SideBar
+    "ydl-sidebar": SideBar,
+    "ydl-timetable": TimeTable
   },
   mounted () {
     axios.get("http://jsontest/user/user.json")
@@ -70,12 +74,15 @@ export default {
   methods: {
     showCourseDetail (id) {
       console.log("Triggered")
-      this.overview = false
+      this.content = "detail"
       this.detailCourseId = id
       console.log("Id of course to show: " + id)
     },
     showOverView () {
-      this.overview = true
+      this.content = "overview"
+    },
+    showTimeTable () {
+      this.content = "timetable"
     },
     logout () {
       this.$session.destroy()
