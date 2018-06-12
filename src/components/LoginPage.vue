@@ -75,7 +75,7 @@ export default {
             console.log(response.data.token)
             this.$emit("successful-login")
             this.$router.push("/profile")
-          }else{
+          } else {
             alert(response.status)
           }
         })
