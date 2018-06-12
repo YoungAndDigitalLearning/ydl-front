@@ -16,11 +16,13 @@
       <form @submit.prevent="validateBeforeSubmit">
         <h2 class="sr-only">Login Form</h2>
         <div class="form-group">
-          <input v-model="form.username" v-validate="'required|alpha_dash'" class="form-control" type="text" name="username" placeholder="Username">
+          <input v-model="form.username" id="username" v-validate="'required|alpha_dash'" class="form-control" type="text" name="username" required>
+          <ydl-label inputID="username">Username</ydl-label>
           <span v-show="errors.has('username')" class="required">{{ errors.first("username") }}</span>
         </div>
         <div class="form-group">
-          <input v-model="form.password" v-validate="'required'" class="form-control" type="password" name="password" placeholder="Password">
+          <input v-model="form.password" v-validate="'required'" id="password" class="form-control" type="password" name="password" required>
+          <ydl-label inputID="password">Password</ydl-label>
           <span v-show="errors.has('password')" class="required">{{ errors.first("password") }}</span>
         </div>
         <div class="form-group">
@@ -36,6 +38,8 @@
 <script>
 import axios from "axios"
 
+import FormLabel from "@/components/FormLabel"
+
 export default {
   name: "LoginPage",
   data () {
@@ -49,6 +53,9 @@ export default {
         password: ""
       }
     }
+  },
+  components: {
+    "ydl-label": FormLabel
   },
   methods: {
     validateBeforeSubmit () {
@@ -99,6 +106,20 @@ export default {
 .ydl-alert-box {
   position: fixed;
   top: 200px;
+}
+
+/* Form Group */
+// make form group position relative so an absolute child will be within this element
+.form-group {
+  position: relative;
+}
+
+// for the animation if input is selected
+.form-control {
+  &:focus + label, &:valid + label {
+    transform: translateY(-100%);
+    font-size: 75%;
+  }
 }
 
 /* Login */
