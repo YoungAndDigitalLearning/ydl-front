@@ -73,8 +73,7 @@ export default {
 }
 
 .text-center {
-  // margin-top: 10px;
-  margin-bottom: 10px;
+  background-color: rgba(197, 204, 5, 0.5);
   padding: 30px;
 }
 </style>
