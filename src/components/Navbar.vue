@@ -20,7 +20,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="#">Settings</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" @click="logout" >Logout</a>
+          <a class="dropdown-item" href="#" @click="logout">Logout</a>
         </div>
       </li>
       </ul>
@@ -57,7 +57,10 @@ export default {
   },
   methods: {
     logout () {
+      /* destroy the session and remove the token from the header */
       this.$session.destroy()
+      delete this.$http.defaults.headers.common["Authorization"]
+      this.$emit("successful-logout")
       this.$router.push("/")
     },
     hideNavbar () {

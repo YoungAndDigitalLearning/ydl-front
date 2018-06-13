@@ -50,8 +50,6 @@
 </template>
 
 <script>
-import axios from "axios"
-
 import FormLabel from "@/components/FormLabel"
 
 export default {
@@ -88,7 +86,8 @@ export default {
     },
     authenticate () {
       // axios.post("http://35.185.239.7:2222/api/token-auth/", this.form)
-      this.$api.post("token-auth", this.form)
+      console.log("pressed login")
+      this.$http.post("token-auth/", this.form)
         .then(response => {
           console.log(response)
           if (response.status === 200 && "token" in response.data) {
