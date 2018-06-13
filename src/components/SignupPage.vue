@@ -21,17 +21,17 @@
           <span v-show="errors.has('username')" class="required">{{ errors.first("username") }}</span>
         </div>
         <div class="form-group">
-          <input class="form-control" v-validate="'required'" id="password1" type="password" name="password1" v-model="form.password" required>
+          <input class="form-control" v-validate="'required'" data-vv-as="password" id="password1" type="password" name="password1" v-model="form.password" required>
           <ydl-label inputID="password1">Password</ydl-label>
           <span v-show="errors.has('password1')" class="required">{{ errors.first("password1") }}</span>
         </div>
         <div class="form-group">
-          <input class="form-control" v-validate="{required: true, is: form.password}" id="password2" type="password" name="password2" required>
+          <input class="form-control" v-validate="{required: true, is: form.password}" data-vv-as="confirm password" id="password2" type="password" name="password2" required>
           <ydl-label inputID="password2">Confirm Password</ydl-label>
           <span v-show="errors.has('password2')" class="required">{{ errors.first("password2") }}</span>
         </div>
         <div class="form-group">
-          <input class="form-control" v-validate="'required|email'" id="email" type="email" name="email" v-model="form.email" required>
+          <input class="form-control" v-validate="'required|email'" id="email" type="text" name="email" v-model="form.email" required>
           <ydl-label inputID="email">Email</ydl-label>
           <span v-show="errors.has('email')" class="required">{{ errors.first("email") }}</span>
         </div>
@@ -83,6 +83,13 @@ export default {
         .then(response => {
           console.log(response.status)
           if (response.status === 201) {
+            if (!this.$session.exists()) {
+              this.$session.start()
+              this.$session.set("user", response.data.username)
+              this.$session.set("jwt", response.data.token)
+              this.$emit("successful-login")
+            }
+            console.log(response.data)
             this.$router.push("/profile")
           }
         })

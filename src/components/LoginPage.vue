@@ -16,12 +16,26 @@
       <form @submit.prevent="validateBeforeSubmit">
         <h2 class="sr-only">Login Form</h2>
         <div class="form-group">
-          <input v-model="form.username" id="username" v-validate="'required|alpha_dash'" class="form-control" type="text" name="username" required>
+          <input  v-model="form.username"
+                  id="username"
+                  v-validate="'required|alpha_dash'"
+                  class="form-control"
+                  type="text"
+                  name="username"
+                  required>
           <ydl-label inputID="username">Username</ydl-label>
-          <span v-show="errors.has('username')" class="required">{{ errors.first("username") }}</span>
+          <span v-show="errors.has('username')"
+                class="required">{{ errors.first("username") }}
+          </span>
         </div>
         <div class="form-group">
-          <input v-model="form.password" v-validate="'required'" id="password" class="form-control" type="password" name="password" required>
+          <input  v-model="form.password"
+                  v-validate="'required'"
+                  id="password"
+                  class="form-control"
+                  type="password"
+                  name="password"
+                  required>
           <ydl-label inputID="password">Password</ydl-label>
           <span v-show="errors.has('password')" class="required">{{ errors.first("password") }}</span>
         </div>
@@ -79,6 +93,7 @@ export default {
           if (response.status === 200 && "token" in response.data) {
             this.$session.start()
             this.$session.set("jwt", response.data.token)
+            this.$session.set("user", response.data.user)
             console.log(response.data.token)
             this.$emit("successful-login")
             this.$router.push("/profile")
