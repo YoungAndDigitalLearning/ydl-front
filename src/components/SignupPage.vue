@@ -46,8 +46,6 @@
 <script>
 import FormLabel from "@/components/FormLabel"
 
-import axios from "axios"
-
 export default {
   name: "SignupPage",
   data () {
@@ -79,7 +77,7 @@ export default {
       this.dismissCountDown = this.dismissSecs
     },
     handleSubmit () {
-      axios.post("http://35.185.239.7:2222/api/users/", this.form)
+      this.$http.post("users/", this.form)
         .then(response => {
           console.log(response.status)
           if (response.status === 201) {

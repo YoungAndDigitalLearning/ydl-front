@@ -74,6 +74,12 @@ export default {
 <style lang="scss" scoped>
 @import "styles/global";
 
+.dropdown-menu {
+  a {
+    color: #333 !important;
+  }
+}
+
 .navbar-collapse {
 
   @include media-breakpoint-down(sm)
