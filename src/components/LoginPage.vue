@@ -85,8 +85,6 @@ export default {
       this.dismissCountDown = this.dismissSecs
     },
     authenticate () {
-      // axios.post("http://35.185.239.7:2222/api/token-auth/", this.form)
-      console.log("pressed login")
       this.$http.post("token-auth/", this.form)
         .then(response => {
           console.log(response)
