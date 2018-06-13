@@ -15,7 +15,7 @@
       <ul v-if="sucLogin" class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <fa-icon icon="portrait" /> Peter Schlüter
+            <fa-icon icon="portrait" /> {{ getUserName }}
           </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="#">Settings</a>
@@ -26,10 +26,10 @@
       </ul>
       <ul v-else class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="/#/signup"><fa-icon icon="edit" /> Sign In</a>
+          <a class="nav-link" href="/#/signup" @click="hideNavbar"><fa-icon icon="edit" /> Sign In</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/#/login" ><fa-icon icon="unlock" /> Login</a>
+          <a class="nav-link" href="/#/login" @click="hideNavbar"><fa-icon icon="unlock" /> Login</a>
         </li>
       </ul>
     </div>
@@ -50,10 +50,19 @@ export default {
       required: true
     }
   },
+  computed: {
+    getUserName () {
+      return this.$session.get("user")
+    }
+  },
   methods: {
     logout () {
       this.$session.destroy()
       this.$router.push("/")
+    },
+    hideNavbar () {
+      var elements = document.querySelector(".navbar-collapse")
+      elements.collapse("hide")
     }
   }
 }
@@ -62,15 +71,21 @@ export default {
 <style lang="scss" scoped>
 @import "styles/global";
 
+.navbar-collapse {
+
+  @include media-breakpoint-down(sm)
+  {
+    height: 100vh;
+    font-size: 120%;
+  }
+  transition: all 300ms;
+}
+
 .navbar {
-  height: $ydl-header-height;
+  min-height: $ydl-header-height;
 
   a {
     color: #ffffff;
-  }
-
-  @include media-breakpoint-down(md) {
-    height: auto;
   }
 }
 </style>
