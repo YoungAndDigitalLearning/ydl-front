@@ -1,6 +1,18 @@
 /* custom variables to use in every style segment */
 
-$ydl-primary: #0689b3;
+$skb-green: #d0d705;
+$skb-dark-green: #adb304;
+$skb-blue: #07a7da;
+$skb-dark-blue: #0689b3;
+$skb-pink: #e94584;
+$skb-dark-pink1: #aa2f7c;
+$skb-dark-pink2: #8c1b62;
+$skb-yellow: #fdc605;
+$skb-dark-yellow: #edb53c;
+$skb-red: #e32c42;
+
+
+$ydl-primary: $skb-dark-blue;
 $ydl-secondary: #BEDB39;
 $ydl-success: #FFE11A;
 
