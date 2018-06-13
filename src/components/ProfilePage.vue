@@ -16,12 +16,18 @@
     </div>
     <div class="row">
       <div class="col-2 navigation">
-        <ydl-sidebar v-bind:courseId="user.courses" v-on:load-details="showCourseDetail" v-on:load-overview="showOverView" v-on:load-timetable="showTimeTable"></ydl-sidebar>
+        <ydl-sidebar v-bind:courseId="user.courses"
+          v-on:load-details="showCourseDetail"
+          v-on:load-overview="showOverView"
+          v-on:load-timetable="showTimeTable"
+          v-on:load-all-courses="showAllCourses">
+        </ydl-sidebar>
       </div>
       <div class="col-8 content bdr">
         <ydl-course  v-if="content === 'overview'" v-on:load-details="showCourseDetail" v-bind:courseId="user.courses"></ydl-course>
         <ydl-course-detail v-if="content === 'detail'" v-model="detailCourseId"></ydl-course-detail>
         <ydl-timetable v-if="content === 'timetable'"></ydl-timetable>
+        <ydl-all-courses v-if="content === 'allcourses'"></ydl-all-courses>
       </div>
       <div class="col-2 cal">
         <h5>Aktuelle Termine</h5>
@@ -38,6 +44,7 @@ import Calendar from "@/components/Calendar"
 import CoursePage from "@/components/CoursePage"
 import SideBar from "@/components/SideBar"
 import TimeTable from "@/components/TimeTable"
+import AllCourses from "@/components/AllCourses"
 
 import axios from "axios"
 
@@ -56,7 +63,8 @@ export default {
     "ydl-calendar": Calendar,
     "ydl-course-detail": CoursePage,
     "ydl-sidebar": SideBar,
-    "ydl-timetable": TimeTable
+    "ydl-timetable": TimeTable,
+    "ydl-all-courses": AllCourses
   },
   mounted () {
     axios.get("http://jsontest/user/user.json")
@@ -83,6 +91,9 @@ export default {
     },
     showTimeTable () {
       this.content = "timetable"
+    },
+    showAllCourses () {
+      this.content = "allcourses"
     },
     logout () {
       this.$session.destroy()
