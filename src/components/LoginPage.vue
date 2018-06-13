@@ -87,7 +87,7 @@ export default {
       this.dismissCountDown = this.dismissSecs
     },
     authenticate () {
-      axios.post("http://35.185.239.7:2222/api/token-auth/", this.form)
+      axios.post("https://35.185.239.7:2222/api/token-auth/", this.form)
         .then(response => {
           console.log(response)
           if (response.status === 200 && "token" in response.data) {

@@ -27,7 +27,7 @@
         <ydl-course  v-if="content === 'overview'" v-on:load-details="showCourseDetail" v-bind:courseId="user.courses"></ydl-course>
         <ydl-course-detail v-if="content === 'detail'" v-model="detailCourseId"></ydl-course-detail>
         <ydl-timetable v-if="content === 'timetable'"></ydl-timetable>
-        <ydl-all-courses v-if="content === 'allcourses'"></ydl-all-courses>
+        <ydl-all-courses v-if="content === 'allcourses'" v-on:load-details="showCourseDetail"></ydl-all-courses>
       </div>
       <div class="col-2 cal">
         <h5>Aktuelle Termine</h5>
