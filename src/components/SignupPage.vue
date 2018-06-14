@@ -83,8 +83,8 @@ export default {
           if (response.status === 201) {
             if (!this.$session.exists()) {
               this.$session.start()
-              this.$session.set("user", response.data.username)
-              this.$session.set("jwt", response.data.token)
+              this.$localStorage.set("user", response.data.username)
+              this.$localStorage.set("jwt", response.data.token)
               this.$emit("successful-login")
             }
             console.log(response.data)

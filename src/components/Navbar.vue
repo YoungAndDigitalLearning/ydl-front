@@ -58,6 +58,8 @@ export default {
   methods: {
     logout () {
       /* destroy the session and remove the token from the header */
+      this.$localStorage.remove("jwt")
+      this.$localStorage.remove("user")
       this.$session.destroy()
       delete this.$http.defaults.headers.common["Authorization"]
       this.$emit("successful-logout")

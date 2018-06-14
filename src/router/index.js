@@ -3,6 +3,7 @@ import Router from "vue-router"
 import BootstrapVue from "bootstrap-vue"
 import VueSession from "vue-session"
 import VeeValidate from "vee-validate"
+import VueLocalstorage from "vue-localstorage"
 
 import LandingPage from "@/components/LandingPage"
 import ProfilePage from "@/components/ProfilePage"
@@ -22,6 +23,7 @@ Vue.use(VueSession)
 Vue.use(Router)
 Vue.use(BootstrapVue)
 Vue.component("fa-icon", FontAwesomeIcon)
+Vue.use(VueLocalstorage)
 
 export default new Router({
   // mode: "history",

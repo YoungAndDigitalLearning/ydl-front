@@ -119,8 +119,9 @@ export default {
       console.log(this.$http.defaults.baseURL)
       axios.get("http://35.185.239.7:2222/api/users")
       this.$http.get("users/")
-      // this.$session.destroy()
-      // this.$router.push("/")
+      this.$localStorage.remove("jwt")
+      this.$localStorage.remove("user")
+      this.$router.push("/")
     }
   }
 }
