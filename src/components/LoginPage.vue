@@ -87,18 +87,14 @@ export default {
     authenticate () {
       this.$http.post("token-auth/", this.form)
         .then(response => {
-          console.log(response.status === 200)
           if (response.status === 200) {
-            if (!this.$session.exists()) {
-              this.$sesssion.start()
-              this.$localStorage.set("jwt", response.data.token)
-              this.$localStorage.set("user", response.data.user)
-              console.log("saved in localStorage (token): " + this.$localStorage.get("jwt"))
-              console.log("saved in localStorage (user) : " + this.$localStorage.get("user"))
-              console.log(response.data.token)
-              this.$emit("successful-login")
-              this.$router.push("/profile")
-            }
+            this.$localStorage.set("jwt", response.data.token)
+            this.$localStorage.set("user", response.data.user)
+            console.log("saved in localStorage (token): " + this.$localStorage.get("jwt"))
+            console.log("saved in localStorage (user) : " + this.$localStorage.get("user"))
+            console.log(response.data.token)
+            this.$emit("successful-login")
+            this.$router.push("/profile")
           } else {
             alert(response.status)
           }

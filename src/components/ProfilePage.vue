@@ -24,11 +24,13 @@
         </ydl-sidebar>
       </div>
       <div class="col-8 content bdr">
-        <ydl-course  v-if="content === 'overview'" v-on:load-details="showCourseDetail" v-bind:courseId="user.courses"></ydl-course>
+        {{user}}
+        <router-view/>
+        <!-- <ydl-course  v-if="content === 'overview'" v-on:load-details="showCourseDetail" v-bind:courseId="user.courses"></ydl-course>
         <ydl-course-detail v-if="content === 'detail'" v-model="detailCourseId"></ydl-course-detail>
         <ydl-timetable v-if="content === 'timetable'"></ydl-timetable>
         <ydl-all-courses v-if="content === 'allcourses'" v-on:load-details="showCourseDetail"></ydl-all-courses>
-        <ydl-settings v-if="content === 'settings'" v-bind:user="user"></ydl-settings>
+        <ydl-settings v-if="content === 'settings'" v-bind:user="user"></ydl-settings> -->
       </div>
       <div class="col-2 cal">
         <h5>Aktuelle Termine</h5>
@@ -47,8 +49,6 @@ import SideBar from "@/components/SideBar"
 import TimeTable from "@/components/TimeTable"
 import AllCourses from "@/components/AllCourses"
 import Settings from "@/components/Settings"
-
-import axios from "axios"
 
 export default {
   name: "ProfilePage",
@@ -79,16 +79,14 @@ export default {
     }
   },
   mounted () {
-    // readd authoritation again if needed (TODO: improve)
-    if (!("Authorization" in this.$http.defaults.headers.common)) {
-      var token = this.$session.get("jwt")
-      this.$http.defaults.headers.common["Authorization"] = "JWT " + token
-    }
     console.log(this.$http.defaults.headers)
     this.$http.get("users/")
       .then(response => {
         console.log(response.data[0].username)
         this.user = response.data[0]
+        if (this.user.courses === null){
+          this.user.courses = []
+        }
         this.loading = false
       })
     console.log("user: " + this.user)
@@ -117,7 +115,6 @@ export default {
     logout () {
       console.log("make request")
       console.log(this.$http.defaults.baseURL)
-      axios.get("http://35.185.239.7:2222/api/users")
       this.$http.get("users/")
       this.$localStorage.remove("jwt")
       this.$localStorage.remove("user")

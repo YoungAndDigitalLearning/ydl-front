@@ -34,19 +34,21 @@ export default new Router({
       component: LandingPage
     },
     {
-      path: "/profile",
+      path: "/profile/:user",
       name: "skbprofile",
-      component: ProfilePage
-    },
-    {
-      path: "/courseview",
-      name: "skbcourse",
-      component: CoursePage
-    },
-    {
-      path: "/course",
-      name: "skbcoursedetail",
-      component: CoursePage
+      component: ProfilePage,
+      children: [
+        {
+          path: "/courseview",
+          name: "skbcourse",
+          component: CoursePage
+        },
+        {
+          path: "/course",
+          name: "skbcoursedetail",
+          component: CoursePage
+        }
+      ]
     },
     {
       path: "/sandbox",
