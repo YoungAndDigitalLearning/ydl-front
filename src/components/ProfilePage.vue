@@ -48,8 +48,6 @@ import TimeTable from "@/components/TimeTable"
 import AllCourses from "@/components/AllCourses"
 import Settings from "@/components/Settings"
 
-import axios from "axios"
-
 export default {
   name: "ProfilePage",
   data () {
@@ -79,11 +77,6 @@ export default {
     }
   },
   mounted () {
-    // readd authoritation again if needed (TODO: improve)
-    if (!("Authorization" in this.$http.defaults.headers.common)) {
-      var token = this.$session.get("jwt")
-      this.$http.defaults.headers.common["Authorization"] = "JWT " + token
-    }
     console.log(this.$http.defaults.headers)
     this.$http.get("users/")
       .then(response => {
@@ -117,7 +110,6 @@ export default {
     logout () {
       console.log("make request")
       console.log(this.$http.defaults.baseURL)
-      axios.get("http://35.185.239.7:2222/api/users")
       this.$http.get("users/")
       this.$localStorage.remove("jwt")
       this.$localStorage.remove("user")
