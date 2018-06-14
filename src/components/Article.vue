@@ -3,14 +3,14 @@
   <div class="card article-clean">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <div class="card-body intro">
-      <h2 class="card-title">{{ article_entry.headline }}</h2>
+      <h2 class="card-title">{{ article_entry.title }}</h2>
         <p class="text-center">
           <span class="by">by</span>
-          <a href="#">{{article_entry.author}}</a>
-          <span class="date">Sept 8th, 2016 </span>
+          <a href="#">{{ article_entry.author.username }}</a>
+          <span class="date">{{article_entry.date}}</span>
         </p>
-        <img v-if="article_entry.image != ''" class="card-img-top" src="../assets/img/DSC00174.jpg" alt="Card image cap">
-      <div class="card-text" v-html="article_entry.text"></div>
+        <img v-if="article_entry.image != ''" class="card-img-top" :src="article_entry.image" alt="Card image cap">
+      <div class="card-text" v-html="article_entry.content"></div>
     </div>
   </div>
 </div>
