@@ -1,8 +1,7 @@
 <template>
   <div id="app">
-    <ydl-navbar :sucLogin="haslogin !== false" v-on:successful-logout="onSuccessfulLogout"/>
+    <ydl-navbar :sucLogin="haslogin" v-on:successful-logout="onSuccessfulLogout"/>
     <section class="ydl-content">
-      {{haslogin}}
       <router-view v-on:successful-login="onSuccessfulLogin" />
     </section>
   </div>
@@ -18,7 +17,7 @@ export default {
   name: "App",
   data () {
     return {
-      haslogin: this.$localStorage.get("jwt", false)
+      haslogin: this.$localStorage.get("jwt", false) !== false
     }
   },
   components: {"ydl-navbar": Navbar},

@@ -21,8 +21,6 @@
 </template>
 
 <script>
-import axios from "axios"
-
 export default {
   name: "SideBar",
   props: ["courseId"],
@@ -33,9 +31,9 @@ export default {
   },
   mounted () {
     console.log("SidBar courseID: " + this.courseId)
-    for (var id in this.courseId) {
+    for (const id of this.courseId) {
       console.log(id)
-      axios.get("http://jsontest/course/" + id + ".json")
+      this.$http.get("courses/" + id)
         .then(response => {
           console.log(response.data)
           this.courses.push(response.data)

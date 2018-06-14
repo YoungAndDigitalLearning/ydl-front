@@ -7,27 +7,35 @@
     </a>
   </ul>
 </div>
+<div v-else>
+  <h3> Du bist noch keinem Kurs beigetreten" </h3>
+</div>
 </template>
 
 <script>
 export default {
   name: "Course",
-  props: ["courseId"],
   data () {
     return {
+      courseId: [],
       courses: [],
-      open: true
+      open: false
     }
   },
   mounted () {
     console.log("Course: courseID: " + this.courseId)
-    for (const id of this.courseId) {
-      console.log(id)
-      this.$http.get("courses/" + id)
-        .then(response => {
-          console.log(response.data)
-          this.courses.push(response.data)
-        })
+    if (this.courseId !== []) {
+      for (const id of this.courseId) {
+        console.log(id)
+        this.$http.get("courses/" + id)
+          .then(response => {
+            console.log(response.data)
+            this.courses.push(response.data)
+          })
+        this.open = true
+      }
+    } else {
+      this.open = false
     }
   }
 }

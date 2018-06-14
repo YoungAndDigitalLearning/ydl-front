@@ -41,7 +41,7 @@ export default {
   name: "navbar",
   data () {
     return {
-      "isLoggedIn": this.$session.has("jwt")
+      "isLoggedIn": this.$localStorage.get("jwt", false)
     }
   },
   props: {
@@ -52,7 +52,8 @@ export default {
   },
   computed: {
     getUserName () {
-      return this.$session.get("user")
+      console.log("called")
+      return this.$localStorage.get("user")
     }
   },
   methods: {
@@ -60,7 +61,6 @@ export default {
       /* destroy the session and remove the token from the header */
       this.$localStorage.remove("jwt")
       this.$localStorage.remove("user")
-      this.$session.destroy()
       delete this.$http.defaults.headers.common["Authorization"]
       this.$emit("successful-logout")
       this.$router.push("/")
