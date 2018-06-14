@@ -5,8 +5,8 @@
         <h2 class="greeting"> Hallo {{getUsername}}</h2>
       </div>
       <div class="col-6 controls">
-        <a class="btn btn-light control-btn embed" href="">Einstellungen</a>
-        <a class="btn btn-light control-btn embed" href="#" @click="logout">Log Out</a>
+        <a class="btn btn-light action-button control-btn embed" @click="content='settings'" href="/#/profile">Einstellungen</a>
+        <a class="btn btn-light action-button control-btn embed" href="/#/" @click="logout">Log Out</a>
       </div>
     </div>
     <div class="row">
@@ -28,6 +28,7 @@
         <ydl-course-detail v-if="content === 'detail'" v-model="detailCourseId"></ydl-course-detail>
         <ydl-timetable v-if="content === 'timetable'"></ydl-timetable>
         <ydl-all-courses v-if="content === 'allcourses'" v-on:load-details="showCourseDetail"></ydl-all-courses>
+        <ydl-settings v-if="content === 'settings'" v-bind:user="user"></ydl-settings>
       </div>
       <div class="col-2 cal">
         <h5>Aktuelle Termine</h5>
@@ -45,6 +46,7 @@ import CoursePage from "@/components/CoursePage"
 import SideBar from "@/components/SideBar"
 import TimeTable from "@/components/TimeTable"
 import AllCourses from "@/components/AllCourses"
+import Settings from "@/components/Settings"
 
 import axios from "axios"
 
@@ -64,7 +66,8 @@ export default {
     "ydl-course-detail": CoursePage,
     "ydl-sidebar": SideBar,
     "ydl-timetable": TimeTable,
-    "ydl-all-courses": AllCourses
+    "ydl-all-courses": AllCourses,
+    "ydl-settings": Settings
   },
   computed: {
     getUsername () {
