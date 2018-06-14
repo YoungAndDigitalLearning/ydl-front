@@ -2,11 +2,11 @@
   <div v-if="loading === false" class="container-fluid profile">
     <div class="row title">
       <div class="col-6">
-        <h2 class="greeting"> Hallo {{user.firstName}} {{user.lastName}}</h2>
+        <h2 class="greeting"> Hallo {{getUsername}}</h2>
       </div>
       <div class="col-6 controls">
-        <a class="btn btn-light action-button control-btn embed" href="">Einstellungen</a>
-        <a class="btn btn-light action-button control-btn embed" href="" @click="logout">Log Out</a>
+        <a class="btn btn-light control-btn embed" href="">Einstellungen</a>
+        <a class="btn btn-light control-btn embed" href="#" @click="logout">Log Out</a>
       </div>
     </div>
     <div class="row">
@@ -66,10 +66,26 @@ export default {
     "ydl-timetable": TimeTable,
     "ydl-all-courses": AllCourses
   },
+  computed: {
+    getUsername () {
+      if (this.user.first_name === "" && this.user.last_name === "") {
+        return this.user.username
+      } else {
+        return this.user.first_name + " " + this.user.last_name
+      }
+    }
+  },
   mounted () {
-    axios.get("http://jsontest/user/user.json")
+    // readd authoritation again if needed (TODO: improve)
+    if (!("Authorization" in this.$http.defaults.headers.common)) {
+      var token = this.$session.get("jwt")
+      this.$http.defaults.headers.common["Authorization"] = "JWT " + token
+    }
+    console.log(this.$http.defaults.headers)
+    this.$http.get("users/")
       .then(response => {
-        this.user = response.data
+        console.log(response.data[0].username)
+        this.user = response.data[0]
         this.loading = false
       })
     console.log("user: " + this.user)
@@ -96,8 +112,12 @@ export default {
       this.content = "allcourses"
     },
     logout () {
-      this.$session.destroy()
-      this.$router.push("/")
+      console.log("make request")
+      console.log(this.$http.defaults.baseURL)
+      axios.get("http://35.185.239.7:2222/api/users")
+      this.$http.get("users/")
+      // this.$session.destroy()
+      // this.$router.push("/")
     }
   }
 }
