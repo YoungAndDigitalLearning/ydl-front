@@ -41,7 +41,7 @@ export default {
   name: "navbar",
   data () {
     return {
-      "isLoggedIn": this.$session.has("jwt")
+      "isLoggedIn": this.$localStorage.get("jwt", false)
     }
   },
   props: {
@@ -52,7 +52,7 @@ export default {
   },
   computed: {
     getUserName () {
-      return this.$session.get("user")
+      return this.$localStorage.get("user")
     }
   },
   methods: {
