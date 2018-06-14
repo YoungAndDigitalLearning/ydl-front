@@ -121,6 +121,7 @@ export default {
       this.$http.get("users/")
       this.$localStorage.remove("jwt")
       this.$localStorage.remove("user")
+      this.$session.destroy()
       this.$router.push("/")
     }
   }
