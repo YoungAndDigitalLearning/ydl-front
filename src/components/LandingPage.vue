@@ -57,7 +57,6 @@ export default {
 }
 
 .text-center {
-  background-color: rgba(197, 204, 5, 0.5);
   padding: 30px;
 }
 </style>

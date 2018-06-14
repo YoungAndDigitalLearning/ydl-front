@@ -32,7 +32,6 @@ export default {
 @import "../assets/css/Article-Clean.css";
 
 .wrapper {
-  background-color: rgba(197, 204, 5, 0.5);
   padding-left: 70px;
   padding-right: 70px;
   padding-top: 25px;
