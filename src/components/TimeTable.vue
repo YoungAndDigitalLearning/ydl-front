@@ -205,12 +205,12 @@ export default {
     }
   },
   mounted () {
-    axios.get("http://jsontest/timetable/timetable.json")
-      .then(response => {
-        this.timetable = response.data
-      })
+    // axios.get("http://jsontest/timetable/timetable.json")
+    //   .then(response => {
+    //     this.timetable = response.data
+    //   })
     this.loading = false
-    console.log(this.timetable)
+    console.log("DISABLED because not ready yet")
   }
 }
 </script>
