@@ -79,13 +79,14 @@ export default {
   mounted () {
     this.$http.get("users/" + this.$localStorage.get("user_id"))
       .then(response => {
-        console.log(this.user)
         this.user = response.data
+        console.log(this.user.username)
         this.$localStorage.set("courses", this.user.courses)
         this.loading = false
       })
   },
   beforeCreate () {
+    console.log(this.$localStorage.get("user"))
     if (!this.$session.exists()) {
       // this.$router.push("/#")
     }

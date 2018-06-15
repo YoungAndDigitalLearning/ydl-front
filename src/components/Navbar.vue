@@ -54,6 +54,7 @@ export default {
   computed: {
     getUserName () {
       console.log("called")
+      console.log(this.$localStorage.get("user"))
       return this.$localStorage.get("user")
     }
   },
