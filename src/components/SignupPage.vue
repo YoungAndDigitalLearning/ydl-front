@@ -82,9 +82,9 @@ export default {
           console.log(response.status)
           if (response.status === 201) {
             if (!this.$session.exists()) {
-              this.$session.start()
               this.$localStorage.set("user", response.data.username)
               this.$localStorage.set("jwt", response.data.token)
+              this.$localStorage.set("user_id", response.data.id)
               this.$emit("successful-login")
             }
             console.log(response.data)

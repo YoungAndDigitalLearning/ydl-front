@@ -33,20 +33,24 @@ import CourseWeek from "@/components/CourseWeek"
 
 export default {
   name: "courseview",
-  props: ["value"],
   data () {
     return {
-      toRender: this.course,
       course: {},
+      value: -1,
       loading: true
     }
   },
   mounted () {
+    this.value = this.$route.params.id
     console.log(this.value)
     this.$http.get("courses/" + this.value)
       .then(response => {
         console.log(response.data)
         this.course = response.data
+      })
+      .catch(error => {
+        console.log(error)
+        this.$router.push("/profile/404")
       })
     this.loading = false
   },

@@ -18,9 +18,10 @@
             <fa-icon icon="portrait" /> {{ getUserName }}
           </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Settings</a>
+          <a class="dropdown-item" href="/#/profile" @click="hideNavbar"><fa-icon icon="user-astronaut" /> Profile</a>
+          <a class="dropdown-item" href="#"><fa-icon icon="cog" /> Settings</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#" @click="logout">Logout</a>
+          <a class="dropdown-item" href="#" @click="logout"><fa-icon icon="ambulance" /> Logout</a>
         </div>
       </li>
       </ul>
