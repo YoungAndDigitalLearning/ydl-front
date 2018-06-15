@@ -88,9 +88,11 @@ export default {
       this.$http.post("token/auth/", this.form)
         .then(response => {
           if (response.status === 200) {
+            console.log(response.data)
             this.$localStorage.set("jwt", response.data.token)
             this.$localStorage.set("user_id", response.data.id)
             this.$localStorage.set("user", response.data.user)
+            this.$localStorage.set("courses", response.data.user.courses)
             this.$emit("successful-login")
             this.$router.push("/profile")
           } else {

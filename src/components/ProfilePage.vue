@@ -81,6 +81,7 @@ export default {
       .then(response => {
         console.log(this.user)
         this.user = response.data
+        this.$localStorage.set("courses", this.user.courses)
         this.loading = false
       })
   },

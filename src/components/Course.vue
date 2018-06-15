@@ -3,7 +3,7 @@
   <ul class="list-group" v-for="course in courses" v-bind:key="course.id">
     <a class="list-group-item list-group-item-action" href="/#/profile" v-on:click="$emit('load-details', course.id)">
       <h4> {{course.name}} </h4>
-      <div v-html="course.news"></div>
+      <div v-html="course.description"></div>
     </a>
   </ul>
 </div>
@@ -23,15 +23,18 @@ export default {
     }
   },
   mounted () {
+    this.courseId = this.$localStorage.get("courses")
     console.log("Course: courseID: " + this.courseId)
-    if (this.courseId !== []) {
+    if (this.courseId.length > 0) {
       for (const id of this.courseId) {
-        console.log(id)
-        this.$http.get("courses/" + id)
-          .then(response => {
-            console.log(response.data)
-            this.courses.push(response.data)
-          })
+        if (id !== ",") {
+          console.log(id)
+          this.$http.get("courses/" + id)
+            .then(response => {
+              console.log(response.data)
+              this.courses.push(response.data)
+            })
+        }
         this.open = true
       }
     } else {

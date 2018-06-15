@@ -6,15 +6,15 @@
     <a class="nav-link" href="/#/profile/home">Meine Kurse</a>
     <ul class="nav navbar-nav my-courses" v-for="course in courses" v-bind:key="course.id">
       <li class="nav-item">
-      <a class="nav-link embed" :href="'/profile/' + course.id">{{course.title}}</a>
+      <a class="nav-link embed" :href="'/#/profile/course/' + course.id">{{course.name}}</a>
       </li>
     </ul>
     </li>
     <li>
-    <a class="nav-link" href="/#/profile/course/all" v-on:click="$emit('load-all-courses')">Alle Kurse</a>
+    <a class="nav-link" href="/#/profile/courses">Alle Kurse</a>
     </li>
     <li>
-    <a class="nav-link" href="/#/profile" v-on:click="$emit('load-timetable')">Mein Kalender</a>
+    <a class="nav-link" href="/#/profile/schedule">Mein Kalender</a>
     </li>
 </ul>
 </div>
@@ -23,21 +23,24 @@
 <script>
 export default {
   name: "SideBar",
-  props: ["courseId"],
   data () {
     return {
+      courseId: [],
       courses: []
     }
   },
   mounted () {
+    this.courseId = this.$localStorage.get("courses")
     console.log("SidBar courseID: " + this.courseId)
     for (const id of this.courseId) {
-      console.log(id)
-      this.$http.get("courses/" + id)
-        .then(response => {
-          console.log(response.data)
-          this.courses.push(response.data)
-        })
+      if (id !== ",") {
+        console.log(id)
+        this.$http.get("courses/" + id)
+          .then(response => {
+            console.log(response.data)
+            this.courses.push(response.data)
+          })
+      }
     }
   },
   methods: {

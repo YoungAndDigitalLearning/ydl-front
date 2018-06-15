@@ -69,7 +69,138 @@ export default {
   name: "Calendar",
   data () {
     return {
-      timetable: {},
+      timetable: {
+        "monday": {
+          "t8to10": {
+            "subject": "Polnisch",
+            "room": "H0105"
+          },
+          "t10to12": {
+            "subject": "",
+            "room": ""
+          },
+          "t12to14": {
+            "subject": "",
+            "room": ""
+          },
+          "t14to16": {
+            "subject": "",
+            "room": ""
+          },
+          "t16to18": {
+            "subject": "Englisch",
+            "room": "He101"
+          },
+          "t18to20": {
+            "subject": "",
+            "room": ""
+          }
+        },
+        "tuesday": {
+          "t8to10": {
+            "subject": "",
+            "room": ""
+          },
+          "t10to12": {
+            "subject": "",
+            "room": ""
+          },
+          "t12to14": {
+            "subject": "Spanisch",
+            "room": "MA001"
+          },
+          "t14to16": {
+            "subject": "",
+            "room": ""
+          },
+          "t16to18": {
+            "subject": "",
+            "room": ""
+          },
+          "t18to20": {
+            "subject": "",
+            "room": ""
+          }
+        },
+        "wednesday": {
+          "t8to10": {
+            "subject": "",
+            "room": ""
+          },
+          "t10to12": {
+            "subject": "Japanisch",
+            "room": "C130"
+          },
+          "t12to14": {
+            "subject": "",
+            "room": ""
+          },
+          "t14to16": {
+            "subject": "",
+            "room": ""
+          },
+          "t16to18": {
+            "subject": "",
+            "room": ""
+          },
+          "t18to20": {
+            "subject": "",
+            "room": ""
+          }
+        },
+        "thursday": {
+          "t8to10": {
+            "subject": "",
+            "room": ""
+          },
+          "t10to12": {
+            "subject": "",
+            "room": ""
+          },
+          "t12to14": {
+            "subject": "",
+            "room": ""
+          },
+          "t14to16": {
+            "subject": "",
+            "room": ""
+          },
+          "t16to18": {
+            "subject": "",
+            "room": ""
+          },
+          "t18to20": {
+            "subject": "Schwedisch",
+            "room": "Mar0.017"
+          }
+        },
+        "friday": {
+          "t8to10": {
+            "subject": "",
+            "room": ""
+          },
+          "t10to12": {
+            "subject": "",
+            "room": ""
+          },
+          "t12to14": {
+            "subject": "",
+            "room": ""
+          },
+          "t14to16": {
+            "subject": "Französisch",
+            "room": "A131"
+          },
+          "t16to18": {
+            "subject": "",
+            "room": ""
+          },
+          "t18to20": {
+            "subject": "",
+            "room": ""
+          }
+        }
+      },
       loading: true
     }
   },
