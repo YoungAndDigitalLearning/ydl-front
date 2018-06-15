@@ -85,14 +85,12 @@ export default {
       this.dismissCountDown = this.dismissSecs
     },
     authenticate () {
-      this.$http.post("token-auth/", this.form)
+      this.$http.post("token/auth/", this.form)
         .then(response => {
           if (response.status === 200) {
             this.$localStorage.set("jwt", response.data.token)
+            this.$localStorage.set("user_id", response.data.id)
             this.$localStorage.set("user", response.data.user)
-            console.log("saved in localStorage (token): " + this.$localStorage.get("jwt"))
-            console.log("saved in localStorage (user) : " + this.$localStorage.get("user"))
-            console.log(response.data.token)
             this.$emit("successful-login")
             this.$router.push("/profile")
           } else {
@@ -100,10 +98,11 @@ export default {
           }
         })
         .catch(error => {
-          if (error.response.status === 400) {
-            this.nonFieldErrors = error.response.data.non_field_errors
-            this.showAlert()
-          }
+          // if (error.response.status === 400) {
+          //   this.nonFieldErrors = error.response.data.non_field_errors
+          //   this.showAlert()
+          // }
+          console.log(error)
         })
     }
   }

@@ -8,9 +8,13 @@ import VueLocalstorage from "vue-localstorage"
 import LandingPage from "@/components/LandingPage"
 import ProfilePage from "@/components/ProfilePage"
 import CoursePage from "@/components/CoursePage"
+import Course from "@/components/Course"
 import Sandbox from "@/components/Sandbox"
 import LoginPage from "@/components/LoginPage"
 import SignupPage from "@/components/SignupPage"
+import NotFound from "@/components/NotFound"
+import Settings from "@/components/Settings"
+import AllCourses from "@/components/AllCourses"
 
 import fontawesome from "@fortawesome/fontawesome"
 import freeSolid from "@fortawesome/fontawesome-free-solid/"
@@ -34,19 +38,39 @@ export default new Router({
       component: LandingPage
     },
     {
-      path: "/profile/:user",
+      path: "/profile",
       name: "skbprofile",
       component: ProfilePage,
       children: [
         {
-          path: "/courseview",
+          path: "course/all",
+          name: "allcourses",
+          component: AllCourses
+        },
+        {
+          path: "/signup",
+          name: "skbsignup",
+          component: SignupPage
+        },
+        {
+          path: "course/:id",
           name: "skbcourse",
           component: CoursePage
         },
         {
-          path: "/course",
+          path: "home",
           name: "skbcoursedetail",
-          component: CoursePage
+          component: Course
+        },
+        {
+          path: "404",
+          name: "notfound",
+          component: NotFound
+        },
+        {
+          path: "settings",
+          name: "settings",
+          component: Settings
         }
       ]
     },
@@ -59,11 +83,6 @@ export default new Router({
       path: "/login",
       name: "skblogin",
       component: LoginPage
-    },
-    {
-      path: "/signup",
-      name: "skbsignup",
-      component: SignupPage
     }
   ]
 })
