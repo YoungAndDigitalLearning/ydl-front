@@ -15,6 +15,7 @@ import SignupPage from "@/components/SignupPage"
 import NotFound from "@/components/NotFound"
 import Settings from "@/components/Settings"
 import AllCourses from "@/components/AllCourses"
+import TimeTable from "@/components/TimeTable"
 
 import fontawesome from "@fortawesome/fontawesome"
 import freeSolid from "@fortawesome/fontawesome-free-solid/"
@@ -43,7 +44,7 @@ export default new Router({
       component: ProfilePage,
       children: [
         {
-          path: "course/all",
+          path: "courses",
           name: "allcourses",
           component: AllCourses
         },
@@ -71,6 +72,11 @@ export default new Router({
           path: "settings",
           name: "settings",
           component: Settings
+        },
+        {
+          path: "schedule",
+          name: "timetable",
+          component: TimeTable
         }
       ]
     },
