@@ -5,8 +5,7 @@
         <h2 class="greeting"> Hallo {{getUsername}}</h2>
       </div>
       <div class="col-6 controls">
-        <a class="btn btn-light action-button control-btn embed" @click="content='settings'" href="/#/profile">Einstellungen</a>
-        <a class="btn btn-light action-button control-btn embed" href="/#/" @click="logout">Log Out</a>
+        <a class="btn btn-light action-button control-btn embed" href="/profile/settings">Settings</a>
       </div>
     </div>
     <div class="row">
@@ -24,7 +23,6 @@
         </ydl-sidebar>
       </div>
       <div class="col-8 content bdr">
-        {{user}}
         <router-view/>
         <!-- <ydl-course  v-if="content === 'overview'" v-on:load-details="showCourseDetail" v-bind:courseId="user.courses"></ydl-course>
         <ydl-course-detail v-if="content === 'detail'" v-model="detailCourseId"></ydl-course-detail>
@@ -79,17 +77,12 @@ export default {
     }
   },
   mounted () {
-    console.log(this.$http.defaults.headers)
-    this.$http.get("users/")
+    this.$http.get("users/" + this.$localStorage.get("user_id"))
       .then(response => {
-        console.log(response.data[0].username)
-        this.user = response.data[0]
-        if (this.user.courses === null){
-          this.user.courses = []
-        }
+        console.log(this.user)
+        this.user = response.data
         this.loading = false
       })
-    console.log("user: " + this.user)
   },
   beforeCreate () {
     if (!this.$session.exists()) {
@@ -111,15 +104,6 @@ export default {
     },
     showAllCourses () {
       this.content = "allcourses"
-    },
-    logout () {
-      console.log("make request")
-      console.log(this.$http.defaults.baseURL)
-      this.$http.get("users/")
-      this.$localStorage.remove("jwt")
-      this.$localStorage.remove("user")
-      this.$session.destroy()
-      this.$router.push("/")
     }
   }
 }

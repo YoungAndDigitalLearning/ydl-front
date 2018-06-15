@@ -3,15 +3,15 @@
   <ul class="nav navbar-nav">
     <li class="nav-item">
     <a class="nav-link active" href="#">Übersicht</a>
-    <a class="nav-link" href="/#/profile" v-on:click="$emit('load-overview')">Meine Kurse</a>
+    <a class="nav-link" href="/#/profile/home">Meine Kurse</a>
     <ul class="nav navbar-nav my-courses" v-for="course in courses" v-bind:key="course.id">
       <li class="nav-item">
-      <a class="nav-link embed" v-on:click="$emit('load-details', course.id)">{{course.title}}</a>
+      <a class="nav-link embed" :href="'/profile/' + course.id">{{course.title}}</a>
       </li>
     </ul>
     </li>
     <li>
-    <a class="nav-link" href="/#/profile" v-on:click="$emit('load-all-courses')">Alle Kurse</a>
+    <a class="nav-link" href="/#/profile/course/all" v-on:click="$emit('load-all-courses')">Alle Kurse</a>
     </li>
     <li>
     <a class="nav-link" href="/#/profile" v-on:click="$emit('load-timetable')">Mein Kalender</a>
