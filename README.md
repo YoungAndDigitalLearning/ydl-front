@@ -1,9 +1,10 @@
 # frontend
 DjangoBlockchained submodule frontend
 
-# django-blockchained - frontend
+# Y&D Learning - frontend
 
 > SKB Course Manager
+Manage your language courses easily.
 
 ## Build Setup
 
