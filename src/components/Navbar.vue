@@ -1,40 +1,29 @@
 <template>
-  <nav class="navbar navbar-expand-lg bg-primary fixed-top">
-    <a class="navbar-brand" href="#">Y&D Learning</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-      <fa-icon icon="bars"/>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="/">Home
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
-      </ul>
-      <ul v-if="sucLogin" class="navbar-nav ml-auto">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <fa-icon icon="portrait" /> {{ getUserName }}
-          </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/#/profile" @click="hideNavbar"><fa-icon icon="user-astronaut" /> Profile</a>
-          <a class="dropdown-item" href="#"><fa-icon icon="cog" /> Settings</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#" @click="logout"><fa-icon icon="ambulance" /> Logout</a>
-        </div>
-      </li>
-      </ul>
-      <ul v-else class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/#/signup" @click="hideNavbar"><fa-icon icon="edit" /> Sign In</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/#/login" @click="hideNavbar"><fa-icon icon="unlock" /> Login</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+  <b-navbar toggleable="md" type="dark" variant="primary" fixed="top">
+    <b-navbar-brand href="#">Y&D Learning</b-navbar-brand>
+    <b-navbar-toggle target="nav_collapse"><fa-icon icon="bars"/></b-navbar-toggle>
+    <b-collapse is-nav id="nav_collapse">
+      <b-navbar-nav>
+        <b-nav-item href="#">Home</b-nav-item>
+      </b-navbar-nav>
+      <!-- Right aligned nav items -->
+      <b-navbar-nav v-if="isLoggedIn" class="ml-auto">
+        <b-nav-item-dropdown right>
+          <!-- Using button-content slot -->
+          <template slot="button-content">
+            <em>{{ getUserName }}</em>
+          </template>
+          <b-dropdown-item href="#/profile"><fa-icon icon="user-astronaut"/> Profile</b-dropdown-item>
+          <b-dropdown-item href="#"><fa-icon icon="cog" /> Settings</b-dropdown-item>
+          <b-dropdown-item href="#" @click="logout"><fa-icon icon="ambulance" /> Signout</b-dropdown-item>
+        </b-nav-item-dropdown>
+      </b-navbar-nav>
+      <b-navbar-nav v-else class="ml-auto">
+        <b-nav-item href="/#/signup"><fa-icon icon="edit" /> Sign up</b-nav-item>
+        <b-nav-item href="/#/login"><fa-icon icon="unlock" /> Login</b-nav-item>
+      </b-navbar-nav>
+    </b-collapse>
+  </b-navbar>
 </template>
 
 <script>
@@ -59,9 +48,10 @@ export default {
   },
   methods: {
     logout () {
-      /* destroy the session and remove the token from the header */
+      /* destroy the local storage and remove the token from the header */
       this.$localStorage.remove("jwt")
       this.$localStorage.remove("user")
+      /* remove the key from the header */
       delete this.$http.defaults.headers.common["Authorization"]
       this.$emit("successful-logout")
       this.$router.push("/")
@@ -77,27 +67,11 @@ export default {
 <style lang="scss" scoped>
 @import "styles/global";
 
-.dropdown-menu {
-  a {
-    color: #333 !important;
-  }
-}
+.navbar .navbar-nav > li > a {
+  color:#ffffff !important;
 
-.navbar-collapse {
-
-  @include media-breakpoint-down(sm)
-  {
-    height: 100vh;
-    font-size: 120%;
-  }
-  transition: all 300ms;
-}
-
-.navbar {
-  min-height: $ydl-header-height;
-
-  a {
-    color: #ffffff;
+  &:hover {
+    color: #dddddd!important;
   }
 }
 </style>
