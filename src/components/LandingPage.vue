@@ -58,5 +58,6 @@ export default {
 
 .text-center {
   padding: 30px;
+  padding-top: 50px;
 }
 </style>
