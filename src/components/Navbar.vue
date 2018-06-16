@@ -1,10 +1,10 @@
 <template>
   <b-navbar toggleable="md" type="dark" variant="primary" fixed="top">
-    <b-navbar-brand href="#">Y&D Learning</b-navbar-brand>
+    <b-navbar-brand href="/#/">Y&D Learning</b-navbar-brand>
     <b-navbar-toggle target="nav_collapse"><fa-icon icon="bars"/></b-navbar-toggle>
     <b-collapse is-nav id="nav_collapse">
       <b-navbar-nav>
-        <b-nav-item href="#">Home</b-nav-item>
+        <b-nav-item href="/#/">Home</b-nav-item>
       </b-navbar-nav>
       <!-- Right aligned nav items -->
       <b-navbar-nav v-if="isLoggedIn" class="ml-auto">
