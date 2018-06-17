@@ -30,7 +30,7 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "SKB.CMS",
+      name: "Y&D Learning",
       component: LandingPage
     },
     {
