@@ -7,11 +7,11 @@
         <b-nav-item href="/#/">Home</b-nav-item>
       </b-navbar-nav>
       <!-- Right aligned nav items -->
-      <b-navbar-nav v-if="isLoggedIn" class="ml-auto">
+      <b-navbar-nav v-if="sucLogin" class="ml-auto">
         <b-nav-item-dropdown right>
           <!-- Using button-content slot -->
           <template slot="button-content">
-            <em>{{ getUserName }}</em>
+            {{ getUserName }}
           </template>
           <b-dropdown-item href="#/profile"><fa-icon icon="user-astronaut"/> Profile</b-dropdown-item>
           <b-dropdown-item href="#"><fa-icon icon="cog" /> Settings</b-dropdown-item>
@@ -19,8 +19,8 @@
         </b-nav-item-dropdown>
       </b-navbar-nav>
       <b-navbar-nav v-else class="ml-auto">
-        <b-nav-item href="/#/signup"><fa-icon icon="edit" /> Sign up</b-nav-item>
-        <b-nav-item href="/#/login"><fa-icon icon="unlock" /> Login</b-nav-item>
+        <b-nav-item href="#/signup"><fa-icon icon="edit" /> Sign up</b-nav-item>
+        <b-nav-item href="#/login"><fa-icon icon="unlock" /> Login</b-nav-item>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
@@ -29,11 +29,6 @@
 <script>
 export default {
   name: "navbar",
-  data () {
-    return {
-      "isLoggedIn": this.$localStorage.get("jwt", false)
-    }
-  },
   props: {
     sucLogin: {
       type: Boolean,
@@ -42,7 +37,7 @@ export default {
   },
   computed: {
     getUserName () {
-      console.log("called")
+      console.log("called get user name")
       return this.$localStorage.get("user")
     }
   },
@@ -51,14 +46,11 @@ export default {
       /* destroy the local storage and remove the token from the header */
       this.$localStorage.remove("jwt")
       this.$localStorage.remove("user")
+      this.$localStorage.remove("user_id")
       /* remove the key from the header */
       delete this.$http.defaults.headers.common["Authorization"]
       this.$emit("successful-logout")
       this.$router.push("/")
-    },
-    hideNavbar () {
-      var elements = document.querySelector(".navbar-collapse")
-      elements.collapse("hide")
     }
   }
 }

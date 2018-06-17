@@ -33,6 +33,7 @@ export default {
     },
     onSuccessfulLogout () {
       console.log("success logout!")
+      console.log(this.$localStorage.get("jwt", false) !== false)
       /* tell via variable the user has logout */
       this.haslogin = false
     }
