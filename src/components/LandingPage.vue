@@ -35,7 +35,6 @@ export default {
 @import "styles/global";
 
 .background {
-    background-image: url("../assets/img/paper-1990111_1920.jpg");
     background-attachment: fixed;
 }
 

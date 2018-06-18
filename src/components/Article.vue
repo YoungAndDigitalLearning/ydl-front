@@ -30,15 +30,21 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/css/Article-Clean.css";
+@import "styles/global";
 
 .wrapper {
   padding-left: 70px;
   padding-right: 70px;
   padding-top: 25px;
+
+  @include media-breakpoint-down(sm) {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
 }
 
 .card {
   margin-bottom: 25px;
-  width: 600px;
+  max-width: 600px;
 }
 </style>
