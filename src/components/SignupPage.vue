@@ -82,9 +82,7 @@ export default {
           console.log(response.status)
           if (response.status === 201) {
             if (!this.$session.exists()) {
-              this.$localStorage.set("user", response.data.username)
               this.$localStorage.set("jwt", response.data.token)
-              this.$localStorage.set("user_id", response.data.id)
               this.$emit("successful-login")
             }
             console.log(response.data)
@@ -92,9 +90,33 @@ export default {
           }
         })
         .catch(error => {
+          console.log(error)
           if (error.response.status === 400) {
-            this.nonFieldErrors = error.response.data.non_field_errors
-            this.showAlert()
+            if ("non_field_errors" in error.response.data) {
+              for (var key in error.response.data.non_field_errors) {
+                this.$notify({
+                  title: error.response.statusText,
+                  text: error.response.data.non_field_errors[key],
+                  type: "error"
+                })
+              }
+            } else {
+              for (var field in error.response.data) {
+                for (var fieldKey in error.response.data[field]) {
+                  this.$notify({
+                    title: error.response.statusText,
+                    text: error.response.data[field][fieldKey],
+                    type: "error"
+                  })
+                }
+              }
+            }
+          } else {
+            this.$notify({
+              title: "Unhandled Exception",
+              text: error.response.data,
+              type: "error"
+            })
           }
         })
     }

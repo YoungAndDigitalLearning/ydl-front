@@ -99,8 +99,21 @@ export default {
         })
         .catch(error => {
           if (error.response.status === 400) {
-            this.nonFieldErrors = error.response.data.non_field_errors
-            this.showAlert()
+            if ("non_field_errors" in error.response.data) {
+              for (var key in error.response.data.non_field_errors) {
+                this.$notify({
+                  title: error.response.statusText,
+                  text: error.response.data.non_field_errors[key],
+                  type: "error"
+                })
+              }
+            }
+          } else {
+            this.$notify({
+              title: "Unhandled Exception",
+              text: error.response.data,
+              type: "error"
+            })
           }
         })
     }

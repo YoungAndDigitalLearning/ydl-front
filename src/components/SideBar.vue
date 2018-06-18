@@ -3,6 +3,7 @@
   <ul class="nav navbar-nav">
     <li class="nav-item">
     <a class="nav-link active" href="#">Übersicht</a>
+    <a v-if="isTeacher" class="nav-link" href="/#/profile" @click="$emit('load-create-course')">Create Course</a>
     <a class="nav-link" href="/#/profile" v-on:click="$emit('load-overview')">Meine Kurse</a>
     <ul class="nav navbar-nav my-courses" v-for="course in courses" v-bind:key="course.id">
       <li class="nav-item">
@@ -23,7 +24,7 @@
 <script>
 export default {
   name: "SideBar",
-  props: ["courseId"],
+  props: ["courseId", "isTeacher"],
   data () {
     return {
       courses: []

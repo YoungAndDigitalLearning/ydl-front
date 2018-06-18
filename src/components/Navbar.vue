@@ -14,7 +14,7 @@
             {{ getUserName }}
           </template>
           <b-dropdown-item href="#/profile"><fa-icon icon="user-astronaut"/> Profile</b-dropdown-item>
-          <b-dropdown-item href="#"><fa-icon icon="cog" /> Settings</b-dropdown-item>
+          <b-dropdown-item href="#/profile/settings"><fa-icon icon="cog" /> Settings</b-dropdown-item>
           <b-dropdown-item href="#" @click="logout"><fa-icon icon="ambulance" /> Signout</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import jwtDecode from "jwt-decode"
+
 export default {
   name: "navbar",
   props: {
@@ -38,15 +40,15 @@ export default {
   computed: {
     getUserName () {
       console.log("called get user name")
-      return this.$localStorage.get("user")
+      var token = this.$localStorage.get("jwt")
+      var tokenPayload = jwtDecode(token)
+      return tokenPayload.username
     }
   },
   methods: {
     logout () {
       /* destroy the local storage and remove the token from the header */
       this.$localStorage.remove("jwt")
-      this.$localStorage.remove("user")
-      this.$localStorage.remove("user_id")
       /* remove the key from the header */
       delete this.$http.defaults.headers.common["Authorization"]
       this.$emit("successful-logout")

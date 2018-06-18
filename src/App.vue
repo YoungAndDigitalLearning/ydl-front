@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <notifications classes="vue-notification notify" />
     <ydl-navbar :sucLogin="haslogin" v-on:successful-logout="onSuccessfulLogout"/>
     <section class="ydl-content">
       <router-view v-on:successful-login="onSuccessfulLogin" />
@@ -43,6 +44,10 @@ export default {
 
 <style lang="scss">
 @import "styles/global";
+
+.notify {
+  margin-top: 70px;
+}
 
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
