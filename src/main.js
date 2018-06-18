@@ -5,6 +5,9 @@ import App from "./App"
 import router from "./router"
 import axios from "axios"
 
+// TODO: use jwt decode
+// var jwtDecode = require("jwt-decode")
+
 Vue.config.productionTip = false
 
 /* create default axios instance to use it from all components with same settings */
