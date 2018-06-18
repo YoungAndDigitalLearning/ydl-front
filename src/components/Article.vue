@@ -9,7 +9,7 @@
           <a href="#">{{ article_entry.author.username }}</a>
           <span class="date">{{article_entry.date}}</span>
         </p>
-        <img v-if="article_entry.image != ''" class="card-img-top" :src="article_entry.image" alt="Card image cap">
+        <img v-if="article_entry.image" class="card-img-top" :src="article_entry.image" alt="Card image cap">
       <div class="card-text" v-html="article_entry.content"></div>
     </div>
   </div>

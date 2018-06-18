@@ -1,23 +1,20 @@
 <template>
 <div v-if="loading === false">
   <div class="header">
-    <h2 class="greeting"> Hallo {{getUsername}}</h2>
+    <h2 class="greeting"> Hallo {{getUsername}} <small>({{getTeacherStatus}})</small></h2>
   </div>
   <div class="profile-container">
     <div class="profile-navigation">
-        <ydl-sidebar v-bind:courseId="user.courses"
+        <ydl-sidebar v-bind:isTeacher="user.is_teacher" v-bind:courseId="user.courses"
           v-on:load-details="showCourseDetail"
           v-on:load-overview="showOverView"
           v-on:load-timetable="showTimeTable"
-          v-on:load-all-courses="showAllCourses">
+          v-on:load-all-courses="showAllCourses"
+          v-on:load-course-create="showCreateCourse">
         </ydl-sidebar>
     </div>
     <div class="profile-content">
-        <ydl-course  v-if="content === 'overview'" v-on:load-details="showCourseDetail" v-bind:courseId="user.courses"></ydl-course>
-        <ydl-course-detail v-if="content === 'detail'" v-model="detailCourseId"></ydl-course-detail>
-        <ydl-timetable v-if="content === 'timetable'"></ydl-timetable>
-        <ydl-all-courses v-if="content === 'allcourses'" v-on:load-details="showCourseDetail"></ydl-all-courses>
-        <ydl-settings v-if="content === 'settings'" v-bind:user="user"></ydl-settings>
+      <router-view/>
     </div>
     <div class="profile-calendar">
         <h5>Aktuelle Termine</h5>
@@ -28,42 +25,6 @@
 <div v-else class="loading-screen">
   <fa-icon icon="spinner" spin/>
 </div>
-  <!--<div v-if="loading === false" class="container-fluid profile">
-    <div class="row title">
-      <div class="col-6">
-        <h2 class="greeting"> Hallo {{getUsername}}</h2>
-      </div>
-      <div class="col-6 controls">
-        <a class="btn btn-light action-button control-btn embed" @click="content='settings'" href="/#/profile">Settings</a>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <hr class="seperator">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-2 navigation">
-        <ydl-sidebar v-bind:courseId="user.courses"
-          v-on:load-details="showCourseDetail"
-          v-on:load-overview="showOverView"
-          v-on:load-timetable="showTimeTable"
-          v-on:load-all-courses="showAllCourses">
-        </ydl-sidebar>
-      </div>
-      <div class="col-8 content bdr">
-        <ydl-course  v-if="content === 'overview'" v-on:load-details="showCourseDetail" v-bind:courseId="user.courses"></ydl-course>
-        <ydl-course-detail v-if="content === 'detail'" v-model="detailCourseId"></ydl-course-detail>
-        <ydl-timetable v-if="content === 'timetable'"></ydl-timetable>
-        <ydl-all-courses v-if="content === 'allcourses'" v-on:load-details="showCourseDetail"></ydl-all-courses>
-        <ydl-settings v-if="content === 'settings'" v-bind:user="user"></ydl-settings>
-      </div>
-      <div class="col-2 cal">
-        <h5>Aktuelle Termine</h5>
-        <a href="/calendar"> Alle Termine </a>
-      </div>
-    </div>
-  </div> -->
 </template>
 
 <script ref="ydl-course ydl-course-detail">
@@ -74,6 +35,9 @@ import SideBar from "@/components/SideBar"
 import TimeTable from "@/components/TimeTable"
 import AllCourses from "@/components/AllCourses"
 import Settings from "@/components/Settings"
+import CreateCourse from "@/components/CreateCourse"
+
+import jwtDecode from "jwt-decode"
 
 export default {
   name: "ProfilePage",
@@ -92,7 +56,8 @@ export default {
     "ydl-sidebar": SideBar,
     "ydl-timetable": TimeTable,
     "ydl-all-courses": AllCourses,
-    "ydl-settings": Settings
+    "ydl-settings": Settings,
+    "ydl-create-course": CreateCourse
   },
   computed: {
     getUsername () {
@@ -101,10 +66,19 @@ export default {
       } else {
         return this.user.first_name + " " + this.user.last_name
       }
+    },
+    getTeacherStatus () {
+      if (this.user.is_teacher) {
+        return "teacher"
+      } else {
+        return "student"
+      }
     }
   },
   mounted () {
-    this.$http.get("users/" + this.$localStorage.get("user_id"))
+    var token = this.$localStorage.get("jwt")
+    console.log(jwtDecode(token))
+    this.$http.get("users/" + jwtDecode(token).user_id)
       .then(response => {
         console.log(this.user)
         this.user = response.data
@@ -131,6 +105,9 @@ export default {
     },
     showAllCourses () {
       this.content = "allcourses"
+    },
+    showCreateCourse () {
+      this.content = "createcourse"
     }
   }
 }

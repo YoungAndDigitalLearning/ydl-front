@@ -38,6 +38,7 @@
 
 <script>
 import FormLabel from "@/components/FormLabel"
+import jwtDecode from "jwt-decode"
 
 export default {
   name: "Settings",
@@ -49,6 +50,15 @@ export default {
   },
   components: {
     "ydl-label": FormLabel
+  },
+  mounted () {
+    var token = this.$localStorage.get("jwt")
+    console.log(jwtDecode(token))
+    this.$http.get("users/" + jwtDecode(token).user_id)
+      .then(response => {
+        console.log(this.user)
+        this.user = response.data
+      })
   },
   methods: {
     handleSubmit () {

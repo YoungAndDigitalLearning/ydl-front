@@ -24,6 +24,13 @@ export default {
       .then(response => {
         this.articleEntries = response.data
       })
+      .catch(error => {
+        this.$notify({
+          title: error.response.statusText,
+          text: error.message,
+          type: "error"
+        })
+      })
   },
   components: {
     "ydl-article": Article
