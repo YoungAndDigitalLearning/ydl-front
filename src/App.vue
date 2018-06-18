@@ -46,7 +46,7 @@ export default {
 @import "styles/global";
 
 .notify {
-  margin-top: 70px;
+  margin-top: 70px !important;
 }
 
 #app {
