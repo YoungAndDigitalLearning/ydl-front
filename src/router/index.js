@@ -17,6 +17,7 @@ import Settings from "@/components/Settings"
 import AllCourses from "@/components/AllCourses"
 import TimeTable from "@/components/TimeTable"
 import CreateCourse from "@/components/CreateCourse"
+import Post from "@/components/Post"
 
 import fontawesome from "@fortawesome/fontawesome"
 import freeSolid from "@fortawesome/fontawesome-free-solid/"
