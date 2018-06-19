@@ -2,8 +2,8 @@
   <div id="app">
     <ydl-navbar :sucLogin="haslogin !== false" v-on:successful-logout="onSuccessfulLogout"/>
     <section class="ydl-content">
-      {{haslogin}}
       <router-view v-on:successful-login="onSuccessfulLogin" />
+      <ydl-footer></ydl-footer>
     </section>
   </div>
 </template>
@@ -13,6 +13,7 @@ import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap-vue/dist/bootstrap-vue.css"
 
 import Navbar from "@/components/Navbar.vue"
+import Footer from "@/components/Footer.vue"
 
 export default {
   name: "App",
@@ -21,7 +22,10 @@ export default {
       haslogin: this.$localStorage.get("jwt", false)
     }
   },
-  components: {"ydl-navbar": Navbar},
+  components: {
+    "ydl-navbar": Navbar,
+    "ydl-footer": Footer
+  },
   methods: {
     onSuccessfulLogin () {
       console.log("success login!")

@@ -1,5 +1,6 @@
 <template>
   <div v-if="loading === false" class="container-fluid profile">
+    {{$route.params.id}}
     <div class="row title">
       <div class="col-6">
         <h2 class="greeting"> Hallo {{getUsername}}</h2>
@@ -24,11 +25,12 @@
         </ydl-sidebar>
       </div>
       <div class="col-8 content bdr">
-        <ydl-course  v-if="content === 'overview'" v-on:load-details="showCourseDetail" v-bind:courseId="user.courses"></ydl-course>
+        <router-view></router-view>
+        <!-- <ydl-course  v-if="content === 'overview'" v-on:load-details="showCourseDetail" v-bind:courseId="user.courses"></ydl-course>
         <ydl-course-detail v-if="content === 'detail'" v-model="detailCourseId"></ydl-course-detail>
         <ydl-timetable v-if="content === 'timetable'"></ydl-timetable>
         <ydl-all-courses v-if="content === 'allcourses'" v-on:load-details="showCourseDetail"></ydl-all-courses>
-        <ydl-settings v-if="content === 'settings'" v-bind:user="user"></ydl-settings>
+        <ydl-settings v-if="content === 'settings'" v-bind:user="user"></ydl-settings> -->
       </div>
       <div class="col-2 cal">
         <h5>Aktuelle Termine</h5>

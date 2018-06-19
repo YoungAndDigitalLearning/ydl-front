@@ -9,7 +9,8 @@ Vue.config.productionTip = false
 
 /* create default axios instance to use it from all components with same settings */
 const api = axios.create({
-  baseURL: "http://35.185.239.7:2222/api/"
+  // baseURL: "http://35.185.239.7:2222/api/"
+  baseURL: "http://jsontest/"
 })
 
 Vue.prototype.$http = api
