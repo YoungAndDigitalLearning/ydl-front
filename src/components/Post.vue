@@ -84,12 +84,12 @@ export default {
     justify-content: space-between;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    margin-top: 15px; 
+    margin-top: 15px;
 
     div {
       span {
         color:white;
-        padding: 15px; 
+        padding: 15px;
       }
 
       .post-title {

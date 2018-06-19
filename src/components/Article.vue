@@ -1,5 +1,4 @@
 <template>
-<div class="wrapper">
   <div class="card article-clean">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <div class="card-body intro">
@@ -13,7 +12,6 @@
       <div class="card-text" v-html="article_entry.content"></div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -32,7 +30,7 @@ export default {
 @import "../assets/css/Article-Clean.css";
 @import "styles/global";
 
-.wrapper {
+.wradpper {
   padding-left: 70px;
   padding-right: 70px;
   padding-top: 25px;
@@ -45,6 +43,11 @@ export default {
 
 .card {
   margin-bottom: 25px;
-  max-width: 600px;
+  margin: 0px 25px 20px 20px;
+  width: 600px;
+
+  @include media-breakpoint-down(sm) {
+    width: 95%;
+  }
 }
 </style>
