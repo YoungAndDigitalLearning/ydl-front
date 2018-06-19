@@ -11,6 +11,7 @@ import CoursePage from "@/components/CoursePage"
 import Sandbox from "@/components/Sandbox"
 import LoginPage from "@/components/LoginPage"
 import SignupPage from "@/components/SignupPage"
+import Post from "@/components/Post"
 
 import fontawesome from "@fortawesome/fontawesome"
 import freeSolid from "@fortawesome/fontawesome-free-solid/"
@@ -34,19 +35,21 @@ export default new Router({
       component: LandingPage
     },
     {
-      path: "/profile",
+      path: "/profile/:id/",
       name: "skbprofile",
-      component: ProfilePage
-    },
-    {
-      path: "/courseview",
-      name: "skbcourse",
-      component: CoursePage
-    },
-    {
-      path: "/course",
-      name: "skbcoursedetail",
-      component: CoursePage
+      component: ProfilePage,
+      children: [
+        {
+          path: "/courseview",
+          name: "skbcourse",
+          component: CoursePage
+        },
+        {
+          path: "/course/:id",
+          name: "skbcoursedetail",
+          component: CoursePage
+        }
+      ]
     },
     {
       path: "/sandbox",
@@ -62,6 +65,11 @@ export default new Router({
       path: "/signup",
       name: "skbsignup",
       component: SignupPage
+    },
+    {
+      path: "/post",
+      name: "skbpost",
+      component: Post
     }
   ]
 })
