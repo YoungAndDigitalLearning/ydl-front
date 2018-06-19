@@ -1,12 +1,10 @@
 <template>
-<div class="background">
   <div class="landing-page">
     <h1 class="text-center text-primary">Young&Digital Learning</h1>
     <div class="ydl-article-container">
       <ydl-article v-for="article in articleEntries" v-bind:article_entry='article' v-bind:key="article.id"></ydl-article>
     </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -20,7 +18,7 @@ export default {
     }
   },
   mounted () {
-    this.$http.get("anouncements/")
+    this.$http.get("announcements/")
       .then(response => {
         this.articleEntries = response.data
       })
@@ -41,12 +39,9 @@ export default {
 <style lang="scss" scoped>
 @import "styles/global";
 
-.background {
-    background-attachment: fixed;
-}
-
 .landing-page {
   background-color: rgba(7, 167, 218, 0.125);
+  height: 100%;
 }
 
 @include media-breakpoint-down(sm)
