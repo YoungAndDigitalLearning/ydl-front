@@ -9,7 +9,7 @@
           <a href="#">{{ article_entry.author.username }}</a>
           <span class="date">{{article_entry.date}}</span>
         </p>
-        <img v-if="article_entry.image != ''" class="card-img-top" :src="article_entry.image" alt="Card image cap">
+        <img v-if="article_entry.image" class="card-img-top" :src="article_entry.image" alt="Card image cap">
       <div class="card-text" v-html="article_entry.content"></div>
     </div>
   </div>
@@ -30,15 +30,21 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/css/Article-Clean.css";
+@import "styles/global";
 
 .wrapper {
   padding-left: 70px;
   padding-right: 70px;
   padding-top: 25px;
+
+  @include media-breakpoint-down(sm) {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
 }
 
 .card {
   margin-bottom: 25px;
-  width: 600px;
+  max-width: 600px;
 }
 </style>

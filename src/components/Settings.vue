@@ -1,101 +1,35 @@
 <template>
 <div>
   <h1> Einstellungen </h1>
-  <div v-if="!editmode" class="container">
+  <div class="settings-container">
     <div>
-      <figure class="figure">
-        <img src="../assets/img/blank-profile-picture.jpg" class="figure-img img-fluid rounded" alt="no image found">
-      </figure>
-    </div>
-    <div>
-      <table class="setting-table">
-        <tr>
-          <th>Vorname:</th>
-          <td>{{user.firstName}}</td>
-        </tr>
-        <tr>
-          <th>Nachname:</th>
-          <td>{{user.lastName}}</td>
-        </tr>
-        <tr>
-          <th>Benutzername:</th>
-          <td>{{user.username}}</td>
-        </tr>
-        <tr>
-          <th>E-Mail:</th>
-          <td>{{user.email}}</td>
-        </tr>
-        <tr>
-          <th>Straße, Hausnummer:</th>
-          <td>{{user.adress.street}}, {{user.adress.houseNumber}}</td>
-        </tr>
-        <tr>
-          <th>PLZ, Ort:</th>
-          <td>{{user.adress.postCode}} {{user.adress.city}}</td>
-        </tr>
-        <tr class="control">
-          <td colspan="2"><button class="btn ydl-btn" @click="startEditing"> Bearbeiten </button></td>
-        </tr>
-      </table>
-    </div>
-  </div>
-  <div v-else class="container">
-    <div>
-      <figure class="figure">
-        <img src="../assets/img/blank-profile-picture.jpg" class="figure-img img-fluid rounded" alt="no image found">
-        <figcaption>
-          <button class="btn ydl-btn"> Bild hochladen</button>
-        </figcaption>
-      </figure>
-    </div>
-    <div>
-      <form @submit.prevent="saveChanges">
-        <table class="setting-table">
-          <tr>
-            <th>Vorname:</th>
-            <td>
-              <input class="text" type="text" name="firstName" v-bind:value="user.firstName" placeholder="Vorname">
-            </td>
-          </tr>
-          <tr>
-            <th>Nachname:</th>
-            <td>
-              <input class="text" type="text" name="lastName" v-bind:value="user.lastName" placeholder="Nachname">
-            </td>
-          </tr>
-          <tr>
-            <th>Benutzername:</th>
-            <td>
-              <input class="text" type="text" name="username" v-bind:value="user.username" placeholder="Benutzername">
-            </td>
-          </tr>
-          <tr>
-            <th>E-Mail:</th>
-            <td>
-              <input class="text" type="text" name="email" v-bind:value="user.email" placeholder="E-Mail">
-            </td>
-          </tr>
-          <tr>
-            <th>Straße, Hausnummer:</th>
-            <td>
-              <input type="text" name="street" v-bind:value="user.adress.street" placeholder="Straße">
-              <input class="number" type="text" name="houseNumber" v-bind:value="user.adress.houseNumber" placeholder="Hausnummer" maxlength="5">
-            </td>
-          </tr>
-          <tr>
-            <th>PLZ, Ort:</th>
-            <td>
-              <input class="number" type="text" name="plz" v-bind:value="user.adress.postCode" placeholder="PLZ" maxlength="5">
-              <input type="text" name="city" v-bind:value="user.adress.city" placeholder="City">
-            </td>
-          </tr>
-          <tr class="control">
-            <td colspan="2">
-              <button type="submit" class="btn ydl-btn"> Speichern </button>
-              <button class="btn ydl-btn" @click="abortEditing"> Abbrechen </button>
-            </td>
-          </tr>
-        </table>
+      <form @submit.prevent="handleSubmit">
+        <h2 class="sr-only">Login Form</h2>
+        <div class="form-group">
+          <input class="form-control" v-validate="'required|alpha_dash'" id="username" type="text" name="username" v-model="user.username" required>
+          <ydl-label inputID="username">Username</ydl-label>
+          <span v-show="errors.has('username')" class="required">{{ errors.first("username") }}</span>
+        </div>
+        <div class="form-group">
+          <input class="form-control" v-validate="'alpha_num'" id="first-name" type="text" name="first-name" v-model="user.first_name" required>
+          <ydl-label inputID="first-name">First Name</ydl-label>
+          <span v-show="errors.has('first-name')" class="required">{{ errors.first("first-name") }}</span>
+          <span v-if="!user.first_name" class="required-optional">first name not provided</span>
+        </div>
+        <div class="form-group">
+          <input class="form-control" v-validate="'alpha_num'" id="last-name" type="text" name="last-name" v-model="user.last_name" required>
+          <ydl-label inputID="last-name">Last Name</ydl-label>
+          <span v-show="errors.has('last-name')" class="required">{{ errors.first("last-name") }}</span>
+          <span v-if="!user.first_name" class="required-optional">last name not provided</span>
+        </div>
+        <div class="form-group">
+          <input class="form-control" v-validate="'required|email'" id="email" type="text" name="email" v-model="user.email" required>
+          <ydl-label inputID="email">Email</ydl-label>
+          <span v-show="errors.has('email')" class="required">{{ errors.first("email") }}</span>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary btn-block" type="submit">Update</button>
+        </div>
       </form>
     </div>
   </div>
@@ -103,6 +37,9 @@
 </template>
 
 <script>
+import FormLabel from "@/components/FormLabel"
+import jwtDecode from "jwt-decode"
+
 export default {
   name: "Settings",
   props: ["user"],
@@ -111,7 +48,23 @@ export default {
       editmode: false
     }
   },
+  components: {
+    "ydl-label": FormLabel
+  },
+  mounted () {
+    var token = this.$localStorage.get("jwt")
+    console.log(jwtDecode(token))
+    this.$http.get("users/" + jwtDecode(token).user_id)
+      .then(response => {
+        console.log(this.user)
+        this.user = response.data
+      })
+  },
   methods: {
+    handleSubmit () {
+      this.$http.put("users/" + this.user.id, this.user) // + this.user.id, this.user)
+      console.log("updated user")
+    },
     startEditing () {
       this.editmode = true
     },
@@ -128,6 +81,20 @@ export default {
 
 <style lang="scss" scoped>
 @import "styles/global";
+
+/* Form Group */
+// make form group position relative so an absolute child will be within this element
+.form-group {
+  position: relative;
+}
+
+// for the animation if input is selected
+.form-control {
+  &:focus + label, &:valid + label {
+    transform: translateY(-100%);
+    font-size: 75%;
+  }
+}
 
 .container {
   padding-top: 50px;
@@ -151,35 +118,42 @@ export default {
   transition: 200ms;
 }
 
-.setting-table {
-  float: left;
-  text-align: left;
-  border-collapse: collapse;
-  font-size: 20px;
+/* Login */
+.settings-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 
-  tr {
-    border-bottom: 1px solid black;
+  /* contains the icons and the form */
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px;
+    width: 350px;
+    height: 500px;
+
+    @include media-breakpoint-down(sm)
+    {
+      // make form container full screen
+      width: 100%;
+      height: 100%;
+    }
   }
 
-  th, td {
-    padding: 15px;
-  }
-
-  input {
-    max-width: 200px;
-  }
-
-  .number {
-    max-width: 100px;
-  }
-
-  .text {
-    max-width: 350px;
-  }
-
-  .control {
-    text-align: center;
+  .form-control {
+    background: none;
     border: none;
+    border-bottom: 1px solid $ydl-primary;
+    border-radius: 0;
+    outline: none;
+    box-shadow: none;
+    color: inherit;
+
+    &:focus {
+      border-color: $ydl-secondary;
+    }
   }
 }
 </style>

@@ -16,4 +16,6 @@ $ydl-primary: $skb-dark-blue;
 $ydl-secondary: #BEDB39;
 $ydl-success: #FFE11A;
 
-$ydl-header-height: 60px;
+
+/* is not really the header height but the offset of the body to shift the body approx to the height of the navbar */
+$ydl-header-height: 55px;

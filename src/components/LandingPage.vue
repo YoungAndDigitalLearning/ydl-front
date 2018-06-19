@@ -24,6 +24,13 @@ export default {
       .then(response => {
         this.articleEntries = response.data
       })
+      .catch(error => {
+        this.$notify({
+          title: error.response.statusText,
+          text: error.message,
+          type: "error"
+        })
+      })
   },
   components: {
     "ydl-article": Article
@@ -35,7 +42,6 @@ export default {
 @import "styles/global";
 
 .background {
-    background-image: url("../assets/img/paper-1990111_1920.jpg");
     background-attachment: fixed;
 }
 
@@ -58,5 +64,6 @@ export default {
 
 .text-center {
   padding: 30px;
+  padding-top: 50px;
 }
 </style>
