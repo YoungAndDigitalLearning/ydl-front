@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Article from "@/components/Article"
+import Announcement from "@/components/Announcement"
 
 export default {
   name: "MainPage",
@@ -33,7 +33,7 @@ export default {
       })
   },
   components: {
-    "ydl-article": Article
+    "ydl-article": Announcement
   }
 }
 </script>
