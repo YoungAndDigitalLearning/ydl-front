@@ -85,16 +85,12 @@ export default {
       this.dismissCountDown = this.dismissSecs
     },
     authenticate () {
-      this.$http.post("token-auth/", this.form)
+      this.$http.post("token/auth/", this.form)
         .then(response => {
-          console.log(response.status === 200)
           if (response.status === 200) {
-            this.$sesssion.start()
             this.$localStorage.set("jwt", response.data.token)
+            this.$localStorage.set("user_id", response.data.id)
             this.$localStorage.set("user", response.data.user)
-            console.log("saved in localStorage (token): " + this.$localStorage.get("jwt"))
-            console.log("saved in localStorage (user) : " + this.$localStorage.get("user"))
-            console.log(response.data.token)
             this.$emit("successful-login")
             this.$router.push("/profile")
           } else {
@@ -103,8 +99,21 @@ export default {
         })
         .catch(error => {
           if (error.response.status === 400) {
-            this.nonFieldErrors = error.response.data.non_field_errors
-            this.showAlert()
+            if ("non_field_errors" in error.response.data) {
+              for (var key in error.response.data.non_field_errors) {
+                this.$notify({
+                  title: error.response.statusText,
+                  text: error.response.data.non_field_errors[key],
+                  type: "error"
+                })
+              }
+            }
+          } else {
+            this.$notify({
+              title: "Unhandled Exception",
+              text: error.response.data,
+              type: "error"
+            })
           }
         })
     }

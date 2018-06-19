@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <ydl-navbar :sucLogin="haslogin !== false" v-on:successful-logout="onSuccessfulLogout"/>
+    <notifications classes="vue-notification notify" />
+    <ydl-navbar :sucLogin="haslogin" v-on:successful-logout="onSuccessfulLogout"/>
     <section class="ydl-content">
       <router-view v-on:successful-login="onSuccessfulLogin" />
       <ydl-footer></ydl-footer>
@@ -19,7 +20,7 @@ export default {
   name: "App",
   data () {
     return {
-      haslogin: this.$localStorage.get("jwt", false)
+      haslogin: this.$localStorage.get("jwt", false) !== false
     }
   },
   components: {
@@ -38,6 +39,7 @@ export default {
     },
     onSuccessfulLogout () {
       console.log("success logout!")
+      console.log(this.$localStorage.get("jwt", false) !== false)
       /* tell via variable the user has logout */
       this.haslogin = false
     }
@@ -47,6 +49,10 @@ export default {
 
 <style lang="scss">
 @import "styles/global";
+
+.notify {
+  margin-top: 70px !important;
+}
 
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
