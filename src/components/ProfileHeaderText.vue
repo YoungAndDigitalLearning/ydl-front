@@ -1,5 +1,5 @@
 <template>
-  <div :class="['ydl-orange', color]">
+  <div :class="'ydl-' + color">
     <p><slot></slot></p>
   </div>
 </template>

@@ -1,34 +1,22 @@
 <template>
   <div class="landing-page">
-    <h1 class="text-center text-primary">Young&Digital Learning</h1>
+    <img style="padding-top: 30px;" src="https://ydlearning.com/.media/logo-ydl/SVG/YDL-Logo.svg" width="250" height="250" alt="YDL-Logo">
+    <h1 class="text-center">Young&Digital Learning</h1>
     <div class="ydl-article-container">
-      <ydl-article v-for="article in articleEntries" v-bind:article_entry='article' v-bind:key="article.id"></ydl-article>
+      <ydl-article v-for="announcement in this.announcements" v-bind:article_entry='announcement' v-bind:key="announcement.id"></ydl-article>
     </div>
   </div>
 </template>
 
 <script>
 import Announcement from "@/components/Announcement"
+import { mapState } from "vuex"
 
 export default {
-  name: "MainPage",
-  data () {
-    return {
-      articleEntries: []
-    }
-  },
+  name: "LandingPage",
+  computed: mapState(["announcements"]),
   mounted () {
-    this.$http.get("announcements/")
-      .then(response => {
-        this.articleEntries = response.data
-      })
-      .catch(error => {
-        this.$notify({
-          title: error.response.statusText,
-          text: error.message,
-          type: "error"
-        })
-      })
+    this.$store.dispatch("getAnnouncements")
   },
   components: {
     "ydl-article": Announcement
@@ -38,11 +26,6 @@ export default {
 
 <style lang="scss" scoped>
 @import "styles/global";
-
-.landing-page {
-  background-color: rgba(7, 167, 218, 0.125);
-  height: 100%;
-}
 
 @include media-breakpoint-down(sm)
 {
@@ -59,6 +42,6 @@ export default {
 
 .text-center {
   padding: 30px;
-  padding-top: 50px;
+  color: white;
 }
 </style>

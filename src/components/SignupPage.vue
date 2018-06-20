@@ -1,15 +1,6 @@
 <template>
   <div class="sign-up-container">
     <div class="form-container">
-      <div class="ydl-alert-box">
-      <b-alert :show="dismissCountDown"
-              dismissible
-              variant="danger"
-              @dismissed="dismissCountDown=0"
-              @dismiss-count-down="countDownChanged">
-        <p v-for="(error, index) in nonFieldErrors" :key="index">{{ error }}</p>
-      </b-alert>
-      </div>
       <div class="illustration">
         <i class="icon ion-android-create"></i>
       </div>
@@ -50,10 +41,6 @@ export default {
   name: "SignupPage",
   data () {
     return {
-      dismissSecs: 4,
-      dismissCountDown: 0,
-      showDismissibleAlert: false,
-      nonFieldErrors: [],
       form: {
         username: "",
         password: "",

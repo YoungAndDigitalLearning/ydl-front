@@ -4,7 +4,6 @@
     <ydl-navbar :sucLogin="haslogin" v-on:successful-logout="onSuccessfulLogout"/>
     <section class="ydl-content">
       <router-view v-on:successful-login="onSuccessfulLogin" />
-      <ydl-footer></ydl-footer>
     </section>
   </div>
 </template>
@@ -31,9 +30,9 @@ export default {
     onSuccessfulLogin () {
       console.log("success login!")
       /* retrtieve the token from the session */
-      var token = this.$localStorage.get("jwt")
+      // var token = this.$localStorage.get("jwt")
       /* now the header can be set to the obtained token */
-      this.$http.defaults.headers.common["Authorization"] = "JWT " + token
+      // this.$http.defaults.headers.common["Authorization"] = "JWT " + token
       /* tell via variable the user has login */
       this.haslogin = true
     },
@@ -83,5 +82,6 @@ body {
 
 html {
     height: 100%;
+    background-color: $skb-dark-blue;
 }
 </style>
