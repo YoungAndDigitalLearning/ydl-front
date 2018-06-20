@@ -6,7 +6,7 @@
         <p class="text-center">
           <span class="by">by</span>
           <a href="#">{{ article_entry.author.username }}</a>
-          <span class="date">{{article_entry.date}}</span>
+          <span class="date">{{moment(article_entry.date).format('DD.MM.YYYY, HH:mm')}}</span>
         </p>
         <img v-if="article_entry.image" class="card-img-top" :src="article_entry.image" alt="Card image cap">
       <div class="card-text" v-html="article_entry.content"></div>
@@ -16,9 +16,15 @@
 
 <script>
 import ProfileHeaderText from "@/components/ProfileHeaderText"
+var moment = require("moment")
 
 export default {
   name: "Article",
+  data () {
+    return {
+      moment: moment
+    }
+  },
   props: {
     article_entry: {
       type: Object,

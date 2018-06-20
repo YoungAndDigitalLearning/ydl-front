@@ -7,15 +7,15 @@
         <b-nav-item href="/#/">Home</b-nav-item>
       </b-navbar-nav>
       <!-- Right aligned nav items -->
-      <b-navbar-nav v-if="sucLogin" class="ml-auto">
+      <b-navbar-nav v-if="isLoggedIn" class="ml-auto">
         <b-nav-item-dropdown right>
           <!-- Using button-content slot -->
           <template slot="button-content">
-            {{ getUserName }}
+            {{ user.username }}
           </template>
           <b-dropdown-item href="#/profile"><fa-icon icon="user-astronaut"/> Profile</b-dropdown-item>
           <b-dropdown-item href="#/profile/settings"><fa-icon icon="cog" /> Settings</b-dropdown-item>
-          <b-dropdown-item href="#" @click="logout"><fa-icon icon="ambulance" /> Signout</b-dropdown-item>
+          <b-dropdown-item href="#" @click="logout" ><fa-icon icon="ambulance" /> Signout</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
       <b-navbar-nav v-else class="ml-auto">
@@ -27,33 +27,17 @@
 </template>
 
 <script>
+import { mapState } from "vuex"
+
 export default {
   name: "navbar",
-  props: {
-    sucLogin: {
-      type: Boolean,
-      required: true
-    }
-  },
-  mounted () {
-    console.log(this.$store)
-    /* this.$store.dispatch("fetchUser").then(() => {
-      console.log("User was finished fetched!")
-    }) */
-  },
-  computed: {
-    getUserName () {
-      return this.$store.user.username
-    }
-  },
+  computed: mapState(["isLoggedIn", "user"]),
   methods: {
     logout () {
-      /* destroy the local storage and remove the token from the header */
-      this.$localStorage.remove("jwt")
-      /* remove the key from the header */
-      // delete this.$http.defaults.headers.common["Authorization"]
-      this.$emit("successful-logout")
-      this.$router.push("/")
+      this.$store.dispatch("logout")
+        .then(() => {
+          this.$router.push("/")
+        })
     }
   }
 }
