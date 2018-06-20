@@ -5,20 +5,20 @@
       <ydl-profileheadertext color="green" >NAVIGATION</ydl-profileheadertext>
     </div>
     <div class="recent-uploads">
-      <ydl-profileheadertext>RECENT UPLOADS</ydl-profileheadertext>
+      <ydl-profileheadertext color="orange">RECENT UPLOADS</ydl-profileheadertext>
     </div>
   </div>
   <div class="profile-content-container">
-    <ydl-profileheadertext>SETTINGS</ydl-profileheadertext>
+    <ydl-profileheadertext color="darkgreen">SETTINGS</ydl-profileheadertext>
     <div class="profile-content">
     </div>
   </div>
   <div class="right-sidebar">
     <div class="navigation">
-      <ydl-profileheadertext>EVENTS</ydl-profileheadertext>
+      <ydl-profileheadertext color="pink">EVENTS</ydl-profileheadertext>
     </div>
     <div class="recent-uploads">
-      <ydl-profileheadertext>CALENDAR</ydl-profileheadertext>
+      <ydl-profileheadertext color="blue">CALENDAR</ydl-profileheadertext>
     </div>
   </div>
 </div>
