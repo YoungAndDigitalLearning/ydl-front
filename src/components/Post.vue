@@ -1,71 +1,50 @@
 <template>
-<div class="container">
-  <div class="post-header">
-    <div>
-      <span class="post-title">{{post.header.title}}</span>
+<div class="col-10 container" v-bind:class="{bdr: !hasAnswers, mainbdr: mainThread}">
+  <div class="main-post">
+    <div class="header">
+      <span class="title">{{post.header.title}}</span> <br>
+      <span class="meta">{{post.header.author}}, {{post.header.date}}</span>
     </div>
-    <div>
-      <span>{{post.header.date}}</span> <br>
-      <span>By {{post.header.author}}</span>
+    <div class="content">
+      {{post.content.text}}
     </div>
-  </div>
-  <div class="post-content">
-    <p>{{post.content.text}}</p>
-    <div class="post-footer">
-      <a href="/#/post">Antworten</a>
+    <div class="footer">
+      <a href="#">Antworten</a>
       <span> | </span>
-      <a href="/#/post">Melden</a>
+      <a href="#">Melden</a>
     </div>
   </div>
-  <div class="post-response">
-    <div v-for="response in post.answers" v-bind:key="response.id">
-      <div class="post-header">
-        <div>
-          <span class="post-title">Answer to {{post.header.title}}</span>
-        </div>
-        <div>
-          <span>{{response.header.date}}</span> <br>
-          <span>By {{response.header.author}}</span>
-        </div>
-      </div>
-      <div class="post-content">
-        <p>{{response.content.text}}</p>
-      </div>
-    </div>
+  <div class="answer">
+    <ydl-post v-for="answer in post.answers" v-bind:key="answer.header.id" v-bind:post="answer"></ydl-post>
   </div>
 </div>
 </template>
 
 <script>
+import Post from "@/components/Post"
+import axios from "axios"
+
 export default {
-  name: "Post",
+  name: "ydl-post",
+  props: ["post"],
+  components: {
+    "ydl-post": Post
+  },
   data () {
     return {
-      post: {
-        header: {
-          title: "Hello World",
-          date: "99.99.99",
-          author: "peter"
-        },
-        content: {
-          text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-          data: ""
-        },
-        answers: [
-          {
-            header: {
-              id: 0,
-              date: "99.99.99",
-              author: "heinz"
-            },
-            content: {
-              text: "WAS HAST DU GESAGT??",
-              data: ""
-            },
-            answers: []
-          }
-        ]
-      }
+      hasAnswers: this.post.answers.length === 0,
+      mainThread: false
+    }
+  },
+  mounted () {
+    if (this.post === undefined) {
+      console.log("post is undefined")
+      axios.get("http://jsontest/forum/post.json")
+        .then(respone => {
+          console.log(respone.data)
+          this.post = respone.data
+          this.mainThread = true
+        })
     }
   }
 }
@@ -74,41 +53,77 @@ export default {
 <style lang="scss" scoped>
 @import "styles/global";
 
-.container {
-  width: 100%;
-  border: 2px solid $ydl-primary;
+  .container {
+    display: block;
+    border-collapse: collapse;
+    margin: 0 0 10px 0;
+    padding: 0;
+    float: right;
+  }
 
-  .post-header {
+  .main-post {
+    text-align: left;
+    margin-bottom: 10px;
+  }
+
+  .answer {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    // margin-right: 5px;
+  }
+
+  .header {
     background-color: $ydl-primary;
-    display: flex;
-    justify-content: space-between;
+    color: white;
     border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    margin-top: 15px; 
+    // border-top-right-radius: 10px;
 
-    div {
-      span {
-        color:white;
-        padding: 15px; 
-      }
+    .title {
+      padding-left: 10px;
+      padding-right: 10px;
+      font-size: 22px;
+    }
 
-      .post-title {
-        vertical-align: middle;
-      }
+    .meta {
+      padding-left: 10px;
+      padding-right: 10px;
+      font-size: 16px;
     }
   }
 
-  .post-content {
-    border: 1px solid $ydl-primary;
-    text-align: left;
+  .content {
+    background-color: $ydl-primary-background;
+    padding: 10px;
+  }
+
+  .footer {
+    background-color: $ydl-primary;
+    color: white;
+    text-align: right;
 
     a {
-      text-align: right;
+      padding-left: 10px;
+      padding-right: 10px;
+      color:white;
+    }
+    a:hover {
+      text-decoration: underline;
     }
   }
 
-  .post-response {
-    margin-left: 50px;
+  .bdr {
+    border-top: 2px solid $ydl-primary;
+    border-left: 2px solid $ydl-primary;
+    border-bottom: 2px solid $ydl-primary;
+    // border-right: 2px solid $ydl-primary;
+    border-top-left-radius: 12px;
   }
-}
+
+  .mainbdr {
+    border-right: 2px solid $ydl-primary;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-top-right-radius: 10px;
+
+  }
 </style>
