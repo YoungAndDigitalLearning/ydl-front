@@ -1,15 +1,6 @@
 <template>
   <div class="log-in-container">
     <div class="form-container">
-      <div class="ydl-alert-box">
-      <b-alert :show="dismissCountDown"
-              dismissible
-              variant="danger"
-              @dismissed="dismissCountDown=0"
-              @dismiss-count-down="countDownChanged">
-        <p v-for="(error, index) in nonFieldErrors" :key="index">{{ error }}</p>
-      </b-alert>
-      </div>
       <div class="illustration">
         <i class="icon ion-ios-locked-outline"></i>
       </div>
@@ -40,7 +31,10 @@
           <span v-show="errors.has('password')" class="required">{{ errors.first("password") }}</span>
         </div>
         <div class="form-group">
-          <button class="btn btn-primary btn-block" type="submit">Log In</button>
+          <button class="btn btn-primary btn-block" type="submit">
+            <span v-if="loginPending"><fa-icon icon="spinner" spin/></span>
+            <span v-else>Log In</span>
+          </button>
           <a class="btn btn-primary btn-block" href="/#/signup">Sign Up</a>
         </div>
         <a href="#" class="forgot">Forgot Password?</a>
@@ -52,20 +46,19 @@
 <script>
 import FormLabel from "@/components/FormLabel"
 
+import { mapState } from "vuex"
+
 export default {
   name: "LoginPage",
   data () {
     return {
-      dismissSecs: 4,
-      dismissCountDown: 0,
-      showDismissibleAlert: false,
-      nonFieldErrors: [],
       form: {
         username: "",
         password: ""
       }
     }
   },
+  computed: mapState(["loginPending"]),
   components: {
     "ydl-label": FormLabel
   },
@@ -85,37 +78,8 @@ export default {
       this.dismissCountDown = this.dismissSecs
     },
     authenticate () {
-      this.$http.post("token/auth/", this.form)
-        .then(response => {
-          if (response.status === 200) {
-            this.$localStorage.set("jwt", response.data.token)
-            this.$localStorage.set("user_id", response.data.id)
-            this.$localStorage.set("user", response.data.user)
-            this.$emit("successful-login")
-            this.$router.push("/profile")
-          } else {
-            alert(response.status)
-          }
-        })
-        .catch(error => {
-          if (error.response.status === 400) {
-            if ("non_field_errors" in error.response.data) {
-              for (var key in error.response.data.non_field_errors) {
-                this.$notify({
-                  title: error.response.statusText,
-                  text: error.response.data.non_field_errors[key],
-                  type: "error"
-                })
-              }
-            }
-          } else {
-            this.$notify({
-              title: "Unhandled Exception",
-              text: error.response.data,
-              type: "error"
-            })
-          }
-        })
+      console.log("authenticate user")
+      this.$store.dispatch("login", this.form)
     }
   }
 }
@@ -125,12 +89,6 @@ export default {
 @import "../assets/fonts/ionicons.min.css";
 
 @import "styles/global";
-
-/* Alert Box */
-.ydl-alert-box {
-  position: fixed;
-  top: 200px;
-}
 
 /* Form Group */
 // make form group position relative so an absolute child will be within this element
