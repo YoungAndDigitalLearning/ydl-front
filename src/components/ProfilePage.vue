@@ -11,6 +11,7 @@
   <div class="profile-content-container">
     <ydl-profileheadertext color="darkgreen">SETTINGS</ydl-profileheadertext>
     <div class="profile-content">
+      <router-view/>
     </div>
   </div>
   <div class="right-sidebar">
@@ -69,6 +70,5 @@ export default {
 .left-sidebar {
   width: 270px;
   height: 100%;
-  background-color: #fff;
 }
 </style>

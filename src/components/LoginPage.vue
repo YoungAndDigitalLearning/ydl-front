@@ -1,7 +1,7 @@
 <template>
   <div class="log-in-container">
     <div class="form-container">
-      <ydl-profileheadertext color="darkgreen">Login</ydl-profileheadertext>
+      <ydl-profileheadertext color="darkgreen">Login to SKB</ydl-profileheadertext>
       <form @submit.prevent="validateBeforeSubmit">
         <h2 class="sr-only">Login Form</h2>
         <div class="form-group">
@@ -56,7 +56,7 @@ export default {
       }
     }
   },
-  computed: mapState(["loginPending"]),
+  computed: mapState(["loginPending", "user"]),
   components: {
     "ydl-label": FormLabel,
     "ydl-profileheadertext": ProfileHeaderText
@@ -70,15 +70,12 @@ export default {
           }
         })
     },
-    countDownChanged (dismissCountDown) {
-      this.dismissCountDown = dismissCountDown
-    },
-    showAlert () {
-      this.dismissCountDown = this.dismissSecs
-    },
     authenticate () {
       console.log("authenticate user")
       this.$store.dispatch("login", this.form)
+        .then(() => {
+          this.$router.push("profile/" + this.user.id)
+        })
     }
   }
 }
@@ -88,6 +85,10 @@ export default {
 @import "../assets/fonts/ionicons.min.css";
 
 @import "styles/global";
+
+.btn {
+  border-radius: 0px;
+}
 
 /* Form Group */
 // make form group position relative so an absolute child will be within this element
@@ -145,25 +146,6 @@ export default {
 
     &:focus {
       border-color: $ydl-secondary;
-    }
-  }
-
-  .illustration {
-    text-align: center;
-    padding: 15px 0 20px;
-    font-size: 100px;
-    color: $ydl-primary;
-
-    @include media-breakpoint-down(xs) {
-      // reduce bottom padding
-      padding-bottom: 10px;
-      // make the logo smaller
-      font-size: 80px;
-    }
-
-    @include media-breakpoint-only(sm) {
-      // hide the logo in portrait mode
-      font-size: 0px;
     }
   }
 }
