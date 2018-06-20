@@ -4,7 +4,7 @@
     <ydl-navbar :sucLogin="haslogin" v-on:successful-logout="onSuccessfulLogout"/>
     <section class="ydl-content">
       <router-view v-on:successful-login="onSuccessfulLogin" />
-      <ydl-footer></ydl-footer>
+      <!-- <ydl-footer></ydl-footer> -->
     </section>
   </div>
 </template>
@@ -70,6 +70,8 @@ export default {
 .ydl-content {
   overflow-y: auto;
   height: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
 
   @include media-breakpoint-down(md) {
     // disable the overflow to move the scroll component to the top
