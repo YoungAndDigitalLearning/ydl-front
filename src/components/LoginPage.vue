@@ -1,9 +1,7 @@
 <template>
   <div class="log-in-container">
     <div class="form-container">
-      <div class="illustration">
-        <i class="icon ion-ios-locked-outline"></i>
-      </div>
+      <ydl-profileheadertext color="darkgreen">Login</ydl-profileheadertext>
       <form @submit.prevent="validateBeforeSubmit">
         <h2 class="sr-only">Login Form</h2>
         <div class="form-group">
@@ -45,7 +43,7 @@
 
 <script>
 import FormLabel from "@/components/FormLabel"
-
+import ProfileHeaderText from "@/components/ProfileHeaderText"
 import { mapState } from "vuex"
 
 export default {
@@ -60,7 +58,8 @@ export default {
   },
   computed: mapState(["loginPending"]),
   components: {
-    "ydl-label": FormLabel
+    "ydl-label": FormLabel,
+    "ydl-profileheadertext": ProfileHeaderText
   },
   methods: {
     validateBeforeSubmit () {
@@ -114,17 +113,24 @@ export default {
   /* contains the icons and the form */
   .form-container {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 40px;
+    // flex-direction: column;
+    // justify-content: center;
+    flex-wrap: wrap;
+    padding: 30px;
     width: 350px;
-    height: 500px;
+    height: 420px;
+    background-color: white;
 
     @include media-breakpoint-down(sm)
     {
       // make form container full screen
       width: 100%;
       height: 100%;
+    }
+
+    > form {
+      align-self: flex-end;
+      width: 100%;
     }
   }
 
