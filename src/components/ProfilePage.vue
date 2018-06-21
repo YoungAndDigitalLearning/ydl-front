@@ -1,8 +1,26 @@
 <template>
 <div class="ydl-container">
   <div class="left-sidebar">
+    <!-- TODO: need to be removed into sub compoentnts -->
     <div class="navigation">
       <ydl-profileheadertext color="green" >NAVIGATION</ydl-profileheadertext>
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link active badge-link" href="#"><span>My Courses</span>
+            <span class="ydl-badge"><b-badge>{{courses.length}}</b-badge></span>
+            <span v-if="user.is_teacher" class="ydl-badge-add"><b-badge href="#" ><fa-icon icon="plus" /></b-badge></span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">All Courses</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#">Disabled</a>
+        </li>
+      </ul>
     </div>
     <div class="recent-uploads">
       <ydl-profileheadertext color="orange">RECENT UPLOADS</ydl-profileheadertext>
@@ -27,17 +45,63 @@
 
 <script>
 import ProfileHeaderText from "@/components/ProfileHeaderText"
+import { mapState } from "vuex"
 
 export default {
   name: "ProfilePage",
+  created () {
+    this.$store.dispatch("getCourses")
+  },
   components: {
     "ydl-profileheadertext": ProfileHeaderText
-  }
+  },
+  computed: mapState(["courses", "user"])
 }
 </script>
 
 <style lang="scss" scoped>
+@import "styles/global";
 @import "compass/css3";
+
+/* navigation style (new components) */
+
+.badge-link {
+  position: relative;
+}
+
+.ydl-badge {
+ position: absolute;
+ right: 10px;
+
+ .badge {
+   width: 28px;
+ }
+
+ &-add {
+   right: 50px;
+   position: absolute;
+
+   .badge {
+     width: 28px;
+     background-color: $skb-green;
+   }
+ }
+}
+
+.inner-button {
+  width: 100%;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  // justify-content: center;
+  background-color: red;
+
+  > a {
+    color: white;
+  }
+}
+
+/* ------------------------------------ */
 
 .ydl-container {
   margin: 20px;
@@ -47,7 +111,6 @@ export default {
 
 .navigation {
   width: 270px;
-  height: 240px;
   background-color: #fff;
   @include box-shadow(0 0 15px 1px rgba(0,0,0,.23));
 }

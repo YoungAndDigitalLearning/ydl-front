@@ -3,7 +3,7 @@ import axios from "axios"
 import Vue from "vue"
 import jwtDecode from "jwt-decode"
 
-const axiosInstance = axios.create({
+export const axiosInstance = axios.create({
   baseURL: "https://api.ydlearning.com/"
 })
 
@@ -15,6 +15,11 @@ export const actions = {
   async getAnnouncements ({ commit }) {
     const response = await axiosInstance.get("announcements/")
     commit("GET_ANNOUNCEMENTS", response.data)// await api.get("announcements/"))
+  },
+  async getCourses ({ commit }) {
+    console.log(axiosInstance)
+    const response = await axiosInstance.get("courses/")
+    commit("GET_COURSES", response.data)
   },
   async signup ({ dispatch, commit }, creds) {
     commit("SIGNUP_BEGIN")
