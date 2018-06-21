@@ -17,6 +17,10 @@ import Settings from "@/components/Settings"
 import AllCourses from "@/components/AllCourses"
 import TimeTable from "@/components/TimeTable"
 import CreateCourse from "@/components/CreateCourse"
+import Forum from "@/components/Forum"
+import PostWrapper from "@/components/PostWrapper"
+import EditCoursePage from "@/components/EditCoursePage"
+import Chat from "@/components/Chat"
 import Post from "@/components/Post"
 
 import fontawesome from "@fortawesome/fontawesome"
@@ -41,7 +45,7 @@ export default new Router({
       component: LandingPage
     },
     {
-      path: "/profile/:id/",
+      path: "/profile",
       name: "skbprofile",
       component: ProfilePage,
       children: [
@@ -56,8 +60,13 @@ export default new Router({
           component: CoursePage
         },
         {
+          path: "course/:id/edit",
+          name: "skbcourse-edit",
+          component: EditCoursePage
+        },
+        {
           path: "home",
-          name: "skbcoursedetail",
+          name: "overview",
           component: Course
         },
         {
@@ -108,9 +117,19 @@ export default new Router({
       component: SignupPage
     },
     {
+      path: "/forum",
+      name: "skbforum",
+      component: Forum
+    },
+    {
       path: "/post",
       name: "skbpost",
-      component: Post
+      component: PostWrapper
+    },
+    {
+      path: "/chat",
+      name: "skbchat",
+      component: Chat
     }
   ]
 })
