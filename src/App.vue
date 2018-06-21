@@ -16,20 +16,31 @@ import Navbar from "@/components/Navbar.vue"
 import Footer from "@/components/Footer.vue"
 
 import jwtDecode from "jwt-decode"
+import { axiosInstance } from "./store/actions.js"
 
 export default {
   name: "App",
-  mounted () {
+  created () {
+    console.log("mounted")
+    /* load token and and get user id */
     const token = this.$localStorage.get("token", false)
     if (token) {
+      console.log("found token in local storage")
       const decodedToken = jwtDecode(token)
+      /* get the user from the user id */
       this.$store.dispatch("getUser", decodedToken.user_id)
         .then(() => {
-          console.log("success")
+          console.log("success getUser")
         })
         .catch((error) => {
           console.log(error)
         })
+
+      axiosInstance.defaults.headers.common["Authorization"] = token
+      console.log(axiosInstance)
+    } else {
+      console.log("removed token from header")
+      delete axiosInstance.defaults.headers.common["Authorization"]
     }
   },
   components: {
