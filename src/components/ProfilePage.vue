@@ -67,6 +67,10 @@ export default {
   @include box-shadow(0 0 15px 1px rgba(0,0,0,.23));
 }
 
+.profile-container {
+  overflow: auto;
+}
+
 .left-sidebar {
   width: 270px;
   height: 100%;
