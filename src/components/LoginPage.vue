@@ -74,7 +74,7 @@ export default {
       console.log("authenticate user")
       this.$store.dispatch("login", this.form)
         .then(() => {
-          this.$router.push("profile/")
+          this.$router.push("profile/" + user.id)
         })
     }
   }
