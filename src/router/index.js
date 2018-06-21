@@ -21,7 +21,6 @@ import Forum from "@/components/Forum"
 import PostWrapper from "@/components/PostWrapper"
 import EditCoursePage from "@/components/EditCoursePage"
 import Chat from "@/components/Chat"
-import Post from "@/components/Post"
 
 import fontawesome from "@fortawesome/fontawesome"
 import freeSolid from "@fortawesome/fontawesome-free-solid/"
