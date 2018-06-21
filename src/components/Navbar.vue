@@ -13,8 +13,9 @@
           <template slot="button-content">
             {{ user.username }}
           </template>
-          <b-dropdown-item :href="getProfileLink"><fa-icon icon="user-astronaut"/> Profile</b-dropdown-item>
+          <b-dropdown-item href=/#/profile/><fa-icon icon="user-astronaut"/> Profile</b-dropdown-item>
           <b-dropdown-item href="#/profile/settings"><fa-icon icon="cog" /> Settings</b-dropdown-item>
+          <b-dropdown-divider></b-dropdown-divider>
           <b-dropdown-item href="#" @click="logout" ><fa-icon icon="ambulance" /> Signout</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
@@ -32,14 +33,7 @@ import { mapState } from "vuex"
 export default {
   name: "navbar",
   computed: {
-    ...mapState(["isLoggedIn", "user"]),
-    getProfileLink () {
-      if (this.isLoggedIn) {
-        return "/#/profile/" + this.user.id
-      } else {
-        return "/#/"
-      }
-    }
+    ...mapState(["isLoggedIn", "user"])
   },
   methods: {
     logout () {
