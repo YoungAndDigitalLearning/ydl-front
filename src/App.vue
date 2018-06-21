@@ -5,6 +5,7 @@
     <section class="ydl-content">
       <router-view/>
     </section>
+    <div v-if="isLoggedIn" class="ydl-debug" ><span>DEBUG</span>: is Teacher: {{user.is_teacher}}</div>
   </div>
 </template>
 
@@ -18,9 +19,11 @@ import Footer from "@/components/Footer.vue"
 import jwtDecode from "jwt-decode"
 import axios from "axios"
 import { axiosInstance } from "./store/actions.js"
+import { mapState } from "vuex"
 
 export default {
   name: "App",
+  computed: mapState(["user", "isLoggedIn"]),
   created () {
     /* load token */
     var token = this.$localStorage.get("token", false)
@@ -80,6 +83,12 @@ export default {
 
 <style lang="scss">
 @import "styles/global";
+
+.ydl-debug {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+}
 
 .notify {
   margin-top: 70px !important;
