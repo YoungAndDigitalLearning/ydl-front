@@ -1,18 +1,7 @@
 <template>
   <div class="sign-up-container">
     <div class="form-container">
-      <div class="ydl-alert-box">
-      <b-alert :show="dismissCountDown"
-              dismissible
-              variant="danger"
-              @dismissed="dismissCountDown=0"
-              @dismiss-count-down="countDownChanged">
-        <p v-for="(error, index) in nonFieldErrors" :key="index">{{ error }}</p>
-      </b-alert>
-      </div>
-      <div class="illustration">
-        <i class="icon ion-android-create"></i>
-      </div>
+      <ydl-profileheadertext color="darkgreen">New Account</ydl-profileheadertext>
       <form @submit.prevent="handleSubmit">
         <h2 class="sr-only">Login Form</h2>
         <div class="form-group">
@@ -36,7 +25,10 @@
           <span v-show="errors.has('email')" class="required">{{ errors.first("email") }}</span>
         </div>
         <div class="form-group">
-          <button class="btn btn-primary btn-block" type="submit">Sign Up</button>
+          <button class="btn btn-primary btn-block" type="submit">
+            <span v-if="signupPending"><fa-icon icon="spinner" spin/></span>
+            <span v-else>Sign Up</span>
+          </button>
         </div>
       </form>
     </div>
@@ -45,15 +37,13 @@
 
 <script>
 import FormLabel from "@/components/FormLabel"
+import ProfileHeaderText from "@/components/ProfileHeaderText"
+import { mapState } from "vuex"
 
 export default {
   name: "SignupPage",
   data () {
     return {
-      dismissSecs: 4,
-      dismissCountDown: 0,
-      showDismissibleAlert: false,
-      nonFieldErrors: [],
       form: {
         username: "",
         password: "",
@@ -61,6 +51,7 @@ export default {
       }
     }
   },
+  computed: mapState(["signupPending", "user"]),
   methods: {
     validateBeforeSubmit () {
       this.$validator.validateAll()
@@ -70,58 +61,19 @@ export default {
           }
         })
     },
-    countDownChanged (dismissCountDown) {
-      this.dismissCountDown = dismissCountDown
-    },
-    showAlert () {
-      this.dismissCountDown = this.dismissSecs
-    },
     handleSubmit () {
-      this.$http.post("users/", this.form)
-        .then(response => {
-          console.log(response.status)
-          if (response.status === 201) {
-            if (!this.$session.exists()) {
-              this.$localStorage.set("jwt", response.data.token)
-              this.$emit("successful-login")
-            }
-            console.log(response.data)
-            this.$router.push("/profile")
-          }
-        })
-        .catch(error => {
-          console.log(error)
-          if (error.response.status === 400) {
-            if ("non_field_errors" in error.response.data) {
-              for (var key in error.response.data.non_field_errors) {
-                this.$notify({
-                  title: error.response.statusText,
-                  text: error.response.data.non_field_errors[key],
-                  type: "error"
-                })
-              }
-            } else {
-              for (var field in error.response.data) {
-                for (var fieldKey in error.response.data[field]) {
-                  this.$notify({
-                    title: error.response.statusText,
-                    text: error.response.data[field][fieldKey],
-                    type: "error"
-                  })
-                }
-              }
-            }
-          } else {
-            this.$notify({
-              title: "Unhandled Exception",
-              text: error.response.data,
-              type: "error"
-            })
-          }
+      console.log("signup user")
+      this.$store.dispatch("signup", this.form)
+        .then(() => {
+          console.log("pushing b")
+          this.$router.push("profile/" + this.user.id)
         })
     }
   },
-  components: {"ydl-label": FormLabel}
+  components: {
+    "ydl-label": FormLabel,
+    "ydl-profileheadertext": ProfileHeaderText
+  }
 }
 </script>
 
@@ -130,10 +82,8 @@ export default {
 
 @import "styles/global";
 
-/* Alert Box */
-.ydl-alert-box {
-  position: fixed;
-  top: 200px;
+.btn {
+  border-radius: 0px;
 }
 
 /* Form Group */
@@ -160,17 +110,24 @@ export default {
   /* contains the icons and the form */
   .form-container {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    // flex-direction: column;
+    // justify-content: center;
+    flex-wrap: wrap;
     padding: 40px;
     width: 350px;
     height: 500px;
+    background-color: white;
 
     @include media-breakpoint-down(sm)
     {
       // make form container full screen
       width: 100%;
       height: 100%;
+    }
+
+    > form {
+      align-self: flex-end;
+      width: 100%;
     }
   }
 
@@ -185,25 +142,6 @@ export default {
 
     &:focus {
       border-color: $ydl-secondary;
-    }
-  }
-
-  .illustration {
-    text-align: center;
-    padding: 15px 0 20px;
-    font-size: 100px;
-    color: $ydl-primary;
-
-    @include media-breakpoint-down(xs) {
-      // reduce bottom padding
-      padding-bottom: 10px;
-      // make the logo smaller
-      font-size: 80px;
-    }
-
-    @include media-breakpoint-only(sm) {
-      // hide the logo in portrait mode
-      font-size: 0px;
     }
   }
 }

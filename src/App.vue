@@ -1,10 +1,9 @@
 <template>
   <div id="app">
     <notifications classes="vue-notification notify" />
-    <ydl-navbar :sucLogin="haslogin" v-on:successful-logout="onSuccessfulLogout"/>
+    <ydl-navbar/>
     <section class="ydl-content">
-      <router-view v-on:successful-login="onSuccessfulLogin" />
-      <!-- <ydl-footer></ydl-footer> -->
+      <router-view/>
     </section>
   </div>
 </template>
@@ -16,33 +15,26 @@ import "bootstrap-vue/dist/bootstrap-vue.css"
 import Navbar from "@/components/Navbar.vue"
 import Footer from "@/components/Footer.vue"
 
+import jwtDecode from "jwt-decode"
+
 export default {
   name: "App",
-  data () {
-    return {
-      haslogin: this.$localStorage.get("jwt", false) !== false
+  mounted () {
+    const token = this.$localStorage.get("token", false)
+    if (token) {
+      const decodedToken = jwtDecode(token)
+      this.$store.dispatch("getUser", decodedToken.user_id)
+        .then(() => {
+          console.log("success")
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     }
   },
   components: {
     "ydl-navbar": Navbar,
     "ydl-footer": Footer
-  },
-  methods: {
-    onSuccessfulLogin () {
-      console.log("success login!")
-      /* retrtieve the token from the session */
-      var token = this.$localStorage.get("jwt")
-      /* now the header can be set to the obtained token */
-      this.$http.defaults.headers.common["Authorization"] = "JWT " + token
-      /* tell via variable the user has login */
-      this.haslogin = true
-    },
-    onSuccessfulLogout () {
-      console.log("success logout!")
-      console.log(this.$localStorage.get("jwt", false) !== false)
-      /* tell via variable the user has logout */
-      this.haslogin = false
-    }
   }
 }
 </script>
@@ -85,5 +77,6 @@ body {
 
 html {
     height: 100%;
+    background-color: $skb-dark-blue;
 }
 </style>
