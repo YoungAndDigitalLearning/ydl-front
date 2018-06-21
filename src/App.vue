@@ -73,6 +73,8 @@ export default {
 .ydl-content {
   overflow-y: auto;
   height: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
 
   @include media-breakpoint-down(md) {
     // disable the overflow to move the scroll component to the top
