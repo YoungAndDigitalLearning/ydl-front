@@ -15,6 +15,13 @@ import SignupPage from "@/components/SignupPage"
 import NotFound from "@/components/NotFound"
 import Settings from "@/components/Settings"
 import AllCourses from "@/components/AllCourses"
+import TimeTable from "@/components/TimeTable"
+import CreateCourse from "@/components/CreateCourse"
+import Forum from "@/components/Forum"
+import PostWrapper from "@/components/PostWrapper"
+import EditCoursePage from "@/components/EditCoursePage"
+import Chat from "@/components/Chat"
+import Post from "@/components/Post"
 
 import fontawesome from "@fortawesome/fontawesome"
 import freeSolid from "@fortawesome/fontawesome-free-solid/"
@@ -34,7 +41,7 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "SKB.CMS",
+      name: "Y&D Learning",
       component: LandingPage
     },
     {
@@ -43,14 +50,9 @@ export default new Router({
       component: ProfilePage,
       children: [
         {
-          path: "course/all",
+          path: "courses",
           name: "allcourses",
           component: AllCourses
-        },
-        {
-          path: "/signup",
-          name: "skbsignup",
-          component: SignupPage
         },
         {
           path: "course/:id",
@@ -58,8 +60,13 @@ export default new Router({
           component: CoursePage
         },
         {
+          path: "course/:id/edit",
+          name: "skbcourse-edit",
+          component: EditCoursePage
+        },
+        {
           path: "home",
-          name: "skbcoursedetail",
+          name: "overview",
           component: Course
         },
         {
@@ -71,8 +78,28 @@ export default new Router({
           path: "settings",
           name: "settings",
           component: Settings
+        },
+        {
+          path: "schedule",
+          name: "timetable",
+          component: TimeTable
+        },
+        {
+          path: "createcourse",
+          name: "createcourse",
+          component: CreateCourse
         }
       ]
+    },
+    {
+      path: "/courseview",
+      name: "skbcourse",
+      component: CoursePage
+    },
+    {
+      path: "/course",
+      name: "skbcoursedetail",
+      component: CoursePage
     },
     {
       path: "/sandbox",
@@ -83,6 +110,26 @@ export default new Router({
       path: "/login",
       name: "skblogin",
       component: LoginPage
+    },
+    {
+      path: "/signup",
+      name: "skbsignup",
+      component: SignupPage
+    },
+    {
+      path: "/forum",
+      name: "skbforum",
+      component: Forum
+    },
+    {
+      path: "/post",
+      name: "skbpost",
+      component: PostWrapper
+    },
+    {
+      path: "/chat",
+      name: "skbchat",
+      component: Chat
     }
   ]
 })

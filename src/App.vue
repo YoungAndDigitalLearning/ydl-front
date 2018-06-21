@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    <ydl-navbar :sucLogin="haslogin" v-on:successful-logout="onSuccessfulLogout"/>
+    <notifications classes="vue-notification notify" />
+    <ydl-navbar/>
     <section class="ydl-content">
-      <router-view v-on:successful-login="onSuccessfulLogin" />
+      <router-view/>
     </section>
   </div>
 </template>
@@ -12,36 +13,38 @@ import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap-vue/dist/bootstrap-vue.css"
 
 import Navbar from "@/components/Navbar.vue"
+import Footer from "@/components/Footer.vue"
+
+import jwtDecode from "jwt-decode"
 
 export default {
   name: "App",
-  data () {
-    return {
-      haslogin: this.$localStorage.get("jwt", false) !== false
+  mounted () {
+    const token = this.$localStorage.get("token", false)
+    if (token) {
+      const decodedToken = jwtDecode(token)
+      this.$store.dispatch("getUser", decodedToken.user_id)
+        .then(() => {
+          console.log("success")
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     }
   },
-  components: {"ydl-navbar": Navbar},
-  methods: {
-    onSuccessfulLogin () {
-      console.log("success login!")
-      /* retrtieve the token from the session */
-      var token = this.$localStorage.get("jwt")
-      /* now the header can be set to the obtained token */
-      this.$http.defaults.headers.common["Authorization"] = "JWT " + token
-      /* tell via variable the user has login */
-      this.haslogin = true
-    },
-    onSuccessfulLogout () {
-      console.log("success logout!")
-      /* tell via variable the user has logout */
-      this.haslogin = false
-    }
+  components: {
+    "ydl-navbar": Navbar,
+    "ydl-footer": Footer
   }
 }
 </script>
 
 <style lang="scss">
 @import "styles/global";
+
+.notify {
+  margin-top: 70px !important;
+}
 
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
@@ -59,6 +62,8 @@ export default {
 .ydl-content {
   overflow-y: auto;
   height: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
 
   @include media-breakpoint-down(md) {
     // disable the overflow to move the scroll component to the top
@@ -72,5 +77,6 @@ body {
 
 html {
     height: 100%;
+    background-color: $skb-dark-blue;
 }
 </style>
