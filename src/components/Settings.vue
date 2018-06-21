@@ -38,43 +38,18 @@
 
 <script>
 import FormLabel from "@/components/FormLabel"
-import jwtDecode from "jwt-decode"
+import { mapState } from "vuex"
 
 export default {
   name: "Settings",
-  data () {
-    return {
-      user: {},
-      editmode: false,
-      loading: true
-    }
-  },
+  computed: mapState(["user"]),
   components: {
     "ydl-label": FormLabel
-  },
-  mounted () {
-    var token = this.$localStorage.get("jwt")
-    console.log(jwtDecode(token))
-    this.$http.get("users/" + jwtDecode(token).user_id)
-      .then(response => {
-        console.log(this.user)
-        this.user = response.data
-      })
   },
   methods: {
     handleSubmit () {
       this.$http.put("users/" + this.user.id, this.user) // + this.user.id, this.user)
       console.log("updated user")
-    },
-    startEditing () {
-      this.editmode = true
-    },
-    abortEditing () {
-      this.editmode = false
-    },
-    saveChanges () {
-      console.log("Should be implemented but API unclear")
-      alert("Button out on Order \nShould be implemented but API unclear")
     }
   }
 }
