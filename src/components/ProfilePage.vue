@@ -1,147 +1,74 @@
 <template>
-  <div v-if="loading === false" class="container-fluid profile">
-    <div class="row title">
-      <div class="col-6">
-        <h2 class="greeting"> Hallo {{getUsername}}</h2>
-      </div>
-      <div class="col-6 controls">
-        <a class="btn btn-light action-button control-btn embed" href="/profile/settings">Settings</a>
-      </div>
+<div class="ydl-container">
+  <div class="left-sidebar">
+    <div class="navigation">
+      <ydl-profileheadertext color="green" >NAVIGATION</ydl-profileheadertext>
     </div>
-    <div class="row">
-      <div class="col-12">
-        <hr class="seperator">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-2 navigation">
-        <ydl-sidebar v-bind:courseId="user.courses"
-          v-on:load-details="showCourseDetail"
-          v-on:load-overview="showOverView"
-          v-on:load-timetable="showTimeTable"
-          v-on:load-all-courses="showAllCourses">
-        </ydl-sidebar>
-      </div>
-      <div class="col-8 content bdr">
-        <router-view/>
-        <!-- <ydl-course  v-if="content === 'overview'" v-on:load-details="showCourseDetail" v-bind:courseId="user.courses"></ydl-course>
-        <ydl-course-detail v-if="content === 'detail'" v-model="detailCourseId"></ydl-course-detail>
-        <ydl-timetable v-if="content === 'timetable'"></ydl-timetable>
-        <ydl-all-courses v-if="content === 'allcourses'" v-on:load-details="showCourseDetail"></ydl-all-courses>
-        <ydl-settings v-if="content === 'settings'" v-bind:user="user"></ydl-settings> -->
-      </div>
-      <div class="col-2 cal">
-        <h5>Aktuelle Termine</h5>
-        <!-- <ydl-calendar v-bind:tasks="user.tasks"></ydl-calendar> -->
-        <a href="/calendar"> Alle Termine </a>
-      </div>
+    <div class="recent-uploads">
+      <ydl-profileheadertext color="orange">RECENT UPLOADS</ydl-profileheadertext>
     </div>
   </div>
+  <div class="profile-content-container">
+    <ydl-profileheadertext color="darkgreen">SETTINGS</ydl-profileheadertext>
+    <div class="profile-content">
+      <router-view/>
+    </div>
+  </div>
+  <div class="right-sidebar">
+    <div class="navigation">
+      <ydl-profileheadertext color="pink">EVENTS</ydl-profileheadertext>
+    </div>
+    <div class="recent-uploads">
+      <ydl-profileheadertext color="blue">CALENDAR</ydl-profileheadertext>
+    </div>
+  </div>
+</div>
 </template>
 
-<script ref="ydl-course ydl-course-detail">
-import Course from "@/components/Course"
-import Calendar from "@/components/Calendar"
-import CoursePage from "@/components/CoursePage"
-import SideBar from "@/components/SideBar"
-import TimeTable from "@/components/TimeTable"
-import AllCourses from "@/components/AllCourses"
-import Settings from "@/components/Settings"
+<script>
+import ProfileHeaderText from "@/components/ProfileHeaderText"
 
 export default {
   name: "ProfilePage",
-  data () {
-    return {
-      user: {},
-      loading: true,
-      content: "overview",
-      detailCourseId: 0
-    }
-  },
   components: {
-    "ydl-course": Course,
-    "ydl-calendar": Calendar,
-    "ydl-course-detail": CoursePage,
-    "ydl-sidebar": SideBar,
-    "ydl-timetable": TimeTable,
-    "ydl-all-courses": AllCourses,
-    "ydl-settings": Settings
-  },
-  computed: {
-    getUsername () {
-      if (this.user.first_name === "" && this.user.last_name === "") {
-        return this.user.username
-      } else {
-        return this.user.first_name + " " + this.user.last_name
-      }
-    }
-  },
-  mounted () {
-    this.$http.get("users/" + this.$localStorage.get("user_id"))
-      .then(response => {
-        console.log(this.user)
-        this.user = response.data
-        this.loading = false
-      })
-  },
-  beforeCreate () {
-    if (!this.$session.exists()) {
-      // this.$router.push("/#")
-    }
-  },
-  methods: {
-    showCourseDetail (id) {
-      console.log("Triggered")
-      this.content = "detail"
-      this.detailCourseId = id
-      console.log("Id of course to show: " + id)
-    },
-    showOverView () {
-      this.content = "overview"
-    },
-    showTimeTable () {
-      this.content = "timetable"
-    },
-    showAllCourses () {
-      this.content = "allcourses"
-    }
+    "ydl-profileheadertext": ProfileHeaderText
   }
 }
 </script>
 
 <style lang="scss" scoped>
-html {
+@import "compass/css3";
+
+.ydl-container {
+  margin: 20px;
   height: 100%;
+  display: flex;
 }
 
-hr {
-  border: 2px solid #0689b3;
+.navigation {
+  width: 270px;
+  height: 240px;
+  background-color: #fff;
+  @include box-shadow(0 0 15px 1px rgba(0,0,0,.23));
 }
 
-.controls {
-  text-align: right;
+.recent-uploads {
+  margin-top: 20px;
+  width: 270px;
+  height: 240px;
+  background-color: #fff;
+  @include box-shadow(0 0 15px 1px rgba(0,0,0,.23));
 }
 
-.control-btn {
-  background-color: #0689b3;
-  color: white;
-  border-radius: 30px;
+.profile-content-container {
+  flex: 1;
+  margin: 0 20px;
+  background-color: #fff;
+  @include box-shadow(0 0 15px 1px rgba(0,0,0,.23));
 }
 
-.profile {
-  background-color: white;
-  color: black;
-  padding: 15px;
-  padding-left: 7%;
-  padding-right: 7%;
-}
-
-.greeting {
-  text-align: left;
-}
-
-.bdr {
-  border-left: 1px solid #0689b3;
-  border-right: 1px solid #0689b3;
+.left-sidebar {
+  width: 270px;
+  height: 100%;
 }
 </style>

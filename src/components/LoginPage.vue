@@ -1,18 +1,7 @@
 <template>
   <div class="log-in-container">
     <div class="form-container">
-      <div class="ydl-alert-box">
-      <b-alert :show="dismissCountDown"
-              dismissible
-              variant="danger"
-              @dismissed="dismissCountDown=0"
-              @dismiss-count-down="countDownChanged">
-        <p v-for="(error, index) in nonFieldErrors" :key="index">{{ error }}</p>
-      </b-alert>
-      </div>
-      <div class="illustration">
-        <i class="icon ion-ios-locked-outline"></i>
-      </div>
+      <ydl-profileheadertext color="darkgreen">Login to SKB</ydl-profileheadertext>
       <form @submit.prevent="validateBeforeSubmit">
         <h2 class="sr-only">Login Form</h2>
         <div class="form-group">
@@ -40,7 +29,10 @@
           <span v-show="errors.has('password')" class="required">{{ errors.first("password") }}</span>
         </div>
         <div class="form-group">
-          <button class="btn btn-primary btn-block" type="submit">Log In</button>
+          <button class="btn btn-primary btn-block" type="submit">
+            <span v-if="loginPending"><fa-icon icon="spinner" spin/></span>
+            <span v-else>Log In</span>
+          </button>
           <a class="btn btn-primary btn-block" href="/#/signup">Sign Up</a>
         </div>
         <a href="#" class="forgot">Forgot Password?</a>
@@ -51,23 +43,23 @@
 
 <script>
 import FormLabel from "@/components/FormLabel"
+import ProfileHeaderText from "@/components/ProfileHeaderText"
+import { mapState } from "vuex"
 
 export default {
   name: "LoginPage",
   data () {
     return {
-      dismissSecs: 4,
-      dismissCountDown: 0,
-      showDismissibleAlert: false,
-      nonFieldErrors: [],
       form: {
         username: "",
         password: ""
       }
     }
   },
+  computed: mapState(["loginPending", "user"]),
   components: {
-    "ydl-label": FormLabel
+    "ydl-label": FormLabel,
+    "ydl-profileheadertext": ProfileHeaderText
   },
   methods: {
     validateBeforeSubmit () {
@@ -78,31 +70,11 @@ export default {
           }
         })
     },
-    countDownChanged (dismissCountDown) {
-      this.dismissCountDown = dismissCountDown
-    },
-    showAlert () {
-      this.dismissCountDown = this.dismissSecs
-    },
     authenticate () {
-      this.$http.post("token/auth/", this.form)
-        .then(response => {
-          if (response.status === 200) {
-            this.$localStorage.set("jwt", response.data.token)
-            this.$localStorage.set("user_id", response.data.id)
-            this.$localStorage.set("user", response.data.user)
-            this.$emit("successful-login")
-            this.$router.push("/profile")
-          } else {
-            alert(response.status)
-          }
-        })
-        .catch(error => {
-          // if (error.response.status === 400) {
-          //   this.nonFieldErrors = error.response.data.non_field_errors
-          //   this.showAlert()
-          // }
-          console.log(error)
+      console.log("authenticate user")
+      this.$store.dispatch("login", this.form)
+        .then(() => {
+          this.$router.push("profile/" + this.user.id)
         })
     }
   }
@@ -114,10 +86,8 @@ export default {
 
 @import "styles/global";
 
-/* Alert Box */
-.ydl-alert-box {
-  position: fixed;
-  top: 200px;
+.btn {
+  border-radius: 0px;
 }
 
 /* Form Group */
@@ -144,17 +114,24 @@ export default {
   /* contains the icons and the form */
   .form-container {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 40px;
+    // flex-direction: column;
+    // justify-content: center;
+    flex-wrap: wrap;
+    padding: 30px;
     width: 350px;
-    height: 500px;
+    height: 420px;
+    background-color: white;
 
     @include media-breakpoint-down(sm)
     {
       // make form container full screen
       width: 100%;
       height: 100%;
+    }
+
+    > form {
+      align-self: flex-end;
+      width: 100%;
     }
   }
 
@@ -169,25 +146,6 @@ export default {
 
     &:focus {
       border-color: $ydl-secondary;
-    }
-  }
-
-  .illustration {
-    text-align: center;
-    padding: 15px 0 20px;
-    font-size: 100px;
-    color: $ydl-primary;
-
-    @include media-breakpoint-down(xs) {
-      // reduce bottom padding
-      padding-bottom: 10px;
-      // make the logo smaller
-      font-size: 80px;
-    }
-
-    @include media-breakpoint-only(sm) {
-      // hide the logo in portrait mode
-      font-size: 0px;
     }
   }
 }

@@ -37,7 +37,7 @@ module.exports = {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
       // add the alias to webpack to reference the style sheet within <app>/styles via `@import "~styles/settings.scss"`
-      styles: path.join(__dirname, 'djangoblockchained-frontend/styles')
+      styles: path.join(__dirname, 'ydl-front/styles')
     }
   },
   module: {
