@@ -23,5 +23,6 @@ export default {
   justify-content: space-around;
   border-collapse: collapse;
   padding: 25px;
+  overflow: auto;
 }
 </style>

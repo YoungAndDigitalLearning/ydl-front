@@ -76,14 +76,6 @@ export default {
       console.log("Should be implemented but API unclear")
       alert("Button out on Order \nShould be implemented but API unclear")
     }
-  },
-  mounted () {
-    this.$http.get("users/" + this.$localStorage.get("user_id"))
-      .then(response => {
-        console.log(this.user)
-        this.user = response.data
-        this.loading = false
-      })
   }
 }
 </script>

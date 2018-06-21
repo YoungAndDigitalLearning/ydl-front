@@ -21,7 +21,6 @@ import Forum from "@/components/Forum"
 import PostWrapper from "@/components/PostWrapper"
 import EditCoursePage from "@/components/EditCoursePage"
 import Chat from "@/components/Chat"
-import Post from "@/components/Post"
 
 import fontawesome from "@fortawesome/fontawesome"
 import freeSolid from "@fortawesome/fontawesome-free-solid/"
@@ -45,7 +44,7 @@ export default new Router({
       component: LandingPage
     },
     {
-      path: "/profile",
+      path: "/profile/:id",
       name: "skbprofile",
       component: ProfilePage,
       children: [
@@ -88,6 +87,16 @@ export default new Router({
           path: "createcourse",
           name: "createcourse",
           component: CreateCourse
+        },
+        {
+          path: "post",
+          name: "skbpost",
+          component: PostWrapper
+        },
+        {
+          path: "chat",
+          name: "skbchat",
+          component: Chat
         }
       ]
     },
@@ -120,16 +129,6 @@ export default new Router({
       path: "/forum",
       name: "skbforum",
       component: Forum
-    },
-    {
-      path: "/post",
-      name: "skbpost",
-      component: PostWrapper
-    },
-    {
-      path: "/chat",
-      name: "skbchat",
-      component: Chat
     }
   ]
 })
