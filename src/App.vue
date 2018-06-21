@@ -28,10 +28,6 @@ export default {
     /* check if token has expired */
     if (token) {
       axios.post("https://api.ydlearning.com/token/verify/", {"token": token.replace("JWT ", "")})
-        .then((response) => {
-          console.log("response")
-          console.log(response)
-        })
         .catch((error) => {
           if (error.response.status === 400) {
             /* notify user that the token has been expired */
