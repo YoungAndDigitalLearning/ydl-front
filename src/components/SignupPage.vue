@@ -65,8 +65,7 @@ export default {
       console.log("signup user")
       this.$store.dispatch("signup", this.form)
         .then(() => {
-          console.log("pushing b")
-          this.$router.push("profile/" + user.id)
+          this.$router.push("/#/profile/" + this.user.id)
         })
     }
   },
