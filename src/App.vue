@@ -16,15 +16,47 @@ import Navbar from "@/components/Navbar.vue"
 import Footer from "@/components/Footer.vue"
 
 import jwtDecode from "jwt-decode"
+import axios from "axios"
 import { axiosInstance } from "./store/actions.js"
 
 export default {
   name: "App",
   created () {
-    console.log("mounted")
-    /* load token and and get user id */
-    const token = this.$localStorage.get("token", false)
+    /* load token */
+    var token = this.$localStorage.get("token", false)
+
+    /* check if token has expired */
     if (token) {
+      axios.post("https://api.ydlearning.com/token/verify/", {"token": token.replace("JWT ", "")})
+        .then((response) => {
+          console.log("response")
+          console.log(response)
+        })
+        .catch((error) => {
+          if (error.response.status === 400) {
+            /* notify user that the token has been expired */
+            this.$notify({
+              title: "Authentication",
+              text: "token has expired",
+              type: "error"
+            })
+
+            this.$store.dispatch("logout")
+
+            /* remove the token from the storage */
+            // this.$localStorage.remove("token")
+          }
+        })
+    }
+
+    /* load token */
+    token = this.$localStorage.get("token", false)
+
+    if (token) {
+      console.log("mounted")
+      /* TODO: improve the logic verify token still valid */
+      console.log(token)
+
       console.log("found token in local storage")
       const decodedToken = jwtDecode(token)
       /* get the user from the user id */
