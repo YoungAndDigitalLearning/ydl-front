@@ -44,6 +44,8 @@ export const actions = {
       .then(async (response) => {
         const token = response.data.token
         Vue.localStorage.set("token", "JWT " + token)
+        /* set token as header for next requests */
+        axiosInstance.defaults.headers.common["Authorization"] = "JWT " + token
         /* decode the token and retrieve the user id */
         const decodedToken = jwtDecode(token)
         await dispatch("getUser", decodedToken.user_id)
