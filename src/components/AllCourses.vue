@@ -1,5 +1,6 @@
 <template>
 <div>
+  <ydl-profileheadertext color="darkgreen">My Courses</ydl-profileheadertext>
   <ul class="list-group" v-for="course in courses" v-bind:key="course.id">
     <a v-if="!course.paid" class="list-group-item list-group-item-action" :href="'/#/profile/courses/' + course.id" v-on:click="$emit('load-details', course.id)">
       <h4> {{course.name}} </h4>
@@ -15,10 +16,14 @@
 
 <script>
 import { mapState } from "vuex"
+import ProfileHeaderText from "@/components/ProfileHeaderText"
 
 export default {
   name: "AllCourses",
-  computed: mapState(["courses"])
+  computed: mapState(["courses"]),
+  components: {
+    "ydl-profileheadertext": ProfileHeaderText
+  }
 }
 </script>
 
