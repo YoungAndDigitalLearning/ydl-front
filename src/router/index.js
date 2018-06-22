@@ -54,12 +54,12 @@ export default new Router({
           component: AllCourses
         },
         {
-          path: "course/:id",
+          path: "courses/:cid",
           name: "skbcourse",
           component: CoursePage
         },
         {
-          path: "course/:id/edit",
+          path: "courses/:cid/edit",
           name: "skbcourse-edit",
           component: EditCoursePage
         },
@@ -103,11 +103,6 @@ export default new Router({
     {
       path: "/courseview",
       name: "skbcourse",
-      component: CoursePage
-    },
-    {
-      path: "/course",
-      name: "skbcoursedetail",
       component: CoursePage
     },
     {
