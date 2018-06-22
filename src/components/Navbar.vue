@@ -14,7 +14,7 @@
             {{ user.username }}
           </template>
           <b-dropdown-item :href="getUserProfile"><fa-icon icon="user-astronaut"/> Profile</b-dropdown-item>
-          <b-dropdown-item href="#/profile/settings"><fa-icon icon="cog" /> Settings</b-dropdown-item>
+          <b-dropdown-item :href="getUserSettings"><fa-icon icon="cog" /> Settings</b-dropdown-item>
           <b-dropdown-divider></b-dropdown-divider>
           <b-dropdown-item href="#" @click="logout" ><fa-icon icon="ambulance" /> Signout</b-dropdown-item>
         </b-nav-item-dropdown>
@@ -36,7 +36,14 @@ export default {
     ...mapState(["isLoggedIn", "user"]),
     getUserProfile () {
       if (this.user) {
-        return "/#/profile/" + this.user.id
+        return "/#/profile/" + this.user.id + "/courses/"
+      } else {
+        return ""
+      }
+    },
+    getUserSettings () {
+      if (this.user) {
+        return "/#/profile/" + this.user.id + "/settings/"
       } else {
         return ""
       }

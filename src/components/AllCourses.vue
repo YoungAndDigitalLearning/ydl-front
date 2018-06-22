@@ -2,7 +2,7 @@
 <div>
   <ydl-profileheadertext color="darkgreen">My Courses</ydl-profileheadertext>
   <ul class="list-group" v-for="course in courses" v-bind:key="course.id">
-    <a v-if="!course.paid" class="list-group-item list-group-item-action" :href="'/#/profile/courses/' + course.id" v-on:click="$emit('load-details', course.id)">
+    <a v-if="!course.paid" class="list-group-item list-group-item-action" :href="'/#/profile/' + user.id + '/courses/' + course.id" course="course" v-on:click="$emit('load-details', course.id)">
       <h4> {{course.name}} </h4>
       <div v-html="course.description"></div>
     </a>
@@ -20,7 +20,7 @@ import ProfileHeaderText from "@/components/ProfileHeaderText"
 
 export default {
   name: "AllCourses",
-  computed: mapState(["courses"]),
+  computed: mapState(["courses", "user"]),
   components: {
     "ydl-profileheadertext": ProfileHeaderText
   }
