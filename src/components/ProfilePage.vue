@@ -25,7 +25,6 @@
     </div>
   </div>
   <div class="profile-content-container">
-    <ydl-profileheadertext color="darkgreen">SETTINGS</ydl-profileheadertext>
     <div class="profile-content">
       <router-view/>
     </div>
