@@ -41,6 +41,7 @@ export default {
             })
 
             this.$store.dispatch("logout")
+            this.$router.push("/")
 
             /* remove the token from the storage */
             // this.$localStorage.remove("token")
