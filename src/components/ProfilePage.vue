@@ -6,7 +6,8 @@
       <ydl-profileheadertext color="green" >NAVIGATION</ydl-profileheadertext>
       <ul class="nav flex-column">
         <li class="nav-item">
-          <a class="nav-link active badge-link" href="#"><span>My Courses</span>
+          <a class="nav-link active badge-link" :href="'/#/profile/' + user.id + '/courses/'">
+            <span>My Courses</span>
             <span class="ydl-badge"><b-badge>{{courses.length}}</b-badge></span>
             <span v-if="user.is_teacher" class="ydl-badge-add"><b-badge href="#" ><fa-icon icon="plus" /></b-badge></span>
           </a>
