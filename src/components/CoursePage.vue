@@ -1,5 +1,5 @@
 <template>
-  <div v-if="course">
+  <div v-if="teacher">
     <ydl-profileheadertext color="darkgreen">{{ course.name }}</ydl-profileheadertext>
     <div class="card-body">
       <div class="leader-board flex-container">
@@ -7,7 +7,7 @@
           <h6> Verantwortliche/r</h6>
           <ul>
             <li>
-              {{course.teacher}} <br>
+              {{teacher.first_name + " " + teacher.last_name}} <br>
               <span> E-Mail: [email] </span>
             </li>
           </ul>
@@ -32,18 +32,30 @@
 import CourseWeek from "@/components/CourseWeek"
 import { mapState } from "vuex"
 import ProfileHeaderText from "./ProfileHeaderText.vue"
+import { axiosInstance } from "../store/actions.js"
 
 export default {
   name: "courseview",
   data () {
     return {
-      course: {}
+      course: {},
+      teacher: {}
     }
   },
   computed: mapState(["courses"]),
   mounted () {
     this.cid = this.$route.params.cid
     this.course = this.courses[this.cid - 1]
+
+    /* get teacher of this course */
+    axiosInstance.get("users/" + this.course.teacher)
+      .then((response) => {
+        this.teacher = response.data
+      })
+      .catch((error) => {
+        console.log("error in CoursePage get teacher")
+        console.log(error.response)
+      })
   },
   components: {
     "ydl-courseweek": CourseWeek,
