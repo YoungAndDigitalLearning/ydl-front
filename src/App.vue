@@ -127,5 +127,6 @@ body {
 html {
     height: 100%;
     background-color: $skb-dark-blue;
+    font-family: 'Source Code Pro', monospace !important;
 }
 </style>

@@ -10,3 +10,5 @@ export const LOGIN_BEGIN = "LOGIN_BEGIN"
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS"
 export const LOGIN_END = "LOGIN_END"
 export const LOGOUT = "LOGOUT"
+
+export const VIEW_COURSE = "VIEW_COURSE"

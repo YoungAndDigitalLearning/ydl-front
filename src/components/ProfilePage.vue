@@ -15,8 +15,8 @@
         <li class="nav-item">
           <a class="nav-link" href="#">All Courses</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">(list of courses)</a>
+        <li v-for="course in courses" v-bind:key="course.id" class="nav-item">
+          <a class="nav-link" href="#" :click="dispatchViewChange(course.id)"><fa-icon v-if="course.id === currentViewingCourse" icon="caret-right"/>{{ "  " + course.name + " " + course.id }}</a>
         </li>
       </ul>
     </div>
@@ -46,13 +46,18 @@ import { mapState } from "vuex"
 
 export default {
   name: "ProfilePage",
+  methods: {
+    dispatchViewChange (id) {
+      this.$store.dispatch("viewCourse", id)
+    }
+  },
   created () {
     this.$store.dispatch("getCourses")
   },
   components: {
     "ydl-profileheadertext": ProfileHeaderText
   },
-  computed: mapState(["courses", "user"])
+  computed: mapState(["courses", "user", "currentViewingCourse"])
 }
 </script>
 
