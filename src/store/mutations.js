@@ -1,4 +1,4 @@
-import { LOGIN_BEGIN, LOGIN_END, LOGOUT, LOGIN_SUCCESS, GET_ANNOUNCEMENTS, GET_USER, SIGNUP_BEGIN, SIGNUP_END, GET_COURSES } from "./mutations-types"
+import { LOGIN_BEGIN, LOGIN_END, LOGOUT, LOGIN_SUCCESS, GET_ANNOUNCEMENTS, GET_USER, SIGNUP_BEGIN, SIGNUP_END, GET_COURSES, VIEW_COURSE } from "./mutations-types"
 
 export const mutations = {
   [SIGNUP_BEGIN] (state) {
@@ -27,5 +27,8 @@ export const mutations = {
   },
   [LOGOUT] (state) {
     state.isLoggedIn = false
+  },
+  [VIEW_COURSE] (state, id) {
+    state.currentViewingCourse = id
   }
 }

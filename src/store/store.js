@@ -14,6 +14,7 @@ export const store = new Vuex.Store({
   state: {
     courses: [],
     user: {},
+    currentViewingCourse: 0,
     loginPending: false,
     signupPending: false,
     isLoggedIn: !!Vue.prototype.$localStorage.get("token"),

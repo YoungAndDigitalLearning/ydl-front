@@ -61,5 +61,8 @@ export const actions = {
     /* remove the key from the header */
     // delete this.$http.defaults.headers.common["Authorization"]
     commit("LOGOUT")
+  },
+  viewCourse ({ commit }, id) {
+    commit("VIEW_COURSE", id)
   }
 }
