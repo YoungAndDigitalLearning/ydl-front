@@ -44,13 +44,14 @@ export default {
             this.$router.push("/")
 
             /* remove the token from the storage */
-            // this.$localStorage.remove("token")
+            this.$localStorage.remove("token")
           }
         })
     }
 
     /* load token */
     token = this.$localStorage.get("token", false)
+    console.log(token)
 
     if (token) {
       console.log("mounted")
