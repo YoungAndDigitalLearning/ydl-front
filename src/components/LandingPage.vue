@@ -16,6 +16,7 @@ export default {
   name: "LandingPage",
   computed: mapState(["announcements"]),
   mounted () {
+    console.log("dispatch announcements")
     this.$store.dispatch("getAnnouncements")
   },
   components: {
