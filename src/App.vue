@@ -22,7 +22,7 @@ import { mapState } from "vuex"
 
 export default {
   name: "App",
-  computed: mapState(["user", "isLoggedIn"]),
+  computed: mapState(["user"]),
   created () {
     /* load token */
     var token = this.$localStorage.get("token", false)
