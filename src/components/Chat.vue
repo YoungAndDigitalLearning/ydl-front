@@ -5,13 +5,19 @@
     </div>
     <div class="chat-content">
       <div class="available-chats">
-        <ul class="list-group" v-for="chat in messenger.availablechats" v-bind:key="chat.id">
+        <ul class="list-group" v-for="contact in messenger.availablechats" v-bind:key="contact.id">
           <!-- TODO: prevent redirection if link is clicked -->
-          <a class="list-group-item" href="/#/profile/6/chat" @click="loadChat(chat.id)">{{chat.name}}</a>
+          <a class="list-group-item" href="/#/profile/6/chat" @click="loadChat(contact.id)">{{contact.name}}</a>
         </ul>
       </div>
       <div class="chat-window">
-        actual chat window
+        <ul class="list-group">
+          <li class="list-group-item" v-for="message in chat.messages" v-bind:key="message.time">
+            {{message}}
+            <span>{{ message.time }}</span> <br>
+            <span>{{ message.text }}</span>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -48,8 +54,8 @@ export default {
       this.loading = true
       axios.get("http://jsontest/messenger/" + id + ".json")
         .then(response => {
-          console.log(response.data)
           this.chat = response.data
+          console.log(response.data)
           this.loading = false
         })
     }
