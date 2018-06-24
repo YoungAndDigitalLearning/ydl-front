@@ -5,7 +5,6 @@
     <section class="ydl-content">
       <router-view/>
     </section>
-    <div v-if="isLoggedIn" class="ydl-debug" ><span>DEBUG</span>: is Teacher: {{user.is_teacher}}</div>
   </div>
 </template>
 
@@ -88,12 +87,6 @@ export default {
 
 <style lang="scss">
 @import "styles/global";
-
-.ydl-debug {
-  position: fixed;
-  right: 10px;
-  bottom: 10px;
-}
 
 .notify {
   margin-top: 70px !important;
