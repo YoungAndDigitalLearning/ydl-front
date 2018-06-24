@@ -16,7 +16,7 @@
           <a class="nav-link" href="#">All Courses</a>
         </li>
         <li v-for="course in courses" v-bind:key="course.id" class="nav-item">
-          <a class="nav-link" href="#" :click="dispatchViewChange(course.id)">{{course.name + " " + course.id }}</a>
+          <a class="nav-link" href="#" :click="dispatchViewChange(course.id)">{{course.name}}</a>
         </li>
       </ul>
     </div>
