@@ -1,9 +1,7 @@
 import Vue from "vue"
 import Router from "vue-router"
 import BootstrapVue from "bootstrap-vue"
-import VueSession from "vue-session"
 import VeeValidate from "vee-validate"
-import VueLocalstorage from "vue-localstorage"
 
 import LandingPage from "@/components/LandingPage"
 import ProfilePage from "@/components/ProfilePage"
@@ -29,13 +27,11 @@ import FontAwesomeIcon from "@fortawesome/vue-fontawesome"
 fontawesome.library.add(freeSolid)
 
 Vue.use(VeeValidate)
-Vue.use(VueSession)
 Vue.use(Router)
 Vue.use(BootstrapVue)
 Vue.component("fa-icon", FontAwesomeIcon)
-Vue.use(VueLocalstorage)
 
-export default new Router({
+export const router = new Router({
   // mode: "history",
   routes: [
     {
@@ -47,6 +43,7 @@ export default new Router({
       path: "/profile/:id",
       name: "skbprofile",
       component: ProfilePage,
+      meta: { requiresAuth: true },
       children: [
         {
           path: "courses",
@@ -67,11 +64,6 @@ export default new Router({
           path: "home",
           name: "overview",
           component: Course
-        },
-        {
-          path: "404",
-          name: "notfound",
-          component: NotFound
         },
         {
           path: "settings",
@@ -103,6 +95,7 @@ export default new Router({
     {
       path: "/courseview",
       name: "skbcourse",
+      meta: { requiresAuth: true },
       component: CoursePage
     },
     {
@@ -123,7 +116,31 @@ export default new Router({
     {
       path: "/forum",
       name: "skbforum",
+      meta: { requiresAuth: true },
       component: Forum
+    },
+    {
+      path: "*",
+      name: "404notfound",
+      component: NotFound
     }
   ]
+})
+
+/* guard every site which requires login  */
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    console.log(to)
+    console.log("teeeest")
+    if (!Vue.localStorage.get("token", false)) {
+      next({
+        path: "/login",
+        query: { redirect: to.fullPath }
+      })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
 })
