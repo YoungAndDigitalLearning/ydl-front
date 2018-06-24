@@ -2,7 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from "vue"
 import App from "./App"
-import router from "./router"
+import { router } from "./router"
 import { store } from "./store/store"
 import Notifications from "vue-notification"
 
@@ -14,7 +14,7 @@ Vue.use(Notifications)
 Vue.config.productionTip = false
 
 console.log("site refreshed")
-/* create default axios instance to use it from all components with same settings */
+console.log(Vue.prototype)
 
 /* eslint-disable no-new */
 new Vue({
