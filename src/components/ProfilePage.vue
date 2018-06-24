@@ -16,7 +16,7 @@
           <a class="nav-link" href="#">All Courses</a>
         </li>
         <li v-for="course in courses" v-bind:key="course.id" class="nav-item">
-          <a class="nav-link" href="#" :click="dispatchViewChange(course.id)"><fa-icon v-if="course.id === currentViewingCourse" icon="caret-right"/>{{ "  " + course.name + " " + course.id }}</a>
+          <a class="nav-link" href="#" :click="dispatchViewChange(course.id)">{{course.name + " " + course.id }}</a>
         </li>
       </ul>
     </div>
@@ -57,7 +57,7 @@ export default {
   components: {
     "ydl-profileheadertext": ProfileHeaderText
   },
-  computed: mapState(["courses", "user", "currentViewingCourse"])
+  computed: mapState(["courses", "user"])
 }
 </script>
 
