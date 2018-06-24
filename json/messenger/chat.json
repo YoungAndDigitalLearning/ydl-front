@@ -1,0 +1,32 @@
+{
+    "availablechats": [
+        {
+            "id": 0,
+            "name": "Petra"
+        },
+        {
+            "id": 1,
+            "name": "Waltraud"
+        },
+        {
+            "id": 2,
+            "name": "Heinz"
+        },
+        {
+            "id": 3,
+            "name": "Hugo"
+        },
+        {
+            "id": 4,
+            "name": "Walter"
+        },
+        {
+            "id": 5,
+            "name": "Paul"
+        },
+        {
+            "id": 6,
+            "name": "Paula"
+        }
+    ]
+}

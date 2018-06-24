@@ -1,0 +1,56 @@
+{
+    "chatname": "petra",
+    "groupchat": "false",
+    "participants": [
+        {
+            "id": 6,
+            "name": "peter"
+        },
+        {
+            "id": 0,
+            "name": "petra"
+        }
+    ],
+    "messages": [
+        {
+            "from": 5,
+            "time": "xx.xx.xx aa:aa",
+            "text": "Hallo Peter"
+        },
+        {
+            "from": 6,
+            "time": "xx.xx.xx aa:aa",
+            "text": "Hallo Petra"
+        },
+        {
+            "from": 5,
+            "time": "xx.xx.xx aa:aa",
+            "text": "Wie geht es dir denn?"
+        },
+        {
+            "from": 6,
+            "time": "xx.xx.xx aa:aa",
+            "text": "Ganz gut. Und dir?"
+        },
+        {
+            "from": 5,
+            "time": "xx.xx.xx aa:aa",
+            "text": "Auch gut. Sag mal, hast du die Hausaufgabe nummer 8 in Theologie verstanden und könntest mir dabei helfen?"
+        },
+        {
+            "from": 6,
+            "time": "xx.xx.xx aa:aa",
+            "text": "Ja die hab ich verstanden. Ich kann sie dir morgen gerne erklären."
+        },
+        {
+            "from": 5,
+            "time": "xx.xx.xx aa:aa",
+            "text": "Das wäre echt sehr nett von Dir, danke."
+        },
+        {
+            "from": 6,
+            "time": "xx.xx.xx aa:aa",
+            "text": "Kein Thema. Komme einfach um 22:00 Uhr in den dunklen Keller, dann kann ich dir alles genau erklären."
+        }
+    ]
+}

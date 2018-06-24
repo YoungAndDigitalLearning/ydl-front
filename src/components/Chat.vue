@@ -13,7 +13,6 @@
       <div class="chat-window">
         <ul class="list-group">
           <li class="list-group-item" v-for="message in chat.messages" v-bind:key="message.time">
-            {{message}}
             <span>{{ message.time }}</span> <br>
             <span>{{ message.text }}</span>
           </li>
@@ -55,7 +54,7 @@ export default {
       axios.get("http://jsontest/messenger/" + id + ".json")
         .then(response => {
           this.chat = response.data
-          console.log(response.data)
+          console.log(this.chat)
           this.loading = false
         })
     }
