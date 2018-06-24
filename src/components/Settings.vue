@@ -39,6 +39,7 @@
 <script>
 import FormLabel from "@/components/FormLabel"
 import { mapState } from "vuex"
+import { axiosInstance } from "../store/actions"
 
 export default {
   name: "Settings",
@@ -48,8 +49,8 @@ export default {
   },
   methods: {
     handleSubmit () {
-      this.$http.put("users/" + this.user.id, this.user) // + this.user.id, this.user)
-      console.log("updated user")
+      axiosInstance.put("users/" + this.user.id, this.user) // + this.user.id, this.user)
+      this.$router.push("profile/" + this.user.id)
     }
   }
 }
