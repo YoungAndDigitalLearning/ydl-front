@@ -12,7 +12,8 @@ console.log("refreshed store")
 
 export const store = new Vuex.Store({
   state: {
-    courses: [],
+    own_courses: [],
+    joined_courses: [],
     user: {},
     currentViewingCourse: 0,
     loginPending: false,
