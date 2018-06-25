@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <notifications classes="vue-notification notify" />
+    <notifications position="bottom right" classes="vue-notification notify" />
     <ydl-navbar/>
     <section class="ydl-content">
       <router-view/>
@@ -89,7 +89,8 @@ export default {
 @import "styles/global";
 
 .notify {
-  margin-top: 70px !important;
+  // margin-top: 70px !important;
+  // pointer-events:none;
 }
 
 #app {
