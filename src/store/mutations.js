@@ -11,7 +11,17 @@ export const mutations = {
     state.announcements = announcements
   },
   [GET_COURSES] (state, courses) {
-    state.courses = courses
+    var ownCourses = []
+    var joinedCourses = []
+    courses.forEach(course => {
+      if (course.teacher === state.user.id) {
+        ownCourses.push(course)
+      } else {
+        joinedCourses.push(course)
+      }
+    })
+    state.own_courses = ownCourses
+    state.joined_courses = joinedCourses
   },
   [GET_USER] (state, user) {
     state.user = user

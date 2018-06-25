@@ -42,7 +42,12 @@ export default {
       teacher: {}
     }
   },
-  computed: mapState(["courses"]),
+  computed: {
+    ...mapState(["own_courses", "joined_courses"]),
+    courses () {
+      return [...this.own_courses, ...this.joined_courses]
+    }
+  },
   mounted () {
     const cid = this.$route.params.cid
     this.courses.forEach(course => {
