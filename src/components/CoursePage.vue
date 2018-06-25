@@ -44,8 +44,14 @@ export default {
   },
   computed: mapState(["courses"]),
   mounted () {
-    this.cid = this.$route.params.cid
-    this.course = this.courses[this.cid - 1]
+    const cid = this.$route.params.cid
+    this.courses.forEach(course => {
+      if (parseInt(course.id) === parseInt(cid)) {
+        console.log("found course")
+        this.course = course
+      }
+    })
+    this.$store.dispatch("viewCourse", this.course.id)
 
     /* get teacher of this course */
     axiosInstance.get("users/" + this.course.teacher)

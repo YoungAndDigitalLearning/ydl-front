@@ -23,7 +23,7 @@ export const mutations = {
     state.isLoggedIn = true
   },
   [LOGIN_END] (state) {
-    state.signupPedning = false
+    state.loginPending = false
   },
   [LOGOUT] (state) {
     state.isLoggedIn = false
