@@ -130,6 +130,7 @@ export default {
   margin: 0 20px;
   background-color: #fff;
   @include box-shadow(0 0 15px 1px rgba(0,0,0,.23));
+  overflow: auto;
 }
 
 .profile-container {
