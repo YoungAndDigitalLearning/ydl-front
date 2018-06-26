@@ -81,19 +81,20 @@ export default {
     .title {
       padding-left: 10px;
       padding-right: 10px;
-      font-size: 22px;
+      font-size: 16px;
     }
 
     .meta {
       padding-left: 10px;
       padding-right: 10px;
-      font-size: 16px;
+      font-size: 14px;
     }
   }
 
   .content {
     background-color: $ydl-primary-background;
     padding: 10px;
+    font-size: 14px;
   }
 
   .footer {
