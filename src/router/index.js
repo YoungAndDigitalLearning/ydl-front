@@ -133,6 +133,7 @@ router.beforeEach((to, from, next) => {
     console.log(to)
     console.log("teeeest")
     if (!Vue.localStorage.get("token", false)) {
+      console.log("redirect")
       next({
         path: "/login",
         query: { redirect: to.fullPath }

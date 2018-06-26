@@ -1,7 +1,7 @@
 <template>
-  <div class="container-fluid" v-if="!loading">
+  <div>
     <div>
-      <ydl-profileheadertext color="darkgreen">Hello Chat</ydl-profileheadertext>
+      <ydl-profileheadertext color="darkgreen">SKB Messenger</ydl-profileheadertext>
     </div>
     <div class="chat-content">
       <div class="available-chats">
@@ -24,7 +24,6 @@
 
 <script>
 import ProfileHeaderText from "@/components/ProfileHeaderText"
-import axios from "axios"
 
 export default {
   name: "Chat",
@@ -33,30 +32,94 @@ export default {
   },
   data () {
     return {
-      messenger: {},
-      chat: {},
+      messenger: {
+        "availablechats": [
+          {
+            "id": 0,
+            "name": "Petra"
+          },
+          {
+            "id": 1,
+            "name": "Waltraud"
+          },
+          {
+            "id": 2,
+            "name": "Heinz"
+          },
+          {
+            "id": 3,
+            "name": "Hugo"
+          },
+          {
+            "id": 4,
+            "name": "Walter"
+          },
+          {
+            "id": 5,
+            "name": "Paul"
+          },
+          {
+            "id": 6,
+            "name": "Paula"
+          }]},
+      chat: {
+        "chatname": "petra",
+        "groupchat": "false",
+        "participants": [
+          {
+            "id": 6,
+            "name": "peter"
+          },
+          {
+            "id": 0,
+            "name": "petra"
+          }
+        ],
+        "messages": [
+          {
+            "from": 5,
+            "time": "xx.xx.xx aa:aa",
+            "text": "Hallo Peter"
+          },
+          {
+            "from": 6,
+            "time": "xx.xx.xx aa:aa",
+            "text": "Hallo Petra"
+          },
+          {
+            "from": 5,
+            "time": "xx.xx.xx aa:aa",
+            "text": "Wie geht es dir denn?"
+          },
+          {
+            "from": 6,
+            "time": "xx.xx.xx aa:aa",
+            "text": "Ganz gut. Und dir?"
+          },
+          {
+            "from": 5,
+            "time": "xx.xx.xx aa:aa",
+            "text": "Auch gut. Sag mal, hast du die Hausaufgabe nummer 8 in Theologie verstanden und könntest mir dabei helfen?"
+          },
+          {
+            "from": 6,
+            "time": "xx.xx.xx aa:aa",
+            "text": "Ja die hab ich verstanden. Ich kann sie dir morgen gerne erklären."
+          },
+          {
+            "from": 5,
+            "time": "xx.xx.xx aa:aa",
+            "text": "Das wäre echt sehr nett von Dir, danke."
+          },
+          {
+            "from": 6,
+            "time": "xx.xx.xx aa:aa",
+            "text": "Kein Thema. Komme einfach um 22:00 Uhr in den dunklen Keller, dann kann ich dir alles genau erklären."
+          }
+        ]
+      },
       userId: 0,
-      loading: true
-    }
-  },
-  mounted () {
-    axios.get("http://jsontest/messenger/chat.json")
-      .then(response => {
-        console.log(response.data)
-        this.messenger = response.data
-        this.loading = false
-      })
-  },
-  methods: {
-    loadChat (id) {
-      console.log(id)
-      this.loading = true
-      axios.get("http://jsontest/messenger/" + id + ".json")
-        .then(response => {
-          this.chat = response.data
-          console.log(this.chat)
-          this.loading = false
-        })
+      loading: false
     }
   }
 }

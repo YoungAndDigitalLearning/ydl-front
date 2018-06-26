@@ -5,10 +5,12 @@ import App from "./App"
 import { router } from "./router"
 import { store } from "./store/store"
 import Notifications from "vue-notification"
+import VueLocalStorage from "vue-localstorage"
 
 // TODO: use jwt decode
 // var jwtDecode = require("jwt-decode")
 
+Vue.use(VueLocalStorage)
 Vue.use(Notifications)
 
 Vue.config.productionTip = false

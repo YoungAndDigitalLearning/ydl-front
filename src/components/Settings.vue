@@ -1,10 +1,9 @@
 <template>
-<div v-if="!loading">
-  <h1> Einstellungen </h1>
+<div>
+  <ydl-profileheadertext color="darkgreen">Profile Settings</ydl-profileheadertext>
   <div class="settings-container">
     <div>
       <form @submit.prevent="handleSubmit">
-        <h2 class="sr-only">Login Form</h2>
         <div class="form-group">
           <input class="form-control" v-validate="'required|alpha_dash'" id="username" type="text" name="username" v-model="user.username" required>
           <ydl-label inputID="username">Username</ydl-label>
@@ -39,17 +38,25 @@
 <script>
 import FormLabel from "@/components/FormLabel"
 import { mapState } from "vuex"
+import { axiosInstance } from "../store/utils/api"
+import ProfileHeaderText from "@/components/ProfileHeaderText"
 
 export default {
   name: "Settings",
   computed: mapState(["user"]),
   components: {
-    "ydl-label": FormLabel
+    "ydl-label": FormLabel,
+    "ydl-profileheadertext": ProfileHeaderText
   },
   methods: {
     handleSubmit () {
-      this.$http.put("users/" + this.user.id, this.user) // + this.user.id, this.user)
-      console.log("updated user")
+      axiosInstance.put("users/" + this.user.id, this.user) // + this.user.id, this.user)
+      // this.$router.push("/profile/" + this.user.id)
+      this.$notify({
+        title: "Profile Update",
+        text: "successfully updated your user data",
+        type: "success"
+      })
     }
   }
 }
@@ -100,6 +107,7 @@ export default {
     justify-content: center;
     align-items: center;
     height: 100%;
+    margin-top: 20px;
 
   /* contains the icons and the form */
   .form-container {
