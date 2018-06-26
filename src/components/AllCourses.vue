@@ -1,7 +1,18 @@
 <template>
 <div>
-  <ydl-profileheadertext color="darkgreen">My Courses</ydl-profileheadertext>
-  <ul class="list-group" v-for="course in courses" v-bind:key="course.id">
+  <ydl-profileheadertext v-if="user.is_teacher" color="darkgreen">My Courses</ydl-profileheadertext>
+  <ul class="list-group" v-if="user.is_teacher" v-for="course in own_courses" v-bind:key="course.id">
+    <a v-if="!course.paid" class="list-group-item list-group-item-action" :href="'/#/profile/' + user.id + '/courses/' + course.id" v-on:click="$emit('load-details', course.id)">
+      <h4> {{course.name}} </h4>
+      <div v-html="course.description"></div>
+    </a>
+    <a v-else class="list-group-item list-group-item-action blocked" :href="'/#/profile/courses/' + course.id">
+      <h4> {{course.name}} </h4>
+      <div v-html="course.news"></div>
+    </a>
+  </ul>
+  <ydl-profileheadertext color="darkgreen">Joined Courses</ydl-profileheadertext>
+  <ul class="list-group" v-for="course in joined_courses" v-bind:key="course.id">
     <a v-if="!course.paid" class="list-group-item list-group-item-action" :href="'/#/profile/' + user.id + '/courses/' + course.id" v-on:click="$emit('load-details', course.id)">
       <h4> {{course.name}} </h4>
       <div v-html="course.description"></div>
@@ -20,7 +31,7 @@ import ProfileHeaderText from "@/components/ProfileHeaderText"
 
 export default {
   name: "AllCourses",
-  computed: mapState(["courses", "user"]),
+  computed: mapState(["joined_courses", "own_courses", "user"]),
   components: {
     "ydl-profileheadertext": ProfileHeaderText
   }

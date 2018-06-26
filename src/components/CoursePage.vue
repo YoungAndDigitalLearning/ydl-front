@@ -32,7 +32,7 @@
 import CourseWeek from "@/components/CourseWeek"
 import { mapState } from "vuex"
 import ProfileHeaderText from "./ProfileHeaderText.vue"
-import { axiosInstance } from "../store/actions.js"
+import { axiosInstance } from "../store/utils/api"
 
 export default {
   name: "courseview",
@@ -42,10 +42,21 @@ export default {
       teacher: {}
     }
   },
-  computed: mapState(["courses"]),
+  computed: {
+    ...mapState(["own_courses", "joined_courses"]),
+    courses () {
+      return [...this.own_courses, ...this.joined_courses]
+    }
+  },
   mounted () {
-    this.cid = this.$route.params.cid
-    this.course = this.courses[this.cid - 1]
+    const cid = this.$route.params.cid
+    this.courses.forEach(course => {
+      if (parseInt(course.id) === parseInt(cid)) {
+        console.log("found course")
+        this.course = course
+      }
+    })
+    this.$store.dispatch("viewCourse", this.course.id)
 
     /* get teacher of this course */
     axiosInstance.get("users/" + this.course.teacher)

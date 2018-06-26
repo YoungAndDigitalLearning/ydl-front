@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <notifications classes="vue-notification notify" />
+    <notifications position="bottom right" classes="vue-notification notify" />
     <ydl-navbar/>
     <section class="ydl-content">
       <router-view/>
@@ -17,7 +17,7 @@ import Footer from "@/components/Footer.vue"
 
 import jwtDecode from "jwt-decode"
 import axios from "axios"
-import { axiosInstance } from "./store/actions.js"
+import { axiosInstance } from "./store/utils/api"
 import { mapState } from "vuex"
 
 export default {
@@ -89,7 +89,8 @@ export default {
 @import "styles/global";
 
 .notify {
-  margin-top: 70px !important;
+  // margin-top: 70px !important;
+  // pointer-events:none;
 }
 
 #app {
