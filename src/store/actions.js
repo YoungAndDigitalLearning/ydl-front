@@ -2,7 +2,7 @@
 import Vue from "vue"
 import jwtDecode from "jwt-decode"
 import { courseActions } from "./utils/courses"
-import { axiosInstance } from "./utils/api"
+import { axiosInstance } from "./store"
 
 // export const axiosInstance = axios.create({
 //  baseURL: "https://api.ydlearning.com/"
