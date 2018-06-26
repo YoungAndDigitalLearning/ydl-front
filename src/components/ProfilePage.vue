@@ -8,14 +8,14 @@
         <li class="nav-item">
           <a class="nav-link active badge-link" :href="'/#/profile/' + user.id + '/courses/'">
             <span>My Courses</span>
-            <span class="ydl-badge"><b-badge>{{joined_courses.length}}</b-badge></span>
+            <span class="ydl-badge"><b-badge>{{[...own_courses, ...joined_courses].length}}</b-badge></span>
             <span v-if="user.is_teacher" class="ydl-badge-add"><b-badge href="#" ><fa-icon icon="plus" /></b-badge></span>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">All Courses</a>
         </li>
-        <li v-for="course in joined_courses" v-bind:key="course.id" class="nav-item">
+        <li v-for="course in [...own_courses, ...joined_courses]" v-bind:key="course.id" class="nav-item">
           <a class="nav-link" @click="goToCourse(course.id)"><fa-icon v-if="course.id === currentViewingCourse" icon="caret-right"/>{{" " + course.name}}</a>
         </li>
       </ul>

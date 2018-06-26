@@ -1,7 +1,7 @@
 import axios from "axios"
 // import Vue from "vue"
 
-const axiosInstance = axios.create({
+export const axiosInstance = axios.create({
   baseURL: "https://api.ydlearning.com/"
 })
 
@@ -13,11 +13,6 @@ const axiosInstance = axios.create({
 export default {
   get (url) {
     return axiosInstance.get(url)
-      .then((response) => {
-        console.log(response)
-        Promise.resolve(response.data)
-      })
-      .catch((error) => Promise.reject(error))
   },
   post (url, request) {
     return axiosInstance.post(url, request)

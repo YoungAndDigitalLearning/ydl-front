@@ -38,7 +38,7 @@
 <script>
 import FormLabel from "@/components/FormLabel"
 import { mapState } from "vuex"
-import { axiosInstance } from "../store/actions"
+import { axiosInstance } from "../store/utils/api"
 import ProfileHeaderText from "@/components/ProfileHeaderText"
 
 export default {

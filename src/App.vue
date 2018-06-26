@@ -17,7 +17,7 @@ import Footer from "@/components/Footer.vue"
 
 import jwtDecode from "jwt-decode"
 import axios from "axios"
-import { axiosInstance } from "./store/actions.js"
+import { axiosInstance } from "./store/utils/api"
 import { mapState } from "vuex"
 
 export default {
