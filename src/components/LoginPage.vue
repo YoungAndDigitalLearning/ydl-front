@@ -56,26 +56,27 @@ export default {
       }
     }
   },
-  computed: mapState(["loginPending", "user"]),
+  computed: mapState({
+    loginPending: state => state.authentication.pending.token,
+    user: state => state.user.user
+  }),
   components: {
     "ydl-label": FormLabel,
     "ydl-profileheadertext": ProfileHeaderText
   },
   methods: {
     validateBeforeSubmit () {
-      this.$validator.validateAll()
-        .then((result) => {
-          if (result) {
-            this.authenticate()
-          }
-        })
+      this.$validator.validateAll().then(result => {
+        if (result) {
+          this.authenticate()
+        }
+      })
     },
     authenticate () {
       console.log("authenticate user")
-      this.$store.dispatch("login", this.form)
-        .then(() => {
-          this.$router.push("profile/" + this.user.id + "/courses/")
-        })
+      this.$store.dispatch("login", { data: this.form }).then(() => {
+        this.$router.push("profile/" + this.user.id + "/courses/")
+      })
     }
   }
 }
@@ -98,7 +99,8 @@ export default {
 
 // for the animation if input is selected
 .form-control {
-  &:focus + label, &:valid + label {
+  &:focus + label,
+  &:valid + label {
     transform: translateY(-100%);
     font-size: 75%;
   }
@@ -106,10 +108,10 @@ export default {
 
 /* Login */
 .log-in-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 
   /* contains the icons and the form */
   .form-container {
@@ -122,8 +124,7 @@ export default {
     height: 420px;
     background-color: white;
 
-    @include media-breakpoint-down(sm)
-    {
+    @include media-breakpoint-down(sm) {
       // make form container full screen
       width: 100%;
       height: 100%;

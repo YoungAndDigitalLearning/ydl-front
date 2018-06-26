@@ -6,7 +6,7 @@ import Vapi from "vuex-rest-api"
 
 Vue.use(Vuex)
 
-const axiosInstance = axios.create({
+export const axiosInstance = axios.create({
   baseURL: "https://api.ydlearning.com/"
 })
 
@@ -41,7 +41,23 @@ const announcements = new Vapi({
 const courses = new Vapi({
   axios: axiosInstance,
   state: {
-    courses: []
+    ownCourses: [],
+    joinedCourses: []
+  },
+  onSuccess: (state, payload, axios) => {
+    // seperate own and joined courses
+    var ownCourses = []
+    var joinedCourses = []
+    payload.data.forEach(course => {
+      if (course.teacher === state.user.id) {
+        ownCourses.push(course)
+      } else {
+        joinedCourses.push(course)
+      }
+    })
+    state.own_courses = ownCourses
+    state.joined_courses = joinedCourses
+    state.course = payload.data[0]
   }
 })
   .get({
@@ -60,9 +76,40 @@ const courses = new Vapi({
     path: "courses/"
   })
 
+const authentication = new Vapi({
+  axios: axiosInstance
+}).post({
+  action: "_login",
+  property: "token",
+  path: "token/auth/",
+  onSuccess: (state, payload, axios) => {
+    console.log("saved token")
+    Vue.localStorage.set("token", "JWT " + payload.data[0])
+  }
+})
+
+const users = new Vapi({
+  axios: axiosInstance
+}).get({
+  action: "getUser",
+  property: "user",
+  path: ({ id }) => `users/${id}`
+})
+
+const users_stored = users.getStore()
+users_stored.actions.login = ({context, cred}) => {
+  await Vue.store.dispatch("_login")
+    .then( async response => {
+      
+    })
+
+}
+
 export const store = new Vuex.Store({
   modules: {
     announcements: announcements.getStore(),
-    courses: courses.getStore()
+    courses: courses.getStore(),
+    authentication: authentication.getStore(),
+    users: users.getStore()
   }
 })
