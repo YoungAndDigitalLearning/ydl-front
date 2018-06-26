@@ -32,7 +32,7 @@
 import CourseWeek from "@/components/CourseWeek"
 import { mapState } from "vuex"
 import ProfileHeaderText from "./ProfileHeaderText.vue"
-import { axiosInstance } from "../store/actions.js"
+import { axiosInstance } from "../store/utils/api"
 
 export default {
   name: "courseview",

@@ -14,7 +14,9 @@ import { mapState } from "vuex"
 
 export default {
   name: "LandingPage",
-  computed: mapState(["announcements"]),
+  computed: mapState({
+    announcements: state => state.announcements.announcements
+  }),
   mounted () {
     console.log("dispatch announcements")
     this.$store.dispatch("getAnnouncements")

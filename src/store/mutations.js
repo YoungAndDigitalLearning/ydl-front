@@ -1,6 +1,8 @@
-import { LOGIN_BEGIN, LOGIN_END, LOGOUT, LOGIN_SUCCESS, GET_ANNOUNCEMENTS, GET_USER, SIGNUP_BEGIN, SIGNUP_END, GET_COURSES, VIEW_COURSE } from "./mutations-types"
+import { LOGIN_BEGIN, LOGIN_END, LOGOUT, LOGIN_SUCCESS, GET_ANNOUNCEMENTS, GET_USER, SIGNUP_BEGIN, SIGNUP_END, VIEW_COURSE } from "./mutations-types"
+import { courseMutations } from "./utils/courses"
 
 export const mutations = {
+  ...courseMutations,
   [SIGNUP_BEGIN] (state) {
     state.signupPending = true
   },
@@ -9,19 +11,6 @@ export const mutations = {
   },
   [GET_ANNOUNCEMENTS] (state, announcements) {
     state.announcements = announcements
-  },
-  [GET_COURSES] (state, courses) {
-    var ownCourses = []
-    var joinedCourses = []
-    courses.forEach(course => {
-      if (course.teacher === state.user.id) {
-        ownCourses.push(course)
-      } else {
-        joinedCourses.push(course)
-      }
-    })
-    state.own_courses = ownCourses
-    state.joined_courses = joinedCourses
   },
   [GET_USER] (state, user) {
     state.user = user
