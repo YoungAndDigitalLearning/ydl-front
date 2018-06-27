@@ -1,43 +1,50 @@
 <template>
-<div class="ydl-container">
-  <div class="left-sidebar">
-    <!-- TODO: need to be removed into sub compoentnts -->
-    <div class="navigation">
-      <ydl-profileheadertext color="green" >NAVIGATION</ydl-profileheadertext>
-      <ul class="nav flex-column">
-        <li class="nav-item">
-          <a class="nav-link active badge-link" :href="'/#/profile/' + user.id + '/courses/'">
-            <span>My Courses</span>
-            <span class="ydl-badge"><b-badge>{{[...own_courses, ...joined_courses].length}}</b-badge></span>
-            <span v-if="user.is_teacher" class="ydl-badge-add"><b-badge href="#" ><fa-icon icon="plus" /></b-badge></span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">All Courses</a>
-        </li>
-        <li v-for="course in [...own_courses, ...joined_courses]" v-bind:key="course.id" class="nav-item">
-          <a class="nav-link" @click="goToCourse(course.id)"><fa-icon v-if="course.id === currentViewingCourse" icon="caret-right"/>{{" " + course.name}}</a>
-        </li>
-      </ul>
+  <div class="ydl-container">
+    <div class="left-sidebar">
+      <!-- TODO: need to be removed into sub compoentnts -->
+      <div class="navigation">
+        <ydl-profileheadertext color="green">NAVIGATION</ydl-profileheadertext>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active badge-link" :href="'/#/profile/' + user.id + '/courses/'">
+              <span>My Courses</span>
+              <span class="ydl-badge">
+                <b-badge>{{[...own_courses, ...joined_courses].length}}</b-badge>
+              </span>
+              <span v-if="user.is_teacher" class="ydl-badge-add">
+                <b-badge href="#">
+                  <fa-icon icon="plus" />
+                </b-badge>
+              </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">All Courses</a>
+          </li>
+          <li v-for="course in [...own_courses, ...joined_courses]" v-bind:key="course.id" class="nav-item">
+            <a class="nav-link" @click="goToCourse(course.id)">
+              <fa-icon v-if="course.id === currentViewingCourse" icon="caret-right" />{{" " + course.name}}</a>
+          </li>
+        </ul>
+      </div>
+      <div class="recent-uploads">
+        <ydl-profileheadertext color="orange">RECENT UPLOADS</ydl-profileheadertext>
+      </div>
     </div>
-    <div class="recent-uploads">
-      <ydl-profileheadertext color="orange">RECENT UPLOADS</ydl-profileheadertext>
+    <div class="profile-content-container">
+      <div class="profile-content">
+        <router-view/>
+      </div>
+    </div>
+    <div class="right-sidebar">
+      <div class="navigation">
+        <ydl-profileheadertext color="pink">EVENTS</ydl-profileheadertext>
+      </div>
+      <div class="recent-uploads">
+        <ydl-profileheadertext color="blue">CALENDAR</ydl-profileheadertext>
+      </div>
     </div>
   </div>
-  <div class="profile-content-container">
-    <div class="profile-content">
-      <router-view/>
-    </div>
-  </div>
-  <div class="right-sidebar">
-    <div class="navigation">
-      <ydl-profileheadertext color="pink">EVENTS</ydl-profileheadertext>
-    </div>
-    <div class="recent-uploads">
-      <ydl-profileheadertext color="blue">CALENDAR</ydl-profileheadertext>
-    </div>
-  </div>
-</div>
 </template>
 
 <script>
@@ -57,7 +64,12 @@ export default {
   components: {
     "ydl-profileheadertext": ProfileHeaderText
   },
-  computed: mapState(["own_courses", "joined_courses", "user", "currentViewingCourse"])
+  computed: mapState({
+    own_courses: state => state.courses.own_courses,
+    joined_courses: state => state.courses.joined_courses,
+    user: state => state.users.user,
+    currentViewingCourse: state => state.currentViewingCourse
+  })
 }
 </script>
 
@@ -66,7 +78,7 @@ export default {
 @import "compass/css3";
 
 a:hover {
- cursor:pointer;
+  cursor: pointer;
 }
 
 /* navigation style (new components) */
@@ -76,22 +88,22 @@ a:hover {
 }
 
 .ydl-badge {
- position: absolute;
- right: 10px;
+  position: absolute;
+  right: 10px;
 
- .badge {
-   width: 28px;
- }
+  .badge {
+    width: 28px;
+  }
 
- &-add {
-   right: 50px;
-   position: absolute;
+  &-add {
+    right: 50px;
+    position: absolute;
 
-   .badge {
-     width: 28px;
-     background-color: $skb-green;
-   }
- }
+    .badge {
+      width: 28px;
+      background-color: $skb-green;
+    }
+  }
 }
 
 .inner-button {
@@ -118,7 +130,7 @@ a:hover {
 .navigation {
   width: 270px;
   background-color: #fff;
-  @include box-shadow(0 0 15px 1px rgba(0,0,0,.23));
+  @include box-shadow(0 0 15px 1px rgba(0, 0, 0, 0.23));
 }
 
 .recent-uploads {
@@ -126,14 +138,14 @@ a:hover {
   width: 270px;
   height: 240px;
   background-color: #fff;
-  @include box-shadow(0 0 15px 1px rgba(0,0,0,.23));
+  @include box-shadow(0 0 15px 1px rgba(0, 0, 0, 0.23));
 }
 
 .profile-content-container {
   flex: 1;
   margin: 0 20px;
   background-color: #fff;
-  @include box-shadow(0 0 15px 1px rgba(0,0,0,.23));
+  @include box-shadow(0 0 15px 1px rgba(0, 0, 0, 0.23));
   overflow: auto;
 }
 

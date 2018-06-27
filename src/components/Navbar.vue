@@ -33,7 +33,10 @@ import { mapState } from "vuex"
 export default {
   name: "navbar",
   computed: {
-    ...mapState(["isLoggedIn", "user"]),
+    ...mapState({
+      isLoggedIn: state => !!state.users.user,
+      user: state => state.users.user
+    }),
     getUserProfile () {
       if (this.user) {
         return "/#/profile/" + this.user.id + "/courses/"

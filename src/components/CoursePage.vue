@@ -43,7 +43,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(["own_courses", "joined_courses"]),
+    ...mapState({
+      joined_courses: state => state.courses.joined_courses,
+      own_courses: state => state.courses.own_courses
+    }),
     courses () {
       return [...this.own_courses, ...this.joined_courses]
     }
