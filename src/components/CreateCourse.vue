@@ -5,23 +5,18 @@
       <div>
         <form @submit.prevent="handleSubmit">
           <div class="form-group">
-            <input class="form-control" v-validate="'required|alpha_dash'" id="courseName" type="text" name="courseName" v-model="form.courseName" required>
+            <input class="form-control" v-validate="'required|alpha_dash'" id="courseName" type="text" name="courseName" v-model="form.course.name" required>
             <ydl-label inputID="name">Name</ydl-label>
             <span v-show="errors.has('courseName')" class="required">{{ errors.first("courseName") }}</span>
           </div>
           <div class="form-group">
-            <input class="form-control" v-validate="'required|alpha_dash'" id="name" type="text" name="name" v-model="form.courseName" required>
+            <input class="form-control" v-validate="'required|alpha_dash'" id="name" type="text" name="name" v-model="form.course.description" required>
             <ydl-label inputID="name">Description</ydl-label>
             <span v-show="errors.has('name')" class="required">{{ errors.first("name") }}</span>
           </div>
           <div class="form-group">
-            <input class="form-control" v-validate="'required|alpha_dash'" id="name" type="text" name="name" v-model="form.courseName" required>
-            <ydl-label inputID="name">Student Count</ydl-label>
-            <span v-show="errors.has('name')" class="required">{{ errors.first("name") }}</span>
-          </div>
-          <div class="form-group">
-            <input class="form-control" v-validate="'required|alpha_dash'" id="name" type="text" name="name" v-model="form.courseName" required>
-            <ydl-label inputID="name">Student Count</ydl-label>
+            <input class="form-control" v-validate="'required'" id="name" type="text" name="name" v-model="form.course.deadline" required>
+            <ydl-label inputID="name">Deadline</ydl-label>
             <span v-show="errors.has('name')" class="required">{{ errors.first("name") }}</span>
           </div>
           <div class="form-group">
@@ -45,15 +40,14 @@ export default {
         course: {
           name: "",
           description: "",
-          studentCount: 0,
-          price: 0
+          deadline: ""
         }
       }
     }
   },
   methods: {
     handleSubmit () {
-
+      this.$store.dispatch("createCourse", { data: this.form.course })
     }
   },
   components: {
