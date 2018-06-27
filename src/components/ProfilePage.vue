@@ -54,10 +54,13 @@ import { mapState } from "vuex"
 export default {
   name: "ProfilePage",
   created () {
-    this.$store.dispatch("getCourses")
+    console.log("loaded profile")
+    console.log(this.user)
+    // this.$store.dispatch("getCourses")
   },
   methods: {
     goToCourse (id) {
+      console.log("goto course")
       this.$router.push("/profile/" + this.user.id + "/courses/" + id)
     }
   },
@@ -65,8 +68,8 @@ export default {
     "ydl-profileheadertext": ProfileHeaderText
   },
   computed: mapState({
-    own_courses: state => state.courses.own_courses,
-    joined_courses: state => state.courses.joined_courses,
+    own_courses: state => state.courses.ownCourses,
+    joined_courses: state => state.courses.joinedCourses,
     user: state => state.users.user,
     currentViewingCourse: state => state.currentViewingCourse
   })
