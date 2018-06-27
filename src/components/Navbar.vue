@@ -34,8 +34,8 @@ export default {
   name: "navbar",
   computed: {
     ...mapState({
-      isLoggedIn: state => !!state.users.user,
-      user: state => state.users.user
+      isLoggedIn: state => !!state.api.user,
+      user: state => state.api.user
     }),
     getUserProfile () {
       if (this.user) {

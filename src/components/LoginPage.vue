@@ -46,8 +46,8 @@ export default {
     }
   },
   computed: mapState({
-    loginPending: state => state.authentication.pending.token,
-    user: state => state.users.user
+    loginPending: state => state.api.pending.token,
+    user: state => state.api.user
   }),
   components: {
     "ydl-label": FormLabel,
@@ -61,17 +61,17 @@ export default {
         }
       })
     },
-    async authenticate () {
+    authenticate () {
       console.log("authenticate user")
-      try {
-        await this.$store.dispatch("login", { data: this.form }).then(() => {
+      this.$store
+        .dispatch("login", { data: this.form })
+        .then(() => {
           console.log("awaited login")
           this.$router.push("profile/" + this.user.id + "/courses/")
         })
-      } catch (error) {
-        console.log(error)
-        console.log(error.response)
-      }
+        .catch(error => {
+          console.log(error)
+        })
       // await this.$store.dispatch("login", { data: this.form }).then(() => {
       //   console.log("pushing to profile")
       //   this.$router.push("profile/" + this.user.id + "/courses/")
