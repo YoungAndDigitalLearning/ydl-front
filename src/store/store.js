@@ -11,10 +11,19 @@ export const axiosInstance = axios.create({
   baseURL: "https://api.ydlearning.com/"
 })
 
-const announcements = new Vapi({
+/* TODO: wrapper for this api calls inside new store object */
+
+const api = new Vapi({
   axios: axiosInstance,
   state: {
-    announcements: []
+    /* announcements */
+    announcements: [],
+    /* courses */
+    ownCourses: [],
+    joinedCourses: [],
+    courses: [],
+    /* viewing course */
+    viewingCourse: null
   }
 })
   .get({
@@ -38,15 +47,11 @@ const announcements = new Vapi({
     property: "announcement",
     path: "announcements/"
   })
-
-const courses = new Vapi({
-  axios: axiosInstance,
-  state: {
-    ownCourses: [],
-    joinedCourses: [],
-    courses: []
-  }
-})
+  .get({
+    action: "getUser",
+    property: "user",
+    path: ({ id }) => `users/${id}`
+  })
   .get({
     action: "getCourses",
     property: "courses",
@@ -59,7 +64,7 @@ const courses = new Vapi({
       var ownCourses = []
       var joinedCourses = []
       payload.data.forEach(course => {
-        if (course.teacher === state.users.user.id) {
+        if (course.teacher === state.user.id) {
           ownCourses.push(course)
         } else {
           joinedCourses.push(course)
@@ -80,61 +85,56 @@ const courses = new Vapi({
     property: "course",
     path: "courses/"
   })
+  .post({
+    action: "login",
+    property: "token",
+    path: "token/auth/"
+  })
 
-const authentication = new Vapi({
-  axios: axiosInstance
-}).post({
-  action: "login",
-  property: "token",
-  path: "token/auth/"
-})
+var storeApi = api.getStore()
 
-const users = new Vapi({
-  axios: axiosInstance
-}).get({
-  action: "getUser",
-  property: "user",
-  path: ({ id }) => `users/${id}`
-})
-
-var storeAuthentication = authentication.getStore()
-
-storeAuthentication.actions.login = async (context, object) => {
-  console.log("begin login")
+storeApi.actions.login = async (context, object) => {
   context.commit("LOGIN")
-  console.log("further login")
-  console.log(object)
-  await axiosInstance.post("token/auth/", { ...object.data})
-    .then(async response => {
-      const token = response.data.token
-      Vue.localStorage.set("token", "JWT " + token)
-      const decodedToken = jwtDecode(token)
-      await store.dispatch("getUser", { params: { id: decodedToken.user_id } })
 
-      context.commit("LOGIN_SUCCEEDED")
-      Promise.resolve(response.body.data)
+  try {
+    let response = await axiosInstance.post("token/auth/", object.data)
+    const token = response.data.token
+    Vue.localStorage.set("token", "JWT " + token)
+    const decodedToken = jwtDecode(token)
+    console.log("request user")
+    /* after successfully login get the user */
+    await store.dispatch("getUser", {
+      params: { id: decodedToken.user_id }
     })
-    .catch(error => {
-      context.commit("LOGIN_FAILED")
-      Promise.reject(error)
-    })
+    console.log("get user finished!")
+    context.commit("LOGIN_SUCCEEDED", token)
+  } catch (error) {
+    console.log(error)
+    context.commit("LOGIN_FAILED", error)
+  }
+  console.log("success auth")
 }
 
-storeAuthentication.mutations.LOGOUT = state => {
+storeApi.mutations.VIEW_COURSE = (state, id) => {
+  state.viewingCourse = id
+}
+
+storeApi.actions.viewCourse = async (context, id) => {
+  context.commit("VIEW_COURSE", id)
+}
+
+storeApi.mutations.LOGOUT = state => {
   console.log(state)
-  state.users.user = null
+  state.user = null
 }
 
-storeAuthentication.actions.logout = async (context) => {
+storeApi.actions.logout = async context => {
   Vue.localStorage.remove("token")
   context.commit("LOGOUT")
 }
 
 export const store = new Vuex.Store({
   modules: {
-    announcements: announcements.getStore(),
-    courses: courses.getStore(),
-    authentication: storeAuthentication,
-    users: users.getStore()
+    api: storeApi
   }
 })

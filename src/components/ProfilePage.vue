@@ -55,8 +55,7 @@ export default {
   name: "ProfilePage",
   created () {
     console.log("loaded profile")
-    console.log(this.user)
-    // this.$store.dispatch("getCourses")
+    this.$store.dispatch("getCourses")
   },
   methods: {
     goToCourse (id) {
@@ -68,10 +67,10 @@ export default {
     "ydl-profileheadertext": ProfileHeaderText
   },
   computed: mapState({
-    own_courses: state => state.courses.ownCourses,
-    joined_courses: state => state.courses.joinedCourses,
-    user: state => state.users.user,
-    currentViewingCourse: state => state.currentViewingCourse
+    own_courses: state => state.api.ownCourses,
+    joined_courses: state => state.api.joinedCourses,
+    user: state => state.api.user,
+    currentViewingCourse: state => state.api.viewingCourse
   })
 }
 </script>
