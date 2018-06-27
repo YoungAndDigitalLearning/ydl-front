@@ -31,7 +31,11 @@ import ProfileHeaderText from "@/components/ProfileHeaderText"
 
 export default {
   name: "AllCourses",
-  computed: mapState(["joined_courses", "own_courses", "user"]),
+  computed: mapState({
+    joined_courses: state => state.courses.joined_courses,
+    own_courses: state => state.courses.own_courses,
+    user: state => state.users.user
+  }),
   components: {
     "ydl-profileheadertext": ProfileHeaderText
   }

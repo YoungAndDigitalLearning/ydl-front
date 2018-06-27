@@ -1,6 +1,7 @@
 import Vuex from "vuex"
 import Vue from "vue"
 import axios from "axios"
+import jwtDecode from "jwt-decode"
 
 import Vapi from "vuex-rest-api"
 
@@ -42,7 +43,8 @@ const courses = new Vapi({
   axios: axiosInstance,
   state: {
     ownCourses: [],
-    joinedCourses: []
+    joinedCourses: [],
+    courses: []
   },
   onSuccess: (state, payload, axios) => {
     // seperate own and joined courses
@@ -79,12 +81,18 @@ const courses = new Vapi({
 const authentication = new Vapi({
   axios: axiosInstance
 }).post({
-  action: "_login",
+  action: "login",
   property: "token",
   path: "token/auth/",
-  onSuccess: (state, payload, axios) => {
+  onSuccess: async (state, payload, axios) => {
     console.log("saved token")
-    Vue.localStorage.set("token", "JWT " + payload.data[0])
+    const token = payload.data.token
+    Vue.localStorage.set("token", "JWT " + token)
+    const decodedToken = jwtDecode(token)
+    // var params = { id: decodedToken.user_id }
+    console.log("dispatching getUser onSuccess")
+    await store.dispatch("getUser", { params: { id: decodedToken.user_id } })
+    console.log("awaited user data")
   }
 })
 
@@ -96,20 +104,38 @@ const users = new Vapi({
   path: ({ id }) => `users/${id}`
 })
 
-const users_stored = users.getStore()
-users_stored.actions.login = ({context, cred}) => {
-  await Vue.store.dispatch("_login")
-    .then( async response => {
-      
-    })
+var storeAuthentication = authentication.getStore()
 
+storeAuthentication.actions.login = async (context, object) => {
+  console.log("begin login")
+  context.commit("LOGIN")
+  console.log("further login")
+
+  await axiosInstance.post("token/auth/", object.data)
+    .then(async response => {
+      const token = response.data.token
+      Vue.localStorage.set("token", "JWT " + token)
+      const decodedToken = jwtDecode(token)
+      // var params = { id: decodedToken.user_id }
+      console.log("dispatching getUser onSuccess")
+      await store.dispatch("getUser", { params: { id: decodedToken.user_id } })
+      console.log("awaited user data")
+
+      context.commit("LOGIN_SUCCEEDED")
+      Promise.resolve(response.body.data)
+    })
+    .catch(error => {
+      console.log("errorrrrrr occccured")
+      context.commit("LOGIN_FAILED")
+      Promise.reject(error)
+    })
 }
 
 export const store = new Vuex.Store({
   modules: {
     announcements: announcements.getStore(),
     courses: courses.getStore(),
-    authentication: authentication.getStore(),
+    authentication: storeAuthentication,
     users: users.getStore()
   }
 })
