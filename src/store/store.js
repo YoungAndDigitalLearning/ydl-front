@@ -57,9 +57,6 @@ const api = new Vapi({
     property: "courses",
     path: "courses/",
     onSuccess: (state, payload, axios) => {
-      console.log("payload")
-      console.log(payload)
-      console.log(state)
       // seperate own and joined courses
       var ownCourses = []
       var joinedCourses = []
@@ -74,6 +71,11 @@ const api = new Vapi({
       state.joinedCourses = joinedCourses
       // state.course = payload.data[0]
     }
+  })
+  .get({
+    action: "getFreeCourses",
+    property: "freeCourses",
+    path: "courses/?type=free"
   })
   .get({
     action: "getCourse",
