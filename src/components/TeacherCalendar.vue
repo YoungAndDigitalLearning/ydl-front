@@ -24,6 +24,14 @@ export default {
   }),
   mounted () {
     this.own_courses.forEach(course => {
+      course.events.forEach(event => {
+        this.events.push({
+          id: event.id,
+          title: event.matter,
+          startDate: event.date
+        })
+      })
+
       this.events.push({
         id: course.id,
         title: course.name,
