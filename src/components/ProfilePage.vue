@@ -19,7 +19,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">All Courses</a>
+            <a class="nav-link" :href="'/#/profile/' + user.id + '/allcourses/'">All Courses</a>
           </li>
           <li v-for="course in [...own_courses, ...joined_courses]" v-bind:key="course.id" class="nav-item">
             <a class="nav-link" @click="goToCourse(course.id)">
