@@ -12,7 +12,7 @@
                 <b-badge>{{[...own_courses, ...joined_courses].length}}</b-badge>
               </span>
               <span v-if="user.is_teacher" class="ydl-badge-add">
-                <b-badge href="#">
+                <b-badge :href="'/#/profile/' + user.id + '/createcourse'">
                   <fa-icon icon="plus" />
                 </b-badge>
               </span>

@@ -78,6 +78,7 @@ export default {
         })
 
       axiosInstance.defaults.headers.common["Authorization"] = token
+      console.log("token was added to axios instance")
       console.log(axiosInstance)
     } else {
       console.log("removed token from header")
