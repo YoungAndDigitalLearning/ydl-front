@@ -95,6 +95,18 @@ export default {
 <style lang="scss">
 @import "styles/global";
 
+.deutsch {
+  background-color: goldenrod;
+}
+
+.japanisch {
+  background-color: yellowgreen;
+}
+
+.klausur {
+  background-color: pink;
+}
+
 .notify {
   // margin-top: 70px !important;
   // pointer-events:none;
