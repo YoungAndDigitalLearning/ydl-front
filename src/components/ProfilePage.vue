@@ -41,7 +41,7 @@
         <ydl-profileheadertext color="pink">EVENTS</ydl-profileheadertext>
       </div>
       <div class="recent-uploads">
-        <ydl-profileheadertext color="blue">CALENDAR <b-button variant="primary">Open</b-button></ydl-profileheadertext>
+        <ydl-profileheadertext color="blue">CALENDAR <b-button :href="'/#/profile/' + user.id + '/calendar/'" variant="primary">Open</b-button></ydl-profileheadertext>
       </div>
     </div>
   </div>

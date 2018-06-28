@@ -8,37 +8,29 @@
 <script>
 import ProfileHeaderText from "@/components/ProfileHeaderText"
 import CalendarView from "vue-simple-calendar"
+import { mapState } from "vuex"
 require("vue-simple-calendar/dist/static/css/default.css")
 require("vue-simple-calendar/dist/static/css/holidays-us.css")
 
 export default {
   data () {
     return {
-      events: [
-        {
-          id: 0,
-          title: "Deutsch",
-          startDate: "2018-03-01 13:00:00",
-          endDate: "2018-07-01 13:00:00",
-          classes: "deutsch"
-        },
-        {
-          id: 1,
-          title: "Japanisch",
-          startDate: "2018-06-12 13:00:00",
-          endDate: "2018-07-01 13:00:00",
-          classes: "japanisch"
-        },
-        {
-          id: 2,
-          title: "Klausur",
-          startDate: "2018-06-28 13:00:00",
-          endDate: "2018-06-28 15:00:00",
-          classes: "klausur"
-        }
-      ],
+      events: [],
       showDate: new Date()
     }
+  },
+  computed: mapState({
+    own_courses: state => state.api.ownCourses
+  }),
+  mounted () {
+    this.own_courses.forEach(course => {
+      this.events.push({
+        id: course.id,
+        title: course.name,
+        startDate: course.created,
+        endDate: course.deadline
+      })
+    })
   },
   components: {
     CalendarView,
