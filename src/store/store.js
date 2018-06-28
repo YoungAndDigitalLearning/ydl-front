@@ -107,6 +107,8 @@ storeApi.actions.login = async (context, object) => {
       params: { id: decodedToken.user_id }
     })
     console.log("get user finished!")
+    console.log("adding the new token to the axios header")
+    axiosInstance.defaults.headers.common["Authorization"] = token
     context.commit("LOGIN_SUCCEEDED", token)
   } catch (error) {
     console.log(error)

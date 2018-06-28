@@ -48,6 +48,9 @@ export default {
   methods: {
     handleSubmit () {
       this.$store.dispatch("createCourse", { data: this.form.course })
+        .then(() => {
+          this.$router.push("/profile/")
+        })
     }
   },
   components: {
