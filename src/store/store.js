@@ -1,19 +1,29 @@
 import Vuex from "vuex"
 import Vue from "vue"
 import axios from "axios"
+import jwtDecode from "jwt-decode"
 
 import Vapi from "vuex-rest-api"
 
 Vue.use(Vuex)
 
-const axiosInstance = axios.create({
+export const axiosInstance = axios.create({
   baseURL: "https://api.ydlearning.com/"
 })
 
-const announcements = new Vapi({
+/* TODO: wrapper for this api calls inside new store object */
+
+const api = new Vapi({
   axios: axiosInstance,
   state: {
-    announcements: []
+    /* announcements */
+    announcements: [],
+    /* courses */
+    ownCourses: [],
+    joinedCourses: [],
+    courses: [],
+    /* viewing course */
+    viewingCourse: null
   }
 })
   .get({
@@ -37,17 +47,35 @@ const announcements = new Vapi({
     property: "announcement",
     path: "announcements/"
   })
-
-const courses = new Vapi({
-  axios: axiosInstance,
-  state: {
-    courses: []
-  }
-})
+  .get({
+    action: "getUser",
+    property: "user",
+    path: ({ id }) => `users/${id}`
+  })
   .get({
     action: "getCourses",
     property: "courses",
-    path: "courses/"
+    path: "courses/",
+    onSuccess: (state, payload, axios) => {
+      // seperate own and joined courses
+      var ownCourses = []
+      var joinedCourses = []
+      payload.data.forEach(course => {
+        if (course.teacher === state.user.id) {
+          ownCourses.push(course)
+        } else {
+          joinedCourses.push(course)
+        }
+      })
+      state.ownCourses = ownCourses
+      state.joinedCourses = joinedCourses
+      // state.course = payload.data[0]
+    }
+  })
+  .get({
+    action: "getFreeCourses",
+    property: "freeCourses",
+    path: "courses/?type=free"
   })
   .get({
     action: "getCourse",
@@ -59,10 +87,58 @@ const courses = new Vapi({
     property: "course",
     path: "courses/"
   })
+  .post({
+    action: "login",
+    property: "token",
+    path: "token/auth/"
+  })
+
+var storeApi = api.getStore()
+
+storeApi.actions.login = async (context, object) => {
+  context.commit("LOGIN")
+
+  try {
+    let response = await axiosInstance.post("token/auth/", object.data)
+    const token = response.data.token
+    Vue.localStorage.set("token", "JWT " + token)
+    const decodedToken = jwtDecode(token)
+    console.log("request user")
+    /* after successfully login get the user */
+    await store.dispatch("getUser", {
+      params: { id: decodedToken.user_id }
+    })
+    console.log("get user finished!")
+    console.log("adding the new token to the axios header")
+    axiosInstance.defaults.headers.common["Authorization"] = token
+    context.commit("LOGIN_SUCCEEDED", token)
+  } catch (error) {
+    console.log(error)
+    context.commit("LOGIN_FAILED", error)
+  }
+  console.log("success auth")
+}
+
+storeApi.mutations.VIEW_COURSE = (state, id) => {
+  state.viewingCourse = id
+}
+
+storeApi.actions.viewCourse = async (context, id) => {
+  context.commit("VIEW_COURSE", id)
+}
+
+storeApi.mutations.LOGOUT = state => {
+  console.log(state)
+  state.user = null
+}
+
+storeApi.actions.logout = async context => {
+  Vue.localStorage.remove("token")
+  context.commit("LOGOUT")
+}
 
 export const store = new Vuex.Store({
   modules: {
-    announcements: announcements.getStore(),
-    courses: courses.getStore()
+    api: storeApi
   }
 })

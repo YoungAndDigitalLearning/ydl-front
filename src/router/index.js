@@ -12,13 +12,15 @@ import LoginPage from "@/components/LoginPage"
 import SignupPage from "@/components/SignupPage"
 import NotFound from "@/components/NotFound"
 import Settings from "@/components/Settings"
-import AllCourses from "@/components/AllCourses"
+import MyCourses from "@/components/MyCourses"
 import TimeTable from "@/components/TimeTable"
 import CreateCourse from "@/components/CreateCourse"
 import Forum from "@/components/Forum"
 import PostWrapper from "@/components/PostWrapper"
 import EditCoursePage from "@/components/EditCoursePage"
 import Chat from "@/components/Chat"
+import TeacherCalendar from "@/components/TeacherCalendar"
+import AllCourses from "@/components/AllCourses"
 
 import fontawesome from "@fortawesome/fontawesome"
 import freeSolid from "@fortawesome/fontawesome-free-solid/"
@@ -47,18 +49,18 @@ export const router = new Router({
       children: [
         {
           path: "courses",
-          name: "allcourses",
-          component: AllCourses
-        },
-        {
-          path: "courses/:cid",
-          name: "skbcourse",
-          component: CoursePage
+          name: "mycourses",
+          component: MyCourses
         },
         {
           path: "courses/:cid/edit",
           name: "skbcourse-edit",
           component: EditCoursePage
+        },
+        {
+          path: "courses/:cid",
+          name: "skbcourse",
+          component: CoursePage
         },
         {
           path: "home",
@@ -89,6 +91,16 @@ export const router = new Router({
           path: "chat",
           name: "skbchat",
           component: Chat
+        },
+        {
+          path: "calendar",
+          name: "teacherCalendar",
+          component: TeacherCalendar
+        },
+        {
+          path: "allcourses",
+          name: "allcourses",
+          component: AllCourses
         }
       ]
     },
