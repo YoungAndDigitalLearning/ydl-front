@@ -43,7 +43,9 @@ import ProfileHeaderText from "@/components/ProfileHeaderText"
 
 export default {
   name: "Settings",
-  computed: mapState(["user"]),
+  computed: mapState({
+    user: state => state.api.user
+  }),
   components: {
     "ydl-label": FormLabel,
     "ydl-profileheadertext": ProfileHeaderText

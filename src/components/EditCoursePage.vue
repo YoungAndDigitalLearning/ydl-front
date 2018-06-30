@@ -7,7 +7,7 @@
           <h6> Verantwortliche/r</h6>
           <ul>
             <li>
-              <input type="text" name="leader" placeholder="Name des Lehrers">
+              <span> Name: {{teacher.first_name + " " + teacher.last_name}}</span>
               <span> E-Mail: [email] </span>
             </li>
           </ul>
@@ -15,7 +15,10 @@
       </div>
       <hr>
       <div class="description">
-        {{ course.description }}
+        <div>
+          <ydl-editor v-model="editorContent"></ydl-editor>
+        </div>
+        <button @click="saveContent" class="btn">Speichern</button>
       </div>
       <hr>
       <div class="courseweek-container">
@@ -30,6 +33,8 @@
 
 <script>
 import CourseWeek from "@/components/CourseWeek"
+import { axiosInstance } from "../store/utils/api"
+import { VueEditor } from "vue2-editor"
 
 export default {
   name: "course-edit",
@@ -38,11 +43,33 @@ export default {
     return {
       toRender: this.course,
       course: {},
+      teacher: {},
+      editorContent: "<h1>!!! initial Content !!!</h1>",
       loading: true
     }
   },
   components: {
-    "ydl-courseweek": CourseWeek
+    "ydl-courseweek": CourseWeek,
+    "ydl-editor": VueEditor
+  },
+  created () {
+    const cid = this.$route.params.cid
+    axiosInstance.get("courses/" + cid)
+      .then(response => {
+        this.course = response.data
+        console.log(this.course)
+        axiosInstance.get("users/" + this.course.teacher)
+          .then(response => {
+            this.teacher = response.data
+          })
+        this.editorContent = this.course.description
+        this.loading = false
+      })
+  },
+  methods: {
+    saveContent () {
+      console.log(this.editorContent)
+    }
   }
 }
 </script>
@@ -53,7 +80,7 @@ export default {
   margin-top: 25px;
   border-radius: 0;
   font-family:'Lora', serif;
-  background-color: rgba(200, 200, 200, 0.95);
+  background-color: white;
   font-size:14px;
 }
 
@@ -81,5 +108,9 @@ export default {
   display: flex;
   flex-direction: column;
   font-size: 12px;
+}
+
+.btn {
+  margin-top: 5px;
 }
 </style>
