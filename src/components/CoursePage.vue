@@ -2,6 +2,9 @@
   <div v-if="teacher">
     <ydl-profileheadertext color="darkgreen">{{ course.name }}</ydl-profileheadertext>
     <div class="card-body">
+      <div class="felx-container" v-if="user.is_teacher">
+        <button class="btn" @click="editCourse(course.id)">Seite bearbeiten</button>
+      </div>
       <div class="leader-board flex-container">
         <div>
           <h6> Verantwortliche/r</h6>
@@ -14,9 +17,7 @@
         </div>
       </div>
       <hr>
-      <div class="description">
-        {{ course.description }}
-      </div>
+      <div class="description" v-html="course.description"></div>
       <hr>
       <div class="courseweek-container">
       <ydl-courseweek></ydl-courseweek>
@@ -45,7 +46,8 @@ export default {
   computed: {
     ...mapState({
       joined_courses: state => state.api.joinedCourses,
-      own_courses: state => state.api.ownCourses
+      own_courses: state => state.api.ownCourses,
+      user: state => state.api.user
     }),
     courses () {
       return [...this.own_courses, ...this.joined_courses]
@@ -70,6 +72,11 @@ export default {
         console.log("error in CoursePage get teacher")
         console.log(error.response)
       })
+  },
+  methods: {
+    editCourse (id) {
+      this.$router.push("/profile/" + this.user.id + "/courses/" + id + "/edit")
+    }
   },
   components: {
     "ydl-courseweek": CourseWeek,
