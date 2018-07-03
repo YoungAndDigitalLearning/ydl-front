@@ -73,6 +73,9 @@ export default {
         console.log(error.response)
       })
   },
+  destroyed () {
+    this.$store.dispatch("viewCourse", 0)
+  },
   methods: {
     editCourse (id) {
       this.$router.push("/profile/" + this.user.id + "/courses/" + id + "/edit")
