@@ -27,7 +27,7 @@
 
 <script>
 import { mapState } from "vuex"
-import ProfileHeaderText from "@/components/ProfileHeaderText"
+import ProfileHeaderText from "@/components/Profile/ProfileHeaderText"
 
 export default {
   name: "AllCourses",

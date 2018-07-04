@@ -36,8 +36,8 @@
 </template>
 
 <script>
-import FormLabel from "@/components/FormLabel"
-import ProfileHeaderText from "@/components/ProfileHeaderText"
+import FormLabel from "@/components/Util/FormLabel"
+import ProfileHeaderText from "@/components/Profile/ProfileHeaderText"
 import { mapState } from "vuex"
 
 export default {
@@ -77,7 +77,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/fonts/ionicons.min.css";
+@import "../../assets/fonts/ionicons.min.css";
 
 @import "styles/global";
 

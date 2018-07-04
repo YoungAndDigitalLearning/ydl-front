@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Sandbox2 from "@/components/Sandbox2"
+import Sandbox2 from "@/components/Util/Sandbox2"
 
 export default {
   name: "Sandbox",

@@ -1,13 +1,13 @@
 <template>
-  <div v-if="teacher">
-    <ydl-profileheadertext color="darkgreen">{{ course.name }}</ydl-profileheadertext>
+  <div class="card" v-if="!loading">
+    <div class="card-header"><h1>{{ course.name }}</h1>A1.1</div>
     <div class="card-body">
       <div class="leader-board flex-container">
         <div>
           <h6> Verantwortliche/r</h6>
           <ul>
             <li>
-              {{teacher.first_name + " " + teacher.last_name}} <br>
+              <input type="text" name="leader" placeholder="Name des Lehrers">
               <span> E-Mail: [email] </span>
             </li>
           </ul>
@@ -29,48 +29,20 @@
 </template>
 
 <script>
-import CourseWeek from "@/components/CourseWeek"
-import { mapState } from "vuex"
-import ProfileHeaderText from "./ProfileHeaderText.vue"
-import { axiosInstance } from "../store/utils/api"
+import CourseWeek from "@/components/Course/CourseWeek"
 
 export default {
-  name: "courseview",
+  name: "course-edit",
+  props: ["value"],
   data () {
     return {
+      toRender: this.course,
       course: {},
-      teacher: {}
+      loading: true
     }
-  },
-  computed: {
-    ...mapState(["own_courses", "joined_courses"]),
-    courses () {
-      return [...this.own_courses, ...this.joined_courses]
-    }
-  },
-  mounted () {
-    const cid = this.$route.params.cid
-    this.courses.forEach(course => {
-      if (parseInt(course.id) === parseInt(cid)) {
-        console.log("found course")
-        this.course = course
-      }
-    })
-    this.$store.dispatch("viewCourse", this.course.id)
-
-    /* get teacher of this course */
-    axiosInstance.get("users/" + this.course.teacher)
-      .then((response) => {
-        this.teacher = response.data
-      })
-      .catch((error) => {
-        console.log("error in CoursePage get teacher")
-        console.log(error.response)
-      })
   },
   components: {
-    "ydl-courseweek": CourseWeek,
-    "ydl-profileheadertext": ProfileHeaderText
+    "ydl-courseweek": CourseWeek
   }
 }
 </script>

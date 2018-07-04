@@ -34,8 +34,8 @@
 </template>
 
 <script>
-import ProfileHeaderText from "@/components/ProfileHeaderText"
-import FormLabel from "@/components/FormLabel"
+import ProfileHeaderText from "@/components/Profile/ProfileHeaderText"
+import FormLabel from "@/components/Util/FormLabel"
 
 export default {
   name: "createcourse",

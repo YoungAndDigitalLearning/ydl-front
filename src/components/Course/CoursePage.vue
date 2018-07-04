@@ -1,13 +1,13 @@
 <template>
-  <div class="card" v-if="!loading">
-    <div class="card-header"><h1>{{ course.name }}</h1>A1.1</div>
+  <div v-if="teacher">
+    <ydl-profileheadertext color="darkgreen">{{ course.name }}</ydl-profileheadertext>
     <div class="card-body">
       <div class="leader-board flex-container">
         <div>
           <h6> Verantwortliche/r</h6>
           <ul>
             <li>
-              <input type="text" name="leader" placeholder="Name des Lehrers">
+              {{teacher.first_name + " " + teacher.last_name}} <br>
               <span> E-Mail: [email] </span>
             </li>
           </ul>
@@ -29,20 +29,48 @@
 </template>
 
 <script>
-import CourseWeek from "@/components/CourseWeek"
+import CourseWeek from "@/components/Course/CourseWeek"
+import { mapState } from "vuex"
+import ProfileHeaderText from "@/components/Profile/ProfileHeaderText"
+import { axiosInstance } from "../../store/utils/api"
 
 export default {
-  name: "course-edit",
-  props: ["value"],
+  name: "courseview",
   data () {
     return {
-      toRender: this.course,
       course: {},
-      loading: true
+      teacher: {}
     }
   },
+  computed: {
+    ...mapState(["own_courses", "joined_courses"]),
+    courses () {
+      return [...this.own_courses, ...this.joined_courses]
+    }
+  },
+  mounted () {
+    const cid = this.$route.params.cid
+    this.courses.forEach(course => {
+      if (parseInt(course.id) === parseInt(cid)) {
+        console.log("found course")
+        this.course = course
+      }
+    })
+    this.$store.dispatch("viewCourse", this.course.id)
+
+    /* get teacher of this course */
+    axiosInstance.get("users/" + this.course.teacher)
+      .then((response) => {
+        this.teacher = response.data
+      })
+      .catch((error) => {
+        console.log("error in CoursePage get teacher")
+        console.log(error.response)
+      })
+  },
   components: {
-    "ydl-courseweek": CourseWeek
+    "ydl-courseweek": CourseWeek,
+    "ydl-profileheadertext": ProfileHeaderText
   }
 }
 </script>
