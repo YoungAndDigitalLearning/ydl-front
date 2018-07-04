@@ -38,7 +38,7 @@
     </div>
     <div class="right-sidebar">
       <div class="navigation">
-        <ydl-profileheadertext color="pink">EVENTS</ydl-profileheadertext>
+        <ydl-events />
       </div>
       <div class="recent-uploads">
         <ydl-profileheadertext color="blue">CALENDAR <b-button :href="'/#/profile/' + user.id + '/calendar/'" variant="primary">Open</b-button></ydl-profileheadertext>
@@ -49,6 +49,7 @@
 
 <script>
 import TitleHeader from "@/components/Util/TitleHeader"
+import Events from "@/components/Profile/Event/Events"
 import { mapState } from "vuex"
 
 export default {
@@ -64,7 +65,8 @@ export default {
     }
   },
   components: {
-    "ydl-profileheadertext": TitleHeader
+    "ydl-profileheadertext": TitleHeader,
+    "ydl-events": Events
   },
   computed: mapState({
     own_courses: state => state.api.ownCourses,
