@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import ProfileHeaderText from "@/components/ProfileHeaderText"
+import ProfileHeaderText from "@/components/Profile/ProfileHeaderText"
 var moment = require("moment")
 
 export default {
@@ -36,7 +36,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/css/Article-Clean.css";
+@import "../../assets/css/Article-Clean.css";
 @import "styles/global";
 @import "compass/css3";
 

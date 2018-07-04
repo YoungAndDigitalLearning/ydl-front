@@ -36,10 +36,10 @@
 </template>
 
 <script>
-import FormLabel from "@/components/FormLabel"
+import FormLabel from "@/components/Util/FormLabel"
 import { mapState } from "vuex"
-import { axiosInstance } from "../store/utils/api"
-import ProfileHeaderText from "@/components/ProfileHeaderText"
+import { axiosInstance } from "../../store/utils/api"
+import ProfileHeaderText from "@/components/Profile/ProfileHeaderText"
 
 export default {
   name: "Settings",

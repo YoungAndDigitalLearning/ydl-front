@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import ProfileHeaderText from "@/components/ProfileHeaderText"
+import ProfileHeaderText from "@/components/Profile/ProfileHeaderText"
 import { mapState } from "vuex"
 
 export default {
