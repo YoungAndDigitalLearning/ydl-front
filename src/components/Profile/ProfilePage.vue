@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import ProfileHeaderText from "@/components/Profile/ProfileHeaderText"
+import TitleHeader from "@/components/Util/TitleHeader"
 import { mapState } from "vuex"
 
 export default {
@@ -64,7 +64,7 @@ export default {
     }
   },
   components: {
-    "ydl-profileheadertext": ProfileHeaderText
+    "ydl-profileheadertext": TitleHeader
   },
   computed: mapState({
     own_courses: state => state.api.ownCourses,

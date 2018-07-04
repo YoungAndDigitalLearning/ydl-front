@@ -19,6 +19,8 @@ import Forum from "@/components/Forum/Forum"
 import PostWrapper from "@/components/Forum/PostWrapper"
 import EditCoursePage from "@/components/Course/EditCoursePage"
 import Chat from "@/components/Chat/Chat"
+import TeacherCalendar from "@/components/TeacherCalendar"
+import MyCourses from "@/components/Course/MyCourses"
 
 import fontawesome from "@fortawesome/fontawesome"
 import freeSolid from "@fortawesome/fontawesome-free-solid/"
@@ -84,8 +86,6 @@ export const router = new Router({
           path: "post",
           name: "skbpost",
           component: PostWrapper
-<<<<<<< HEAD
-=======
         },
         {
           path: "chat",
@@ -101,7 +101,6 @@ export const router = new Router({
           path: "allcourses",
           name: "allcourses",
           component: AllCourses
->>>>>>> 12b827b605f56b86c6207458aaec99d872ca9b13
         }
       ]
     },

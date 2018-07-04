@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import ProfileHeaderText from "@/components/Profile/ProfileHeaderText"
+import TitleHeader from "@/components/Util/TitleHeader"
 var moment = require("moment")
 
 export default {
@@ -31,7 +31,7 @@ export default {
       required: true
     }
   },
-  components: {"ydl-profileheadertext": ProfileHeaderText}
+  components: {"ydl-profileheadertext": TitleHeader}
 }
 </script>
 

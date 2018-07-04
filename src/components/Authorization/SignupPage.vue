@@ -37,7 +37,7 @@
 
 <script>
 import FormLabel from "@/components/Util/FormLabel"
-import ProfileHeaderText from "@/components/Profile/ProfileHeaderText"
+import TitleHeader from "@/components/Util/TitleHeader"
 import { mapState } from "vuex"
 
 export default {
@@ -71,7 +71,7 @@ export default {
   },
   components: {
     "ydl-label": FormLabel,
-    "ydl-profileheadertext": ProfileHeaderText
+    "ydl-profileheadertext": TitleHeader
   }
 }
 </script>

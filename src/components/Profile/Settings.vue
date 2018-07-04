@@ -38,8 +38,8 @@
 <script>
 import FormLabel from "@/components/Util/FormLabel"
 import { mapState } from "vuex"
-import { axiosInstance } from "../../store/utils/api"
-import ProfileHeaderText from "@/components/Profile/ProfileHeaderText"
+import axiosInstance from "@/store/api"
+import TitleHeader from "@/components/Util/TitleHeader"
 
 export default {
   name: "Settings",
@@ -48,7 +48,7 @@ export default {
   }),
   components: {
     "ydl-label": FormLabel,
-    "ydl-profileheadertext": ProfileHeaderText
+    "ydl-profileheadertext": TitleHeader
   },
   methods: {
     handleSubmit () {

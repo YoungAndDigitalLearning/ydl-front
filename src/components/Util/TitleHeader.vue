@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "ProfileHeaderText",
+  name: "TitleHeader",
   props: ["color"]
 }
 </script>
