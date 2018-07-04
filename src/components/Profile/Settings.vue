@@ -1,6 +1,6 @@
 <template>
 <div>
-  <ydl-profileheadertext color="darkgreen">Profile Settings</ydl-profileheadertext>
+  <ydl-titleheader color="darkgreen">Profile Settings</ydl-titleheader>
   <div class="settings-container">
     <div>
       <form @submit.prevent="handleSubmit">
@@ -48,7 +48,7 @@ export default {
   }),
   components: {
     "ydl-label": FormLabel,
-    "ydl-profileheadertext": TitleHeader
+    "ydl-titleheader": TitleHeader
   },
   methods: {
     handleSubmit () {

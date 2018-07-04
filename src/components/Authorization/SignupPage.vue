@@ -1,7 +1,7 @@
 <template>
   <div class="sign-up-container">
     <div class="form-container">
-      <ydl-profileheadertext color="darkgreen">New Account</ydl-profileheadertext>
+      <ydl-titleheader color="darkgreen">New Account</ydl-titleheader>
       <form @submit.prevent="handleSubmit">
         <h2 class="sr-only">Login Form</h2>
         <div class="form-group">
@@ -71,7 +71,7 @@ export default {
   },
   components: {
     "ydl-label": FormLabel,
-    "ydl-profileheadertext": TitleHeader
+    "ydl-titleheader": TitleHeader
   }
 }
 </script>

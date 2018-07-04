@@ -1,6 +1,6 @@
 <template>
   <div class="calendar-container">
-    <ydl-profileheadertext color="blue">Calendar</ydl-profileheadertext>
+    <ydl-titleheader color="blue">Calendar</ydl-titleheader>
     <calendar-view :show-date="showDate" :events="events" @show-date-change="setShowDate" theme-default holiday-us-traditional holiday-us-official/>
   </div>
 </template>
@@ -42,7 +42,7 @@ export default {
   },
   components: {
     CalendarView,
-    "ydl-profileheadertext": TitleHeader
+    "ydl-titleheader": TitleHeader
   },
   methods: {
     setShowDate (d) {

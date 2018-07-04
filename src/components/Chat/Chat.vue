@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <ydl-profileheadertext color="darkgreen">SKB Messenger</ydl-profileheadertext>
+      <ydl-titleheader color="darkgreen">SKB Messenger</ydl-titleheader>
     </div>
     <div class="chat-content">
       <div class="available-chats">
@@ -38,7 +38,7 @@ import TitleHeader from "@/components/Util/TitleHeader"
 export default {
   name: "Chat",
   components: {
-    "ydl-profileheadertext": TitleHeader
+    "ydl-titleheader": TitleHeader
   },
   data () {
     return {

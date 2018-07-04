@@ -1,6 +1,6 @@
 <template>
   <div v-if="teacher">
-    <ydl-profileheadertext color="darkgreen">{{ course.name }}</ydl-profileheadertext>
+    <ydl-titleheader color="darkgreen">{{ course.name }}</ydl-titleheader>
     <div class="card-body">
       <div class="felx-container" v-if="user.is_teacher">
         <button class="btn" @click="editCourse(course.id)">Seite bearbeiten</button>
@@ -83,7 +83,7 @@ export default {
   },
   components: {
     "ydl-courseweek": CourseWeek,
-    "ydl-profileheadertext": TitleHeader
+    "ydl-titleheader": TitleHeader
   }
 }
 </script>

@@ -2,7 +2,7 @@
   <div class="card article-clean">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <div class="card-body intro">
-        <ydl-profileheadertext color="darkgreen">{{ article_entry.title }}</ydl-profileheadertext>
+        <ydl-titleheader color="darkgreen">{{ article_entry.title }}</ydl-titleheader>
         <p class="text-center">
           <span class="by">by</span>
           <a href="#">{{ article_entry.author.username }}</a>
@@ -31,7 +31,7 @@ export default {
       required: true
     }
   },
-  components: {"ydl-profileheadertext": TitleHeader}
+  components: {"ydl-titleheader": TitleHeader}
 }
 </script>
 
