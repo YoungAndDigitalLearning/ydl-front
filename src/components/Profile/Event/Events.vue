@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ydl-profileheadertext color="pink" >EVENTS</ydl-profileheadertext>
+    <ydl-titleheader color="pink" >EVENTS</ydl-titleheader>
     <div class="ydl-event-container">
       <div class="ydl-event" v-for="event in eventsFromCurses" :key="event.id">
         <div class="ydl-event__entry">{{event.matter}}</div>
@@ -42,7 +42,7 @@ export default {
     }
   },
   components: {
-    "ydl-profileheadertext": TitleHeader,
+    "ydl-titleheader": TitleHeader,
     "ydl-event": Event
   },
   mounted () {

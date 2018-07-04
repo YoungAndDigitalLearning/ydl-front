@@ -1,6 +1,6 @@
 <template>
 <div>
-  <ydl-profileheadertext v-if="user.is_teacher" color="darkgreen">My Courses</ydl-profileheadertext>
+  <ydl-titleheader v-if="user.is_teacher" color="darkgreen">My Courses</ydl-titleheader>
   <ul class="list-group" v-if="user.is_teacher" v-for="course in own_courses" v-bind:key="course.id">
     <a v-if="!course.paid" class="list-group-item list-group-item-action" :href="'/#/profile/' + user.id + '/courses/' + course.id" v-on:click="$emit('load-details', course.id)">
       <h4> {{course.name}} </h4>
@@ -11,7 +11,7 @@
       <div v-html="course.news"></div>
     </a>
   </ul>
-  <ydl-profileheadertext color="darkgreen">Joined Courses</ydl-profileheadertext>
+  <ydl-titleheader color="darkgreen">Joined Courses</ydl-titleheader>
   <ul class="list-group" v-for="course in joined_courses" v-bind:key="course.id">
     <a v-if="!course.paid" class="list-group-item list-group-item-action" :href="'/#/profile/' + user.id + '/courses/' + course.id" v-on:click="$emit('load-details', course.id)">
       <h4> {{course.name}} </h4>
@@ -37,7 +37,7 @@ export default {
     user: state => state.api.user
   }),
   components: {
-    "ydl-profileheadertext": TitleHeader
+    "ydl-titleheader": TitleHeader
   }
 }
 </script>
