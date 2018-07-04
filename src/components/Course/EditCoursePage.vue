@@ -7,7 +7,7 @@
           <h6> Verantwortliche/r</h6>
           <ul>
             <li>
-              <input type="text" name="leader" placeholder="Name des Lehrers">
+              <span> Name: {{teacher.first_name + " " + teacher.last_name}}</span>
               <span> E-Mail: [email] </span>
             </li>
           </ul>
@@ -15,7 +15,10 @@
       </div>
       <hr>
       <div class="description">
-        {{ course.description }}
+        <div>
+          <ydl-editor v-model="editorContent"></ydl-editor>
+        </div>
+        <button @click="saveContent" class="btn">Speichern</button>
       </div>
       <hr>
       <div class="courseweek-container">
@@ -30,6 +33,9 @@
 
 <script>
 import CourseWeek from "@/components/Course/CourseWeek"
+import { axiosInstance } from "../../store/utils/api"
+import { VueEditor } from "vue2-editor"
+import { mapState } from "vuex"
 
 export default {
   name: "course-edit",
@@ -38,11 +44,62 @@ export default {
     return {
       toRender: this.course,
       course: {},
+      teacher: {},
+      userID: -1,
+      editorContent: "<h1>!!! initial Content !!!</h1>",
       loading: true
     }
   },
   components: {
-    "ydl-courseweek": CourseWeek
+    "ydl-courseweek": CourseWeek,
+    "ydl-editor": VueEditor
+  },
+  created () {
+    const cid = this.$route.params.cid
+    this.userID = this.$route.params.id
+    axiosInstance.get("courses/" + cid)
+      .then(response => {
+        this.course = response.data
+        console.log(this.course)
+        axiosInstance.get("users/" + this.course.teacher)
+          .then(response => {
+            this.teacher = response.data
+          })
+        this.editorContent = this.course.description
+        this.loading = false
+      })
+  },
+  methods: {
+    handleSubmit () {
+      console.log("courses/" + this.course.id)
+      axiosInstance.put("courses/" + this.course.id, this.course)
+        .then(response => {
+          console.log("response: ")
+          console.log(response.data)
+        })
+      this.$router.push("/profile/" + this.userId + "/courses/" + this.course.id)
+      this.$notify({
+        title: "Course Update",
+        text: "successfully updated your course data",
+        type: "success"
+      })
+    },
+    saveContent () {
+      console.log(this.editorContent)
+      this.course.description = this.editorContent
+      console.log(this.course.description)
+      this.handleSubmit()
+    }
+  },
+  computed: {
+    ...mapState({
+      joined_courses: state => state.api.joinedCourses,
+      own_courses: state => state.api.ownCourses,
+      user: state => state.api.user
+    }),
+    courses () {
+      return [...this.own_courses, ...this.joined_courses]
+    }
   }
 }
 </script>
@@ -53,7 +110,7 @@ export default {
   margin-top: 25px;
   border-radius: 0;
   font-family:'Lora', serif;
-  background-color: rgba(200, 200, 200, 0.95);
+  background-color: white;
   font-size:14px;
 }
 
@@ -81,5 +138,9 @@ export default {
   display: flex;
   flex-direction: column;
   font-size: 12px;
+}
+
+.btn {
+  margin-top: 5px;
 }
 </style>
