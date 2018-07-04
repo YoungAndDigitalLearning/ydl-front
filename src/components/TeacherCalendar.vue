@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import ProfileHeaderText from "@/components/ProfileHeaderText"
+import TitleHeader from "@/components/Util/TitleHeader"
 import CalendarView from "vue-simple-calendar"
 import { mapState } from "vuex"
 require("vue-simple-calendar/dist/static/css/default.css")
@@ -42,7 +42,7 @@ export default {
   },
   components: {
     CalendarView,
-    "ydl-profileheadertext": ProfileHeaderText
+    "ydl-profileheadertext": TitleHeader
   },
   methods: {
     setShowDate (d) {

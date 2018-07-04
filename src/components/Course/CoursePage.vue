@@ -32,8 +32,8 @@
 <script>
 import CourseWeek from "@/components/Course/CourseWeek"
 import { mapState } from "vuex"
-import ProfileHeaderText from "@/components/Profile/ProfileHeaderText"
-import { axiosInstance } from "../../store/utils/api"
+import TitleHeader from "@/components/Util/TitleHeader"
+import axiosInstance from "@/store/api"
 
 export default {
   name: "courseview",
@@ -83,7 +83,7 @@ export default {
   },
   components: {
     "ydl-courseweek": CourseWeek,
-    "ydl-profileheadertext": ProfileHeaderText
+    "ydl-profileheadertext": TitleHeader
   }
 }
 </script>

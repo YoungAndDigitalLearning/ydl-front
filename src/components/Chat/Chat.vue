@@ -33,12 +33,12 @@
 </template>
 
 <script>
-import ProfileHeaderText from "@/components/Profile/ProfileHeaderText"
+import TitleHeader from "@/components/Util/TitleHeader"
 
 export default {
   name: "Chat",
   components: {
-    "ydl-profileheadertext": ProfileHeaderText
+    "ydl-profileheadertext": TitleHeader
   },
   data () {
     return {

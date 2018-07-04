@@ -12,7 +12,7 @@
 
 <script>
 import { mapState } from "vuex"
-import ProfileHeaderText from "@/components/Profile/ProfileHeaderText"
+import TitleHeader from "@/components/Util/TitleHeader"
 
 export default {
   name: "AllCourses",
@@ -23,7 +23,7 @@ export default {
     this.$store.dispatch("getFreeCourses")
   },
   components: {
-    "ydl-profileheadertext": ProfileHeaderText
+    "ydl-profileheadertext": TitleHeader
   }
 }
 </script>

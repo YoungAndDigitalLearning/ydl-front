@@ -33,7 +33,7 @@
 
 <script>
 import CourseWeek from "@/components/Course/CourseWeek"
-import { axiosInstance } from "../../store/utils/api"
+import axiosInstance from "@/store/api"
 import { VueEditor } from "vue2-editor"
 import { mapState } from "vuex"
 

@@ -27,7 +27,7 @@
 
 <script>
 import { mapState } from "vuex"
-import ProfileHeaderText from "@/components/ProfileHeaderText"
+import TitleHeader from "@/components/Util/TitleHeader"
 
 export default {
   name: "MyCourses",
@@ -37,7 +37,7 @@ export default {
     user: state => state.api.user
   }),
   components: {
-    "ydl-profileheadertext": ProfileHeaderText
+    "ydl-profileheadertext": TitleHeader
   }
 }
 </script>
