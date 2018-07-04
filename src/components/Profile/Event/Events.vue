@@ -2,10 +2,10 @@
   <div>
     <ydl-profileheadertext color="pink" >EVENTS</ydl-profileheadertext>
     <div class="ydl-event-container">
-      <div v-for="event in eventsFromCurses" :key="event.id">
-        <div>{{event.matter}}</div>
-        <div>{{moment(event.date).format('DD.MM.YYYY, HH:mm')}}</div>
-        <div>{{event.course}}</div>
+      <div class="ydl-event" v-for="event in eventsFromCurses" :key="event.id">
+        <div class="ydl-event__entry">{{event.matter}}</div>
+        <div class="ydl-event__entry">{{moment(event.date).format('DD.MM.YYYY')}}</div>
+        <div class="ydl-event__entry">{{event.course}}</div>
       </div>
     </div>
   </div>
@@ -13,7 +13,7 @@
 
 <script>
 import TitleHeader from "@/components/Util/TitleHeader"
-import Event from "@/components/Event"
+import Event from "@/components/Profile/Event/Event"
 import { mapState } from "vuex"
 var moment = require("moment")
 
@@ -50,3 +50,18 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.ydl-event {
+  display: flex;
+  flex-direction: row;
+
+  &__entry {
+    padding: 5px;
+
+    &:first-child {
+      flex: 1;
+    }
+  }
+}
+</style>
