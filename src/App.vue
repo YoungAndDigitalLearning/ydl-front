@@ -17,20 +17,25 @@ import Footer from "@/components/LandingPage/Footer.vue"
 
 import jwtDecode from "jwt-decode"
 import axios from "axios"
-import { axiosInstance } from "./store/utils/api"
+import { axiosInstance } from "./store/store"
 import { mapState } from "vuex"
 
 export default {
   name: "App",
-  computed: mapState(["user"]),
+  computed: mapState({
+    user: state => state.users.user
+  }),
   created () {
     /* load token */
     var token = this.$localStorage.get("token", false)
 
     /* check if token has expired */
     if (token) {
-      axios.post("https://api.ydlearning.com/token/verify/", {"token": token.replace("JWT ", "")})
-        .catch((error) => {
+      axios
+        .post("https://api.ydlearning.com/token/verify/", {
+          token: token.replace("JWT ", "")
+        })
+        .catch(error => {
           if (error.response.status === 400) {
             /* notify user that the token has been expired */
             this.$notify({
@@ -63,15 +68,17 @@ export default {
       console.log("found token in local storage")
       const decodedToken = jwtDecode(token)
       /* get the user from the user id */
-      this.$store.dispatch("getUser", decodedToken.user_id)
+      this.$store
+        .dispatch("getUser", { params: { id: decodedToken.user_id } })
         .then(() => {
           console.log("success getUser")
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error)
         })
 
       axiosInstance.defaults.headers.common["Authorization"] = token
+      console.log("token was added to axios instance")
       console.log(axiosInstance)
     } else {
       console.log("removed token from header")
@@ -87,6 +94,18 @@ export default {
 
 <style lang="scss">
 @import "styles/global";
+
+.deutsch {
+  background-color: goldenrod;
+}
+
+.japanisch {
+  background-color: yellowgreen;
+}
+
+.klausur {
+  background-color: pink;
+}
 
 .notify {
   // margin-top: 70px !important;
@@ -123,8 +142,8 @@ body {
 }
 
 html {
-    height: 100%;
-    background-color: $skb-dark-blue;
-    font-family: 'Source Code Pro', monospace !important;
+  height: 100%;
+  background-color: $skb-dark-blue;
+  font-family: "Source Code Pro", monospace !important;
 }
 </style>

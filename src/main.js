@@ -6,12 +6,16 @@ import { router } from "./router"
 import { store } from "./store/store"
 import Notifications from "vue-notification"
 import VueLocalStorage from "vue-localstorage"
+// import Vuetify from "vuetify"
+// import "vuetify/dist/vuetify.min.css"
+// import "material-design-icons-iconfont/dist/material-design-icons.css"
 
 // TODO: use jwt decode
 // var jwtDecode = require("jwt-decode")
 
 Vue.use(VueLocalStorage)
 Vue.use(Notifications)
+// Vue.use(Vuetify)
 
 Vue.config.productionTip = false
 

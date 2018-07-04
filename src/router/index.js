@@ -47,18 +47,18 @@ export const router = new Router({
       children: [
         {
           path: "courses",
-          name: "allcourses",
-          component: AllCourses
-        },
-        {
-          path: "courses/:cid",
-          name: "skbcourse",
-          component: CoursePage
+          name: "mycourses",
+          component: MyCourses
         },
         {
           path: "courses/:cid/edit",
           name: "skbcourse-edit",
           component: EditCoursePage
+        },
+        {
+          path: "courses/:cid",
+          name: "skbcourse",
+          component: CoursePage
         },
         {
           path: "home",
@@ -84,6 +84,24 @@ export const router = new Router({
           path: "post",
           name: "skbpost",
           component: PostWrapper
+<<<<<<< HEAD
+=======
+        },
+        {
+          path: "chat",
+          name: "skbchat",
+          component: Chat
+        },
+        {
+          path: "calendar",
+          name: "teacherCalendar",
+          component: TeacherCalendar
+        },
+        {
+          path: "allcourses",
+          name: "allcourses",
+          component: AllCourses
+>>>>>>> 12b827b605f56b86c6207458aaec99d872ca9b13
         }
       ]
     },
