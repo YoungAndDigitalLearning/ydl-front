@@ -1,15 +1,11 @@
 import Vuex from "vuex"
 import Vue from "vue"
-import axios from "axios"
+import axiosInstance from "@/store/api"
 import jwtDecode from "jwt-decode"
 
 import Vapi from "vuex-rest-api"
 
 Vue.use(Vuex)
-
-export const axiosInstance = axios.create({
-  baseURL: "https://api.ydlearning.com/"
-})
 
 /* TODO: wrapper for this api calls inside new store object */
 
@@ -51,6 +47,11 @@ const api = new Vapi({
     action: "getUser",
     property: "user",
     path: ({ id }) => `users/${id}`
+  })
+  .post({
+    action: "signup",
+    property: "user",
+    path: "users/"
   })
   .get({
     action: "getCourses",

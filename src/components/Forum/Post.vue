@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import Post from "@/components/Post"
+import Post from "@/components/Forum/Post"
 import axios from "axios"
 
 export default {

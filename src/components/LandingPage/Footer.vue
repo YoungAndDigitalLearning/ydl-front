@@ -74,8 +74,8 @@ export default {
 
 <style lang="scss" scoped>
 @import "styles/global";
-@import "../assets/fonts/ionicons.min.css";
-@import "../assets/css/Social-Icons.css";
+@import "../../assets/fonts/ionicons.min.css";
+@import "../../assets/css/Social-Icons.css";
 
 .container-fluid {
   background-color: $ydl-primary;

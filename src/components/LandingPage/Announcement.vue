@@ -2,7 +2,7 @@
   <div class="card article-clean">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <div class="card-body intro">
-        <ydl-profileheadertext color="darkgreen">{{ article_entry.title }}</ydl-profileheadertext>
+        <ydl-titleheader color="darkgreen">{{ article_entry.title }}</ydl-titleheader>
         <p class="text-center">
           <span class="by">by</span>
           <a href="#">{{ article_entry.author.username }}</a>
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import ProfileHeaderText from "@/components/ProfileHeaderText"
+import TitleHeader from "@/components/Util/TitleHeader"
 var moment = require("moment")
 
 export default {
@@ -31,12 +31,12 @@ export default {
       required: true
     }
   },
-  components: {"ydl-profileheadertext": ProfileHeaderText}
+  components: {"ydl-titleheader": TitleHeader}
 }
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/css/Article-Clean.css";
+@import "../../assets/css/Article-Clean.css";
 @import "styles/global";
 @import "compass/css3";
 

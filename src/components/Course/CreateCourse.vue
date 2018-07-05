@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ydl-profileheadertext color="darkgreen">Create Course</ydl-profileheadertext>
+    <ydl-titleheader color="darkgreen">Create Course</ydl-titleheader>
     <div class="settings-container">
       <div>
         <form @submit.prevent="handleSubmit">
@@ -29,8 +29,8 @@
 </template>
 
 <script>
-import ProfileHeaderText from "@/components/ProfileHeaderText"
-import FormLabel from "@/components/FormLabel"
+import TitleHeader from "@/components/Util/TitleHeader"
+import FormLabel from "@/components/Util/FormLabel"
 
 export default {
   name: "createcourse",
@@ -55,7 +55,7 @@ export default {
   },
   components: {
     "ydl-label": FormLabel,
-    "ydl-profileheadertext": ProfileHeaderText
+    "ydl-titleheader": TitleHeader
   }
 }
 </script>

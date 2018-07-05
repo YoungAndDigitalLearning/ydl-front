@@ -1,6 +1,6 @@
 <template>
 <div>
-  <ydl-profileheadertext color="darkgreen">Profile Settings</ydl-profileheadertext>
+  <ydl-titleheader color="darkgreen">Profile Settings</ydl-titleheader>
   <div class="settings-container">
     <div>
       <form @submit.prevent="handleSubmit">
@@ -36,10 +36,10 @@
 </template>
 
 <script>
-import FormLabel from "@/components/FormLabel"
+import FormLabel from "@/components/Util/FormLabel"
 import { mapState } from "vuex"
-import { axiosInstance } from "../store/utils/api"
-import ProfileHeaderText from "@/components/ProfileHeaderText"
+import axiosInstance from "@/store/api"
+import TitleHeader from "@/components/Util/TitleHeader"
 
 export default {
   name: "Settings",
@@ -48,7 +48,7 @@ export default {
   }),
   components: {
     "ydl-label": FormLabel,
-    "ydl-profileheadertext": ProfileHeaderText
+    "ydl-titleheader": TitleHeader
   },
   methods: {
     handleSubmit () {

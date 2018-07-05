@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <ydl-profileheadertext color="darkgreen">SKB Messenger</ydl-profileheadertext>
+      <ydl-titleheader color="darkgreen">SKB Messenger</ydl-titleheader>
     </div>
     <div class="chat-content">
       <div class="available-chats">
@@ -12,23 +12,33 @@
       </div>
       <div class="chat-window">
         <ul class="list-group">
-          <li class="list-group-item" v-for="message in chat.messages" v-bind:key="message.time">
-            <span>{{ message.time }}</span> <br>
-            <span>{{ message.text }}</span>
-          </li>
+          <div class="message-wrapper" v-for="message in chat.messages" v-bind:key="message.time">
+            <li v-if="message.from === userId" class="list-group-item message message-me">
+              <span class="message-text">{{ message.text }}</span> <br>
+              <span class="message-time">{{ message.time }}</span>
+            </li>
+            <li v-else class="list-group-item message message-their">
+              <span class="message-text">{{ message.text }}</span> <br>
+              <span class="message-time">{{ message.time }}</span>
+            </li>
+          </div>
         </ul>
+        <div class="input">
+          <textarea class="message-type" type="text" name="message" rows="2" placeholder="Schreibe eine Nachricht"></textarea>
+          <input class="send" type="button" value="Senden">
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import ProfileHeaderText from "@/components/ProfileHeaderText"
+import TitleHeader from "@/components/Util/TitleHeader"
 
 export default {
   name: "Chat",
   components: {
-    "ydl-profileheadertext": ProfileHeaderText
+    "ydl-titleheader": TitleHeader
   },
   data () {
     return {
@@ -118,7 +128,7 @@ export default {
           }
         ]
       },
-      userId: 0,
+      userId: 6,
       loading: false
     }
   }
@@ -138,6 +148,8 @@ export default {
 .available-chats {
   flex-grow: 1;
   border-right: 3px solid #3cb878;
+  margin-top: 5px;
+  padding-right: 5px;
 }
 
 .chat-window {
@@ -148,7 +160,49 @@ export default {
   display: flex;
 }
 
-.test {
-  height: 1000px;
+.message {
+  max-width: 49%;
+  margin: 5px;
+  border-radius: 25px;
+  padding: 0 5px 0 5px;
+}
+.message-me {
+  float: right;
+  text-align: right;
+  background-color: lightgreen;
+}
+.message-their {
+  float: left;
+  text-align: left;
+  background-color: lightgray;
+}
+.message-wrapper {
+  border-radius: 25px;
+}
+.message-time {
+  float: right;
+  vertical-align: bottom;
+  font-size: 14px;
+  color: grey;
+}
+.message-text {
+  float: left;
+  vertical-align: top;
+}
+.message-type {
+  width: 100%;
+  border-radius: 5px;
+  vertical-align: bottom;
+  margin: 5px;
+  padding: 2px;
+  resize: none;
+}
+.send {
+  height: 50px;
+}
+.input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 </style>
