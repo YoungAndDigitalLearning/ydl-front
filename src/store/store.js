@@ -48,6 +48,11 @@ const api = new Vapi({
     property: "user",
     path: ({ id }) => `users/${id}`
   })
+  .post({
+    action: "signup",
+    property: "user",
+    path: "users/"
+  })
   .get({
     action: "getCourses",
     property: "courses",

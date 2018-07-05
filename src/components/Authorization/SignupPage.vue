@@ -63,7 +63,7 @@ export default {
     },
     handleSubmit () {
       console.log("signup user")
-      this.$store.dispatch("signup", this.form)
+      this.$store.dispatch("signup", { data: this.form })
         .then(() => {
           this.$router.push("profile/" + this.user.id + "/courses/")
         })
