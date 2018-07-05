@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import Announcement from "@/components/Announcement"
+import Announcement from "@/components/LandingPage/Announcement"
 import { mapState } from "vuex"
 
 export default {

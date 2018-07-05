@@ -3,24 +3,24 @@ import Router from "vue-router"
 import BootstrapVue from "bootstrap-vue"
 import VeeValidate from "vee-validate"
 
-import LandingPage from "@/components/LandingPage"
-import ProfilePage from "@/components/ProfilePage"
-import CoursePage from "@/components/CoursePage"
-import Course from "@/components/Course"
-import Sandbox from "@/components/Sandbox"
-import LoginPage from "@/components/LoginPage"
-import SignupPage from "@/components/SignupPage"
-import NotFound from "@/components/NotFound"
-import Settings from "@/components/Settings"
-import MyCourses from "@/components/MyCourses"
-import TimeTable from "@/components/TimeTable"
-import CreateCourse from "@/components/CreateCourse"
-import Forum from "@/components/Forum"
-import PostWrapper from "@/components/PostWrapper"
-import EditCoursePage from "@/components/EditCoursePage"
-import Chat from "@/components/Chat"
+import LandingPage from "@/components/LandingPage/LandingPage"
+import ProfilePage from "@/components/Profile/ProfilePage"
+import CoursePage from "@/components/Course/CoursePage"
+import Course from "@/components/Course/Course"
+import Sandbox from "@/components/Util/Sandbox"
+import LoginPage from "@/components/Authorization/LoginPage"
+import SignupPage from "@/components/Authorization/SignupPage"
+import NotFound from "@/components/Util/NotFound"
+import Settings from "@/components/Profile/Settings"
+import AllCourses from "@/components/Course/AllCourses"
+import TimeTable from "@/components/Calendar/TimeTable"
+import CreateCourse from "@/components/Course/CreateCourse"
+import Forum from "@/components/Forum/Forum"
+import PostWrapper from "@/components/Forum/PostWrapper"
+import EditCoursePage from "@/components/Course/EditCoursePage"
+import Chat from "@/components/Chat/Chat"
 import TeacherCalendar from "@/components/TeacherCalendar"
-import AllCourses from "@/components/AllCourses"
+import MyCourses from "@/components/Course/MyCourses"
 
 import fontawesome from "@fortawesome/fontawesome"
 import freeSolid from "@fortawesome/fontawesome-free-solid/"
@@ -126,10 +126,26 @@ export const router = new Router({
       component: SignupPage
     },
     {
+      path: "/forum/post/:pid",
+      name: "skbpost",
+      meta: { requiresAuth: false },
+      component: PostWrapper
+    },
+    {
       path: "/forum",
       name: "skbforum",
-      meta: { requiresAuth: true },
+      meta: { requiresAuth: false },
       component: Forum
+    },
+    {
+      path: "/post",
+      name: "skbpost",
+      component: PostWrapper
+    },
+    {
+      path: "/chat",
+      name: "skbchat",
+      component: Chat
     },
     {
       path: "*",

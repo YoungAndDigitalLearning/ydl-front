@@ -32,8 +32,8 @@
 </template>
 
 <script>
-import CourseWeek from "@/components/CourseWeek"
-import { axiosInstance } from "../store/utils/api"
+import CourseWeek from "@/components/Course/CourseWeek"
+import axiosInstance from "@/store/api"
 import { VueEditor } from "vue2-editor"
 
 export default {

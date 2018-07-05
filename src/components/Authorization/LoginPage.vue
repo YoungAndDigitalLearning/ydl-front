@@ -1,7 +1,7 @@
 <template>
   <div class="log-in-container">
     <div class="form-container">
-      <ydl-profileheadertext color="darkgreen">Login to SKB</ydl-profileheadertext>
+      <ydl-titleheader color="darkgreen">Login to SKB</ydl-titleheader>
       <form @submit.prevent="validateBeforeSubmit">
         <h2 class="sr-only">Login Form</h2>
         <div class="form-group">
@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import FormLabel from "@/components/FormLabel"
-import ProfileHeaderText from "@/components/ProfileHeaderText"
+import FormLabel from "@/components/Util/FormLabel"
+import TitleHeader from "@/components/Util/TitleHeader"
 import { mapState } from "vuex"
 
 export default {
@@ -51,7 +51,7 @@ export default {
   }),
   components: {
     "ydl-label": FormLabel,
-    "ydl-profileheadertext": ProfileHeaderText
+    "ydl-titleheader": TitleHeader
   },
   methods: {
     validateBeforeSubmit () {
@@ -82,7 +82,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/fonts/ionicons.min.css";
+@import "../../assets/fonts/ionicons.min.css";
 
 @import "styles/global";
 

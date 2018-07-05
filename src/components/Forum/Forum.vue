@@ -3,9 +3,13 @@
   <h1>Hello Forum</h1>
   <div class="container post-list">
     <ul class="list-group" v-for="post in forum.posts" v-bind:key="post.header.id">
-      <a class="list-group-item post-entry">
-        <span class="title">{{post.header.title}}</span> <br>
-        <span class="meta">{{post.header.author}}, {{post.header.date}}</span>
+      <a class="post-entry" v-bind:href="'/#/forum/post/'+post.header.id">
+        <div class="meta">
+          <span class="meta">{{post.header.author}}, {{post.header.date}}</span> <br>
+        </div>
+        <div class="title">
+          <span class="title">Betreff: {{post.header.title}}</span>
+        </div>
       </a>
     </ul>
   </div>
@@ -189,6 +193,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  @import "styles/global";
+
   .forum {
     background-color: lightblue;
 
@@ -198,16 +204,35 @@ export default {
       justify-content: space-around;
       text-align: left;
 
-      .title {
-        font-size: 18px;
+      .post-entry {
+        margin-bottom: 10px;
+        background-color: white;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+
+        .title {
+          font-size: 18px;
+          padding: 5px;
+          color: $ydl-primary;
+        }
+
+        .meta {
+          color: white;
+          padding: 5px;
+          border-top-left-radius: 5px;
+          border-top-right-radius: 5px;
+          background-color: $ydl-primary;
+          font-size: 12px;
+        }
       }
 
-      .meta {
-        font-size: 12px;
+      .post-entry:hover {
+        text-decoration: none;
+        .title {
+          background-color: rgb(228, 228, 228);
+          transition: 300ms;
+        }
       }
-    }
-    .post-entry {
-      margin-bottom: 10px;
     }
   }
 </style>

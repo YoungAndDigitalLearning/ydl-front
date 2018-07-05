@@ -1,6 +1,6 @@
 <template>
   <div v-if="teacher">
-    <ydl-profileheadertext color="darkgreen">{{ course.name }}</ydl-profileheadertext>
+    <ydl-titleheader color="darkgreen">{{ course.name }}</ydl-titleheader>
     <div class="card-body">
       <div class="felx-container" v-if="user.is_teacher && user.id === teacher.id">
         <button class="btn" @click="editCourse(course.id)">Seite bearbeiten</button>
@@ -19,21 +19,29 @@
       <hr>
       <div class="description" v-html="course.description"></div>
       <hr>
-      <div class="courseweek-container">
-      <ydl-courseweek></ydl-courseweek>
-      <ydl-courseweek></ydl-courseweek>
-      <ydl-courseweek></ydl-courseweek>
-      <ydl-courseweek></ydl-courseweek>
+      <div v-if="true">
+        <div class="posts">
+          <h3>Posts</h3>
+        </div>
+        <div class="courseweek-container">
+          <ydl-courseweek></ydl-courseweek>
+          <ydl-courseweek></ydl-courseweek>
+          <ydl-courseweek></ydl-courseweek>
+          <ydl-courseweek></ydl-courseweek>
+        </div>
+      </div>
+      <div v-else>
+        <button @click="register" value="Einschreiben" name="register" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import CourseWeek from "@/components/CourseWeek"
+import CourseWeek from "@/components/Course/CourseWeek"
 import { mapState } from "vuex"
-import ProfileHeaderText from "./ProfileHeaderText.vue"
-import { axiosInstance } from "../store/utils/api"
+import TitleHeader from "@/components/Util/TitleHeader"
+import axiosInstance from "@/store/api"
 
 export default {
   name: "courseview",
@@ -84,6 +92,9 @@ export default {
         console.log(error.response)
       })
   },
+  destroyed () {
+    this.$store.dispatch("viewCourse", 0)
+  },
   methods: {
     editCourse (id) {
       this.$router.push("/profile/" + this.user.id + "/courses/" + id + "/edit")
@@ -91,7 +102,7 @@ export default {
   },
   components: {
     "ydl-courseweek": CourseWeek,
-    "ydl-profileheadertext": ProfileHeaderText
+    "ydl-titleheader": TitleHeader
   }
 }
 </script>

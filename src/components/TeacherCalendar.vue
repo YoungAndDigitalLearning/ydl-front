@@ -1,12 +1,12 @@
 <template>
   <div class="calendar-container">
-    <ydl-profileheadertext color="blue">Calendar</ydl-profileheadertext>
+    <ydl-titleheader color="blue">Calendar</ydl-titleheader>
     <calendar-view :show-date="showDate" :events="events" @show-date-change="setShowDate" theme-default holiday-us-traditional holiday-us-official/>
   </div>
 </template>
 
 <script>
-import ProfileHeaderText from "@/components/ProfileHeaderText"
+import TitleHeader from "@/components/Util/TitleHeader"
 import CalendarView from "vue-simple-calendar"
 import { mapState } from "vuex"
 require("vue-simple-calendar/dist/static/css/default.css")
@@ -42,7 +42,7 @@ export default {
   },
   components: {
     CalendarView,
-    "ydl-profileheadertext": ProfileHeaderText
+    "ydl-titleheader": TitleHeader
   },
   methods: {
     setShowDate (d) {

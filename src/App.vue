@@ -12,12 +12,12 @@
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap-vue/dist/bootstrap-vue.css"
 
-import Navbar from "@/components/Navbar.vue"
-import Footer from "@/components/Footer.vue"
+import Navbar from "@/components/Navigation/Navbar.vue"
+import Footer from "@/components/LandingPage/Footer.vue"
 
 import jwtDecode from "jwt-decode"
 import axios from "axios"
-import { axiosInstance } from "./store/store"
+import axiosInstance from "@/store/api"
 import { mapState } from "vuex"
 
 export default {

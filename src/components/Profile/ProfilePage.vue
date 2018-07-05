@@ -3,7 +3,7 @@
     <div class="left-sidebar">
       <!-- TODO: need to be removed into sub compoentnts -->
       <div class="navigation">
-        <ydl-profileheadertext color="green">NAVIGATION</ydl-profileheadertext>
+        <ydl-titleheader color="green">NAVIGATION</ydl-titleheader>
         <ul class="nav flex-column">
           <li class="nav-item">
             <a class="nav-link active badge-link" :href="'/#/profile/' + user.id + '/courses/'">
@@ -30,7 +30,7 @@
         </ul>
       </div>
       <div class="recent-uploads">
-        <ydl-profileheadertext color="orange">RECENT UPLOADS</ydl-profileheadertext>
+        <ydl-titleheader color="orange">RECENT UPLOADS</ydl-titleheader>
       </div>
     </div>
     <div class="profile-content-container">
@@ -40,17 +40,18 @@
     </div>
     <div class="right-sidebar">
       <div class="navigation">
-        <ydl-profileheadertext color="pink">EVENTS</ydl-profileheadertext>
+        <ydl-events/>
       </div>
       <div class="recent-uploads">
-        <ydl-profileheadertext color="blue">CALENDAR <b-button :href="'/#/profile/' + user.id + '/calendar/'" variant="primary">Open</b-button></ydl-profileheadertext>
+        <ydl-titleheader color="blue">CALENDAR <b-button :href="'/#/profile/' + user.id + '/calendar/'" variant="primary">Open</b-button></ydl-titleheader>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import ProfileHeaderText from "@/components/ProfileHeaderText"
+import TitleHeader from "@/components/Util/TitleHeader"
+import Events from "@/components/Profile/Event/Events"
 import { mapState } from "vuex"
 
 export default {
@@ -66,7 +67,8 @@ export default {
     }
   },
   components: {
-    "ydl-profileheadertext": ProfileHeaderText
+    "ydl-titleheader": TitleHeader,
+    "ydl-events": Events
   },
   computed: mapState({
     own_courses: state => state.api.ownCourses,
