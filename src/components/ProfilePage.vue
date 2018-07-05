@@ -22,8 +22,10 @@
             <a class="nav-link" :href="'/#/profile/' + user.id + '/allcourses/'">All Courses</a>
           </li>
           <li v-for="course in [...own_courses, ...joined_courses]" v-bind:key="course.id" class="nav-item">
-            <a class="nav-link" @click="goToCourse(course.id)">
-              <fa-icon v-if="course.id === currentViewingCourse" icon="caret-right" />{{" " + course.name}}</a>
+            <router-link class="nav-link" v-bind:to="'/profile/' + user.id + '/courses/' + course.id">
+              <fa-icon v-if="course.id === currentViewingCourse" icon="caret-right" />
+              {{" " + course.name}}
+            </router-link>
           </li>
         </ul>
       </div>
@@ -33,7 +35,7 @@
     </div>
     <div class="profile-content-container">
       <div class="profile-content">
-        <router-view/>
+        <router-view :key="$route.fullPath"/>
       </div>
     </div>
     <div class="right-sidebar">
@@ -59,7 +61,7 @@ export default {
   },
   methods: {
     goToCourse (id) {
-      console.log("goto course")
+      console.log("goto course " + id)
       this.$router.push("/profile/" + this.user.id + "/courses/" + id)
     }
   },
