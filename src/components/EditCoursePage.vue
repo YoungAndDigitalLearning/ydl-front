@@ -35,7 +35,6 @@
 import CourseWeek from "@/components/CourseWeek"
 import { axiosInstance } from "../store/utils/api"
 import { VueEditor } from "vue2-editor"
-import { mapState } from "vuex"
 
 export default {
   name: "course-edit",
@@ -71,34 +70,30 @@ export default {
   },
   methods: {
     handleSubmit () {
-      console.log("courses/" + this.course.id)
       axiosInstance.put("courses/" + this.course.id, this.course)
         .then(response => {
-          console.log("response: ")
           console.log(response.data)
+          if (response.status === 200) {
+            this.$notify({
+              title: "Course Update",
+              text: "successfully updated your course data",
+              type: "success"
+            })
+            this.$router.push("/profile/" + this.userId + "/courses/" + this.course.id)
+          } else {
+            this.$notify({
+              title: "Course Update",
+              text: "Error while saving your changes",
+              type: "error"
+            })
+          }
         })
-      this.$router.push("/profile/" + this.userId + "/courses/" + this.course.id)
-      this.$notify({
-        title: "Course Update",
-        text: "successfully updated your course data",
-        type: "success"
-      })
     },
     saveContent () {
       console.log(this.editorContent)
       this.course.description = this.editorContent
       console.log(this.course.description)
       this.handleSubmit()
-    }
-  },
-  computed: {
-    ...mapState({
-      joined_courses: state => state.api.joinedCourses,
-      own_courses: state => state.api.ownCourses,
-      user: state => state.api.user
-    }),
-    courses () {
-      return [...this.own_courses, ...this.joined_courses]
     }
   }
 }
