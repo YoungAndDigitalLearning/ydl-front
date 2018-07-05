@@ -22,8 +22,9 @@
             <a class="nav-link" :href="'/#/profile/' + user.id + '/allcourses/'">All Courses</a>
           </li>
           <li v-for="course in [...own_courses, ...joined_courses]" v-bind:key="course.id" class="nav-item">
-            <a class="nav-link" @click="goToCourse(course.id)">
-              <fa-icon v-if="course.id === currentViewingCourse" icon="caret-right" />{{" " + course.name}}</a>
+            <router-link class="nav-link" :to="'/profile/' + user.id + '/courses/' + course.id">
+              <fa-icon v-if="course.id === currentViewingCourse" icon="caret-right" />{{" " + course.name}}
+            </router-link>
           </li>
         </ul>
       </div>
@@ -33,12 +34,12 @@
     </div>
     <div class="profile-content-container">
       <div class="profile-content">
-        <router-view/>
+        <router-view :id="this.$route.getAbsolutePath"></router-view>
       </div>
     </div>
     <div class="right-sidebar">
       <div class="navigation">
-        <ydl-events />
+        <ydl-events/>
       </div>
       <div class="recent-uploads">
         <ydl-titleheader color="blue">CALENDAR <b-button :href="'/#/profile/' + user.id + '/calendar/'" variant="primary">Open</b-button></ydl-titleheader>

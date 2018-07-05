@@ -19,11 +19,19 @@
       <hr>
       <div class="description" v-html="course.description"></div>
       <hr>
-      <div class="courseweek-container">
-      <ydl-courseweek></ydl-courseweek>
-      <ydl-courseweek></ydl-courseweek>
-      <ydl-courseweek></ydl-courseweek>
-      <ydl-courseweek></ydl-courseweek>
+      <div v-if="true">
+        <div class="posts">
+          <h3>Posts</h3>
+        </div>
+        <div class="courseweek-container">
+          <ydl-courseweek></ydl-courseweek>
+          <ydl-courseweek></ydl-courseweek>
+          <ydl-courseweek></ydl-courseweek>
+          <ydl-courseweek></ydl-courseweek>
+        </div>
+      </div>
+      <div v-else>
+        <button @click="register" value="Einschreiben" name="register" />
       </div>
     </div>
   </div>
