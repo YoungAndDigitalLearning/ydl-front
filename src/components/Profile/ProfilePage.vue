@@ -1,5 +1,5 @@
 <template>
-  <div class="ydl-container">
+  <div v-if="user" class="ydl-container">
     <div class="left-sidebar">
       <!-- TODO: need to be removed into sub compoentnts -->
       <div class="navigation">
@@ -20,6 +20,9 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" :href="'/#/profile/' + user.id + '/allcourses/'">All Courses</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" :href="'/#/profile/' + user.id + '/resources/'">All Resources</a>
           </li>
           <li v-for="course in [...own_courses, ...joined_courses]" v-bind:key="course.id" class="nav-item">
             <router-link class="nav-link" v-bind:to="'/profile/' + user.id + '/courses/' + course.id">
@@ -56,7 +59,7 @@ import { mapState } from "vuex"
 
 export default {
   name: "ProfilePage",
-  created () {
+  mounted () {
     console.log("loaded profile")
     this.$store.dispatch("getCourses")
   },
@@ -152,7 +155,7 @@ a:hover {
   margin: 0 20px;
   background-color: #fff;
   @include box-shadow(0 0 15px 1px rgba(0, 0, 0, 0.23));
-  overflow: auto;
+  // overflow: auto;
 }
 
 .profile-container {

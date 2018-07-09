@@ -22,6 +22,13 @@ const api = new Vapi({
     viewingCourse: null
   }
 })
+// Resources
+  .get({
+    action: "getResources",
+    property: "resources",
+    path: "resources/"
+  })
+// Announcements
   .get({
     action: "getAnnouncement",
     property: "announcement",
@@ -43,16 +50,19 @@ const api = new Vapi({
     property: "announcement",
     path: "announcements/"
   })
+// User
   .get({
     action: "getUser",
     property: "user",
     path: ({ id }) => `users/${id}`
   })
+// Signup
   .post({
     action: "signup",
     property: "user",
     path: "users/"
   })
+// Course
   .get({
     action: "getCourses",
     property: "courses",
@@ -61,6 +71,7 @@ const api = new Vapi({
       // seperate own and joined courses
       var ownCourses = []
       var joinedCourses = []
+      console.log(payload.data)
       payload.data.forEach(course => {
         if (course.teacher === state.user.id) {
           ownCourses.push(course)
@@ -88,6 +99,7 @@ const api = new Vapi({
     property: "course",
     path: "courses/"
   })
+// Login
   .post({
     action: "login",
     property: "token",
