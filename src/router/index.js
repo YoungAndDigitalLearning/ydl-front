@@ -21,6 +21,7 @@ import EditCoursePage from "@/components/Course/EditCoursePage"
 import Chat from "@/components/Chat/Chat"
 import TeacherCalendar from "@/components/TeacherCalendar"
 import MyCourses from "@/components/Course/MyCourses"
+import Resources from "@/components/Resources/Resources"
 
 import fontawesome from "@fortawesome/fontawesome"
 import freeSolid from "@fortawesome/fontawesome-free-solid/"
@@ -101,6 +102,11 @@ export const router = new Router({
           path: "allcourses",
           name: "allcourses",
           component: AllCourses
+        },
+        {
+          path: "resources",
+          name: "resource",
+          component: Resources
         }
       ]
     },

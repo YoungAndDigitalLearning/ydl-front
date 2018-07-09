@@ -1,5 +1,5 @@
 <template>
-  <div class="sign-up-container">
+  <div class="sign-up-container center">
     <div class="form-container">
       <ydl-titleheader color="darkgreen">New Account</ydl-titleheader>
       <form @submit.prevent="handleSubmit">
@@ -97,6 +97,13 @@ export default {
     transform: translateY(-100%);
     font-size: 75%;
   }
+}
+
+.center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 /* Signup */

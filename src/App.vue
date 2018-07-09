@@ -77,6 +77,7 @@ export default {
           console.log(error)
         })
 
+      console.log(token)
       axiosInstance.defaults.headers.common["Authorization"] = token
       console.log("token was added to axios instance")
       console.log(axiosInstance)
@@ -127,7 +128,7 @@ export default {
 
 .ydl-content {
   overflow-y: auto;
-  height: 100%;
+  // height: 100%;
   padding-left: 15px;
   padding-right: 15px;
 

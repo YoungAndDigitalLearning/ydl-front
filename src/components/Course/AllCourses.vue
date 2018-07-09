@@ -75,6 +75,7 @@ export default {
     },
     isRegistered (id) {
       console.log(this.user.courses)
+      console.log(id)
       return this.user.courses.includes(id)
     }
   }
