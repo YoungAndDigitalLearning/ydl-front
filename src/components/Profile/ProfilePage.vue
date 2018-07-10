@@ -21,8 +21,11 @@
           <li class="nav-item">
             <a class="nav-link" :href="'/#/profile/' + user.id + '/allcourses/'">All Courses</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="user.is_teacher">
             <a class="nav-link" :href="'/#/profile/' + user.id + '/resources/'">All Resources</a>
+          </li>
+          <li class="nav-item" v-if="user.is_teacher">
+            <a class="nav-link" :href="'/#/profile/' + user.id + '/createresource/'">Create Resource</a>
           </li>
           <li v-for="course in [...own_courses, ...joined_courses]" v-bind:key="course.id" class="nav-item">
             <router-link class="nav-link" v-bind:to="'/profile/' + user.id + '/courses/' + course.id">

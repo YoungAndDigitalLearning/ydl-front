@@ -28,6 +28,11 @@ const api = new Vapi({
     property: "resources",
     path: "resources/"
   })
+  .post({
+    action: "createResource",
+    property: "resource",
+    path: "resources/"
+  })
 // Announcements
   .get({
     action: "getAnnouncement",
