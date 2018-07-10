@@ -22,6 +22,7 @@ import Chat from "@/components/Chat/Chat"
 import TeacherCalendar from "@/components/TeacherCalendar"
 import MyCourses from "@/components/Course/MyCourses"
 import Resources from "@/components/Resources/Resources"
+import CreateResource from "@/components/Resources/CreateResource"
 
 import fontawesome from "@fortawesome/fontawesome"
 import freeSolid from "@fortawesome/fontawesome-free-solid/"
@@ -107,6 +108,11 @@ export const router = new Router({
           path: "resources",
           name: "resource",
           component: Resources
+        },
+        {
+          path: "createresource",
+          name: "createresource",
+          component: CreateResource
         }
       ]
     },
