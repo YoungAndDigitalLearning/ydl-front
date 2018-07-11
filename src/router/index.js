@@ -23,6 +23,7 @@ import TeacherCalendar from "@/components/TeacherCalendar"
 import MyCourses from "@/components/Course/MyCourses"
 import Resources from "@/components/Resources/Resources"
 import CreateResource from "@/components/Resources/CreateResource"
+import Quiz from "@/components/Quiz/Quiz"
 
 import fontawesome from "@fortawesome/fontawesome"
 import freeSolid from "@fortawesome/fontawesome-free-solid/"
@@ -158,6 +159,11 @@ export const router = new Router({
       path: "/chat",
       name: "skbchat",
       component: Chat
+    },
+    {
+      path: "/quiz",
+      name: "skbquiz",
+      component: Quiz
     },
     {
       path: "*",
