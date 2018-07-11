@@ -1,0 +1,33 @@
+{
+    "id": 0,
+    "answers": [
+        {
+            "id": 1,
+            "answer": "string", 
+            "checked": false,
+            "max_score": 1,
+            "score": 0
+        },
+        {
+            "id": 2,
+            "answer": "string", 
+            "checked": false,
+            "max_score": 1,
+            "score": 0
+        },
+        {
+            "id": 3,
+            "answer": "string", 
+            "checked": false,
+            "max_score": 1,
+            "score": 0
+        },
+        {
+            "id": 4,
+            "answer": "string", 
+            "checked": false,
+            "max_score": 1,
+            "score": 0
+        }
+    ]
+}

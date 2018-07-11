@@ -1,6 +1,6 @@
 <template>
 <div class="container-fluid">
-  <form>
+  <form @submit.prevent="submitToServer">
     <div v-for="t in test.tasks" v-bind:key="t.id">
       <div v-if="t.render_type === 'MC'">
         <ydl-mcquestion v-bind:task="t"></ydl-mcquestion>
@@ -9,7 +9,9 @@
         <ydl-vtquestion v-bind:task="t"></ydl-vtquestion>
       </div>
     </div>
+    <input type="submit" value="Abgeben">
   </form>
+  {{test}}
 </div>
 </template>
 
@@ -22,7 +24,7 @@ export default {
   name: "Quiz",
   data () {
     return {
-      test: []
+      test: {}
     }
   },
   components: {
@@ -36,6 +38,11 @@ export default {
         console.log(response.data)
         this.test = response.data
       })
+  },
+  methods: {
+    submitToServer () {
+      console.log(this.test)
+    }
   }
 }
 </script>
