@@ -49,24 +49,24 @@
       "render_type": "MC", 
       "test": 1 
     },
-  { 
-    "id": 2, 
-    "answers": [ 
-      { 
-        "id": 2, 
-        "answer": "Weil Baum, 42, 1337, darum", 
-        "checked": false, 
-        "correct_answer": "Weil Baum", 
-        "max_score": 1, 
-        "score": 0, 
-        "order": 0, 
-        "task": 2 
-      } 
-    ], 
-    "question": "Warum ist die Orange orange", 
-    "render_type": "VT", 
-    "test": 1 
-  } 
+    { 
+      "id": 2, 
+      "answers": [ 
+        { 
+          "id": 2, 
+          "answer": "Weil Baum, 42, 1337, darum", 
+          "checked": false, 
+          "correct_answer": "Weil Baum", 
+          "max_score": 1, 
+          "score": 0, 
+          "order": 0, 
+          "task": 2 
+        } 
+      ], 
+      "question": "Warum ist die Orange orange", 
+      "render_type": "VT", 
+      "test": 1 
+    } 
   ], 
   "score": 0, 
   "max_score": 5, 
