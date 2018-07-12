@@ -156,6 +156,7 @@ a:hover {
 
 .calendar {
   height: 0px !important;
+  @include box-shadow(0 0 15px 1px rgba(0, 0, 0, 0.23));
   @include media-breakpoint-down(sm) {
     margin-bottom: 20px;
   }
@@ -180,13 +181,16 @@ a:hover {
 .profile-content-container {
   flex: 1;
   margin: 0 20px;
-  background-color: #fff;
-  @include box-shadow(0 0 15px 1px rgba(0, 0, 0, 0.23));
   // overflow: auto;
 
   @include media-breakpoint-down(sm) {
     margin: 20px 0px;
   }
+}
+
+.profile-content {
+  background-color: #fff;
+  @include box-shadow(0 0 15px 1px rgba(0, 0, 0, 0.23));
 }
 
 .profile-container {
