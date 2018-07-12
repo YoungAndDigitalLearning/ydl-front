@@ -49,7 +49,8 @@ export default {
     handleSubmit () {
       this.$store.dispatch("createCourse", { data: this.form.course })
         .then(() => {
-          this.$router.push("/profile/")
+          console.log("1337")
+          this.$router.push("/profile/6")
         })
     }
   },
