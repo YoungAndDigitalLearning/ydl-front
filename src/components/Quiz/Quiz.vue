@@ -1,5 +1,7 @@
 <template>
 <div class="container-fluid">
+  <h3> Quiz </h3>
+  <hr>
   <form @submit.prevent="submitToServer">
     <div v-for="t in test.tasks" v-bind:key="t.id">
       <div v-if="t.render_type === 'MC'">
@@ -33,7 +35,8 @@ export default {
   },
   mounted () {
     // todo: get request to Post
-    axiosInstance.get("quiz/tests/1")
+    const cid = this.$route.params.cid
+    axiosInstance.get("quiz/tests/" + cid)
       .then(response => {
         console.log(response.data)
         this.test = response.data
