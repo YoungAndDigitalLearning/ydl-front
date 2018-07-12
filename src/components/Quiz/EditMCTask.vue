@@ -17,6 +17,7 @@
 
 export default {
   name: "EditMCTask",
+  props: ["task"],
   data () {
     return {
       answerCount: 0

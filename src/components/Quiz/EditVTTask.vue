@@ -1,7 +1,7 @@
 <template>
 <div class="container-fluid">
-  <h5><input type="text" v-model="task.question"></h5>
-    <input type="textfield" v-model="task.correct_answer"> <br>
+  <h5><input type="textfield" v-model="task.question" placeholder="Frage"></h5>
+  <input type="textfield" v-model="task.correct_answer" placeholder="Antwort"> <br>
   <hr>
 </div>
 </template>
