@@ -70,8 +70,10 @@ export default {
   },
   methods: {
     handleSubmit () {
+      console.log(this.course.description)
       axiosInstance.put("courses/" + this.course.id, this.course)
         .then(response => {
+          console.log("Teeeest")
           console.log(response.data)
           if (response.status === 200) {
             this.$notify({
@@ -90,9 +92,7 @@ export default {
         })
     },
     saveContent () {
-      console.log(this.editorContent)
       this.course.description = this.editorContent
-      console.log(this.course.description)
       this.handleSubmit()
     }
   }
