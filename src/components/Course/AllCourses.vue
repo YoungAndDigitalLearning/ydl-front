@@ -4,7 +4,6 @@
     <ul class="list-group" v-for="course in courses" v-bind:key="course.id">
       <a class="list-group-item list-group-item-action">
         <h4> {{course.name}} </h4>
-        <div v-html="course.description"></div>
       </a>
       <a v-if="!isRegistered(course.id)" @click="registerToCourse(course.id)">
         register

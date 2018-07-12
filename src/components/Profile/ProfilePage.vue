@@ -35,7 +35,7 @@
           </li>
         </ul>
       </div>
-      <div class="recent-uploads">
+      <div class="recent-uploads hide-height">
         <ydl-titleheader color="orange">UPLOADS</ydl-titleheader>
       </div>
     </div>
@@ -155,10 +155,14 @@ a:hover {
 }
 
 .calendar {
+  height: 0px !important;
   @include media-breakpoint-down(sm) {
     margin-bottom: 20px;
-    height: 0px !important;
   }
+}
+
+.hide-height {
+  height: 55px !important;
 }
 
 .recent-uploads {
