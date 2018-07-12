@@ -2,7 +2,7 @@
 <div class="center">
   <div class="log-in-container">
     <div class="form-container">
-      <ydl-titleheader color="darkgreen">Login to SKB</ydl-titleheader>
+      <ydl-titleheader class="dummy-object" color="darkgreen">Login to SKB</ydl-titleheader>
       <form @submit.prevent="validateBeforeSubmit">
         <h2 class="sr-only">Login Form</h2>
         <div class="form-group">
@@ -90,6 +90,10 @@ export default {
 
 .btn {
   border-radius: 0px;
+}
+
+.dummy-object {
+  height: 60px;
 }
 
 /* Form Group */
