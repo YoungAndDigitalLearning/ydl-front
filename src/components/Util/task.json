@@ -1,3 +1,81 @@
+{ 
+  "id": 1, 
+  "tasks": [ 
+    { 
+      "id": 1, 
+      "answers": [ 
+        { 
+          "id": 1, 
+          "answer": "a", 
+          "checked": false, 
+          "correct_answer": "true", 
+          "max_score": 1, 
+          "score": 0, 
+          "order": 0, 
+          "task": 1 
+        }, 
+        { 
+          "id": 3, 
+          "answer": "b", 
+          "checked": false, 
+          "correct_answer": "false", 
+          "max_score": 1, 
+          "score": 0, 
+          "order": 0, 
+          "task": 1 
+        }, 
+        { 
+          "id": 4, 
+          "answer": "c", 
+          "checked": false, 
+          "correct_answer": "false", 
+          "max_score": 1, 
+          "score": 0, 
+          "order": 0, 
+          "task": 1 
+        }, 
+        { 
+          "id": 5, 
+          "answer": "d", 
+          "checked": false, 
+          "correct_answer": "false", 
+          "max_score": 1, 
+          "score": 0, 
+          "order": 0, 
+          "task": 1 
+        } 
+      ],
+      "question": "Warum ist die Banane krumm?", 
+      "render_type": "MC", 
+      "test": 1 
+    },
+  { 
+    "id": 2, 
+    "answers": [ 
+      { 
+        "id": 2, 
+        "answer": "Weil Baum, 42, 1337, darum", 
+        "checked": false, 
+        "correct_answer": "Weil Baum", 
+        "max_score": 1, 
+        "score": 0, 
+        "order": 0, 
+        "task": 2 
+      } 
+    ], 
+    "question": "Warum ist die Orange orange", 
+    "render_type": "VT", 
+    "test": 1 
+  } 
+  ], 
+  "score": 0, 
+  "max_score": 5, 
+  "t_id": 1, 
+  "course": 4, 
+  "scored_by": 2 
+} 
+
+
 {
     "id": 0,
     "answers": [

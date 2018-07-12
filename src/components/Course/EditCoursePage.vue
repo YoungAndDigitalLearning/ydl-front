@@ -21,6 +21,8 @@
         <button @click="saveContent" class="btn">Speichern</button>
       </div>
       <hr>
+        <button @click="generateQuiz" class="btn">Quiz erstellen</button>
+      <hr>
       <div class="courseweek-container">
       <ydl-courseweek></ydl-courseweek>
       <ydl-courseweek></ydl-courseweek>
@@ -45,6 +47,7 @@ export default {
       course: {},
       teacher: {},
       userID: -1,
+      cID: -1,
       editorContent: "<h1>!!! initial Content !!!</h1>",
       loading: true
     }
@@ -54,9 +57,9 @@ export default {
     "ydl-editor": VueEditor
   },
   created () {
-    const cid = this.$route.params.cid
+    this.cID = this.$route.params.cid
     this.userID = this.$route.params.id
-    axiosInstance.get("courses/" + cid)
+    axiosInstance.get("courses/" + this.cID)
       .then(response => {
         this.course = response.data
         console.log(this.course)
@@ -94,6 +97,10 @@ export default {
       this.course.description = this.editorContent
       console.log(this.course.description)
       this.handleSubmit()
+    },
+    generateQuiz () {
+      // todo: create empty quiz skeleton that can be filled
+      this.$router.push("/profile/" + this.userID + "/courses/" + this.cID + "/quiz/edit")
     }
   }
 }
