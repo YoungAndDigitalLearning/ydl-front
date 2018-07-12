@@ -4,7 +4,6 @@
   <ul class="list-group" v-if="user.is_teacher" v-for="course in own_courses" v-bind:key="course.id">
     <a v-if="!course.paid" class="list-group-item list-group-item-action" :href="'/#/profile/' + user.id + '/courses/' + course.id" v-on:click="$emit('load-details', course.id)">
       <h4> {{course.name}} </h4>
-      <div v-html="course.description"></div>
     </a>
     <a v-else class="list-group-item list-group-item-action blocked" :href="'/#/profile/courses/' + course.id">
       <h4> {{course.name}} </h4>
@@ -15,7 +14,6 @@
   <ul class="list-group" v-for="course in joined_courses" v-bind:key="course.id">
     <a v-if="!course.paid" class="list-group-item list-group-item-action" :href="'/#/profile/' + user.id + '/courses/' + course.id" v-on:click="$emit('load-details', course.id)">
       <h4> {{course.name}} </h4>
-      <div v-html="course.description"></div>
     </a>
     <a v-else class="list-group-item list-group-item-action blocked" :href="'/#/profile/courses/' + course.id">
       <h4> {{course.name}} </h4>
