@@ -5,7 +5,6 @@
       <div class="ydl-event" v-for="event in eventsFromCurses" :key="event.id">
         <div class="ydl-event__entry">{{event.matter}}</div>
         <div class="ydl-event__entry">{{moment(event.date).format('DD.MM.YYYY')}}</div>
-        <div class="ydl-event__entry">{{event.course}}</div>
       </div>
     </div>
   </div>
