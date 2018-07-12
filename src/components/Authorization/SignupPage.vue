@@ -1,7 +1,7 @@
 <template>
   <div class="sign-up-container center">
     <div class="form-container">
-      <ydl-titleheader color="darkgreen">New Account</ydl-titleheader>
+      <ydl-titleheader class="dummy-object" color="darkgreen">New Account</ydl-titleheader>
       <form @submit.prevent="handleSubmit">
         <h2 class="sr-only">Login Form</h2>
         <div class="form-group">
@@ -97,6 +97,10 @@ export default {
     transform: translateY(-100%);
     font-size: 75%;
   }
+}
+
+.dummy-object {
+  height: 60px;
 }
 
 .center {

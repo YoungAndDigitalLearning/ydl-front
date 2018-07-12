@@ -16,7 +16,6 @@ export default {
 
 div {
   width: 100%;
-  height: 60px;
   > p {
     font-family: "Source Sans Pro";
     font-size: 30px;
