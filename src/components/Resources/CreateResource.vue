@@ -4,8 +4,8 @@
     <div>
         <form @submit.prevent="handleSubmit">
           <div class="form-group">
-            <input class="form-control" v-validate="'required|alpha_dash'" id="resourceName" type="text" name="resourceName" v-model="form.resource.name" required>
-            <ydl-label inputID="resourceName">Name</ydl-label>
+            <label for="resourceName">Name</label>
+            <input class="form-control" v-validate="'required'" id="resourceName" type="text" name="resourceName" v-model="form.resource.name" required>
             <span v-show="errors.has('resourceName')" class="required">{{ errors.first("resourceName") }}</span>
           </div>
           <div class="form-group">
@@ -76,6 +76,14 @@ export default {
 // make form group position relative so an absolute child will be within this element
 .form-group {
   position: relative;
+}
+
+form {
+  padding: 20px;
+}
+
+.top-padding {
+  margin-top: 20px;
 }
 
 // for the animation if input is selected
