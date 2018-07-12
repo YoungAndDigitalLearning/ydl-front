@@ -36,7 +36,7 @@
         </ul>
       </div>
       <div class="recent-uploads">
-        <ydl-titleheader color="orange">RECENT UPLOADS</ydl-titleheader>
+        <ydl-titleheader color="orange">UPLOADS</ydl-titleheader>
       </div>
     </div>
     <div class="profile-content-container">
