@@ -2,14 +2,11 @@
   <div>
     <ydl-titleheader color="darkgreen">All Courses</ydl-titleheader>
     <ul class="list-group" v-for="course in courses" v-bind:key="course.id">
-      <a class="list-group-item list-group-item-action">
-        <h4> {{course.name}} </h4>
-      </a>
-      <a v-if="!isRegistered(course.id)" @click="registerToCourse(course.id)">
-        register
-      </a>
-      <a v-else @click="unregisterFromCourse(course.id)">
-        unregister
+      <a class="list-group-item list-group-item-action horizontal-align">
+        <div class="centered-text-ydl"><h4> {{course.name}} </h4></div>
+        <div v-if="!isRegistered(course.id)" class="btn btn-danger" @click="registerToCourse(course.id)"><fa-icon icon="sign-in-alt"/></div>
+        <div v-else-if="isRegistered(course.id) && user.id !== course.teacher" class="btn btn-success" @click="unregisterFromCourse(course.id)"><fa-icon icon="sign-out-alt"/></div>
+        <div v-else class="btn"><fa-icon icon="user"/></div>
       </a>
     </ul>
   </div>
@@ -80,3 +77,30 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.horizontal-align {
+  display: flex;
+}
+
+.fill-out {
+  flex: 1;
+}
+
+h4 {
+  margin: 0px;
+}
+
+.centered-text-ydl {
+    height: 100%;
+    width:100%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.list-group-item {
+  border-radius: 0;
+}
+
+</style>

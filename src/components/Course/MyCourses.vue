@@ -46,10 +46,26 @@ a {
   color: black;
 }
 
+h4 {
+  margin: 0px;
+}
+
+.centered-text-ydl {
+    height: 100%;
+    width:100%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .list-group-item:hover {
   background-color: #07a7da;
   color: white;
   transition: 300ms;
+}
+
+.list-group-item {
+  border-radius: 0;
 }
 
 .blocked {
