@@ -104,6 +104,11 @@ const api = new Vapi({
     property: "course",
     path: "courses/"
   })
+  .put({
+    action: "editCourse",
+    property: "course",
+    path: ({ id }) => `courses/${id}`
+  })
 // Login
   .post({
     action: "login",

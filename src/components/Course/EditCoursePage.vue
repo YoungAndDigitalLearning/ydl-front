@@ -18,6 +18,13 @@
         <div>
           <ydl-editor v-model="editorContent"></ydl-editor>
         </div>
+        <hr>
+        <h5>Resourcen
+        <a class="resource-link" :href="'/#/profile/' + userID + 'createresource'"> Resource erstellen</a>
+        </h5>
+        <div class="resource">
+          <ydl-resource v-bind:embed="true"></ydl-resource>
+        </div>
         <button @click="saveContent" class="btn">Speichern</button>
       </div>
       <hr>
@@ -37,6 +44,7 @@
 import CourseWeek from "@/components/Course/CourseWeek"
 import axiosInstance from "@/store/api"
 import { VueEditor } from "vue2-editor"
+import Resources from "@/components/Resources/Resources"
 
 export default {
   name: "course-edit",
@@ -54,7 +62,8 @@ export default {
   },
   components: {
     "ydl-courseweek": CourseWeek,
-    "ydl-editor": VueEditor
+    "ydl-editor": VueEditor,
+    "ydl-resource": Resources
   },
   created () {
     this.cID = this.$route.params.cid
@@ -96,7 +105,12 @@ export default {
     },
     saveContent () {
       this.course.description = this.editorContent
-      this.handleSubmit()
+      this.$store.dispatch("editCourse", {params: {id: this.cID}, data: this.course})
+        .then(response => {
+          console.log(this.userID)
+          this.$router.push("/profile/" + this.userID + "/courses/" + this.course.id)
+        })
+      // this.handleSubmit()
     },
     generateQuiz () {
       // todo: create empty quiz skeleton that can be filled
@@ -144,5 +158,15 @@ export default {
 
 .btn {
   margin-top: 5px;
+}
+
+.resource {
+  height: 200px;
+  overflow: auto;
+}
+
+.resource-link {
+  float:right;
+  font-size: 17px;
 }
 </style>

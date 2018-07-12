@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ydl-titleheader color="pink">RESOURCES</ydl-titleheader>
+    <ydl-titleheader v-if="!embed" color="pink">RESOURCES</ydl-titleheader>
     <div class="ydl-resource-container" id="resource-container">
       <div class="ydl-resource" v-for="resource in resources" :key="resource.id">
         <div class="ydl-resource__entry" >{{resource.name}}</div>
@@ -17,7 +17,8 @@ import { mapState } from "vuex"
 var moment = require("moment")
 
 export default {
-  name: "resources",
+  name: "Resources",
+  props: ["embed"],
   data () {
     return {
       moment: moment
@@ -25,6 +26,7 @@ export default {
   },
   created () {
     this.$store.dispatch("getResources")
+    this.embed = false
   },
   computed: mapState({
     resources: state => state.api.resources
