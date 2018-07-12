@@ -149,13 +149,13 @@ a:hover {
   background-color: #fff;
   @include box-shadow(0 0 15px 1px rgba(0, 0, 0, 0.23));
 
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(sm) {
     width: 100%;
   }
 }
 
 .calendar {
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(sm) {
     margin-bottom: 20px;
     height: 0px !important;
   }
@@ -168,7 +168,7 @@ a:hover {
   background-color: #fff;
   @include box-shadow(0 0 15px 1px rgba(0, 0, 0, 0.23));
 
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(sm) {
     width: 100%;
   }
 }
@@ -180,7 +180,7 @@ a:hover {
   @include box-shadow(0 0 15px 1px rgba(0, 0, 0, 0.23));
   // overflow: auto;
 
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(sm) {
     margin: 20px 0px;
   }
 }
@@ -193,7 +193,7 @@ a:hover {
   width: 270px;
   height: 100%;
 
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(sm) {
     width: 100%;
   }
 }
