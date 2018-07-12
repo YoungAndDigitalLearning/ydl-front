@@ -1,5 +1,5 @@
 # frontend
-DjangoBlockchained submodule frontend
+YDL submodule frontend
 
 # Y&D Learning - frontend
 
