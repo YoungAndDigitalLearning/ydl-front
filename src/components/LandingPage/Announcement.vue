@@ -52,6 +52,11 @@ export default {
     width: 95%;
   }
 
+  &-text {
+    font-family: "Source Sans Pro", monospace;
+    font-weight: normal;
+  }
+
   // add margin between author and header
   .card-body > p {
     margin-top: 10px;
