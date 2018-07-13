@@ -2,8 +2,8 @@
 <div class="forum">
   <h1>Hello Forum</h1>
   <div class="container post-list">
-    <ul class="list-group" v-for="post in forum.posts" v-bind:key="post.header.id">
-      <a class="post-entry" v-bind:href="'/#/forum/post/'+post.header.id">
+    <ul class="list-group" v-for="post in forum.posts" v-bind:key="post.header.id" v-bind:post="post">
+      <a class="post-entry" v-bind:href="'/#' + $route.fullPath + '/post/' +post.header.id">
         <div class="meta">
           <span class="meta">{{post.header.author}}, {{post.header.date}}</span> <br>
         </div>
@@ -188,6 +188,9 @@ export default {
         ]
       }
     }
+  },
+  mounted () {
+    console.log(this.$route.fullPath)
   }
 }
 </script>

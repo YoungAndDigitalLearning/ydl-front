@@ -17,9 +17,18 @@
         </div>
       </div>
       <hr>
+      <div>
+        <router-link class="nav-link" v-bind:to="'/profile/' + user.id + '/courses/forum'">
+          Forum
+        </router-link>
+        <router-link class="nav-link" v-bind:to="'/profile/' + user.id + '/courses/'+ course.id +'/quiz'">
+          Quiz
+        </router-link>
+      </div>
+      <hr>
       <div class="description" v-html="course.description"></div>
       <hr>
-      <div v-if="true">
+      <div v-if="false">
         <div class="posts">
           <h3>Posts</h3>
         </div>
@@ -29,9 +38,6 @@
           <ydl-courseweek></ydl-courseweek>
           <ydl-courseweek></ydl-courseweek>
         </div>
-      </div>
-      <div v-else>
-        <button @click="register" value="Einschreiben" name="register" />
       </div>
     </div>
   </div>

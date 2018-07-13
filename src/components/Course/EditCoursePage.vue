@@ -20,7 +20,7 @@
         </div>
         <hr>
         <h5>Resourcen
-        <a class="resource-link" :href="'/#/profile/' + userID + 'createresource'"> Resource erstellen</a>
+        <a class="resource-link" :href="'/#/profile/' + userID + '/createresource'"> Resource erstellen</a>
         </h5>
         <div class="resource">
           <ydl-resource v-bind:embed="true"></ydl-resource>
