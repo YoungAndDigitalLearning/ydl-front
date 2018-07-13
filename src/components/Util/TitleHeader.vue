@@ -17,7 +17,7 @@ export default {
 div {
   width: 100%;
   > p {
-    font-family: "Source Sans Pro";
+    font-family: "Source Sans Pro", monospace;
     font-size: 30px;
     font-weight: bold;
     color: #fff;
