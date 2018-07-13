@@ -57,6 +57,18 @@ export const router = new Router({
           component: MyCourses
         },
         {
+          path: "courses/forum",
+          name: "skbforum",
+          meta: { requiresAuth: false },
+          component: Forum
+        },
+        {
+          path: "courses/forum/post/:pid",
+          name: "skbpost",
+          meta: { requiresAuth: false },
+          component: PostWrapper
+        },
+        {
           path: "courses/:cid/edit",
           name: "skbcourse-edit",
           component: EditCoursePage
@@ -148,18 +160,6 @@ export const router = new Router({
       path: "/signup",
       name: "skbsignup",
       component: SignupPage
-    },
-    {
-      path: "/forum/post/:pid",
-      name: "skbpost",
-      meta: { requiresAuth: false },
-      component: PostWrapper
-    },
-    {
-      path: "/forum",
-      name: "skbforum",
-      meta: { requiresAuth: false },
-      component: Forum
     },
     {
       path: "/post",

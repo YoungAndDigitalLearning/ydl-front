@@ -26,7 +26,6 @@ export default {
   },
   created () {
     this.$store.dispatch("getResources")
-    this.embed = false
   },
   computed: mapState({
     resources: state => state.api.resources

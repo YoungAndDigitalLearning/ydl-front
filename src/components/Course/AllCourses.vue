@@ -4,9 +4,9 @@
     <ul class="list-group" v-for="course in courses" v-bind:key="course.id">
       <a class="list-group-item list-group-item-action horizontal-align">
         <div class="centered-text-ydl"><h4> {{course.name}} </h4></div>
-        <div v-if="!isRegistered(course.id)" class="btn btn-danger" @click="registerToCourse(course.id)"><fa-icon icon="sign-in-alt"/></div>
-        <div v-else-if="isRegistered(course.id) && user.id !== course.teacher" class="btn btn-success" @click="unregisterFromCourse(course.id)"><fa-icon icon="sign-out-alt"/></div>
-        <div v-else class="btn"><fa-icon icon="user"/></div>
+        <div v-if="!isRegistered(course.id)" class="btn btn-danger" @click="registerToCourse(course.id)" title="einschreiben"><fa-icon icon="sign-in-alt"/></div>
+        <div v-else-if="isRegistered(course.id) && user.id !== course.teacher" class="btn btn-success" @click="unregisterFromCourse(course.id)" title="austreten"><fa-icon icon="sign-out-alt"/></div>
+        <div v-else class="btn" title="eingeschrieben"><fa-icon icon="user"/></div>
       </a>
     </ul>
   </div>

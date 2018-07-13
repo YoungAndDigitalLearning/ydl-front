@@ -35,9 +35,9 @@
           </li>
         </ul>
       </div>
-      <div class="recent-uploads hide-height">
+      <!-- <div class="recent-uploads hide-height">
         <ydl-titleheader color="orange">UPLOADS</ydl-titleheader>
-      </div>
+      </div> -->
     </div>
     <div class="profile-content-container">
       <div class="profile-content">
