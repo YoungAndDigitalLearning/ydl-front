@@ -64,7 +64,14 @@ export default {
   name: "ProfilePage",
   mounted () {
     console.log("loaded profile")
-    this.$store.dispatch("getCourses")
+    // this.$store.dispatch("getCourses")
+  },
+  watch: {
+    "$store.state.api.user" (val) {
+      if (val !== null) {
+        this.$store.dispatch("getCourses")
+      }
+    }
   },
   methods: {
     goToCourse (id) {
