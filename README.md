@@ -1,47 +1,30 @@
-# frontend
-YDL submodule frontend
+# Young And Digital Learning <img src="https://ydlearning.com/.media/logo-ydl/SVG/YDL-Logo.svg" height="35">
 
-# Y&D Learning - frontend
+## Frontend
 
-> SKB Course Manager
-Manage your language courses easily.
+### ydl-front submodule frontend
 
-## Build Setup
+Standalone Rest-API Backend, made with Python / Django.
 
-``` bash
-# install dependencies
-npm install
+This project was completed for the module "Programming Lab: Social Networking" at TU Berlin.
 
-# serve with hot reload at localhost:8080
-npm run dev
+## Setup tutorial
+[Setup](https://github.com/YoungAndDigitalLearning/ydl-front/blob/master/Setup.md)
 
-# build for production with minification
-npm run build
+## Links 
+Our organization: [YoungAndDigitalLearning](https://github.com/YoungAndDigitalLearning)
 
-# build for production and view the bundle analyzer report
-npm run build --report
+Homepage: [www.ydlearning.com](https://ydlearning.com/)
 
-# run unit tests
-npm run unit
+Wikipage: [wiki](https://github.com/YoungAndDigitalLearning/ydl/wiki)
 
-# run e2e tests
-npm run e2e
+## Modules
 
-# run all tests
-npm test
-```
+- [Main](https://github.com/YoungAndDigitalLearning/ydl)
+  - [Frontend](https://github.com/YoungAndDigitalLearning/ydl-front)
+  - [Backend](https://github.com/YoungAndDigitalLearning/ydl-api)
+  
+---
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
-
-## Tools
-nodejs 10.x
--
-dependencies
-``` bash
-npm install vue-cli
-```
-
-project setup with
-``` bash
-vue init webpack djangoblockchained
-```
+Other Names:
+YD Learning, Y&D Learning, Young & Digital Learning
