@@ -4,7 +4,7 @@
 
 ### ydl-front submodule frontend
 
-Standalone Rest-API Backend, made with Python / Django.
+Website for Y&D Learning made Vue.
 
 This project was completed for the module "Programming Lab: Social Networking" at TU Berlin.
 
