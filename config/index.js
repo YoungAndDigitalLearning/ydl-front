@@ -51,15 +51,15 @@ module.exports = {
 
   build: {
     // Template for index.html
-    index: path.resolve(__dirname, '../dist/index.html'),
+    index: path.resolve(__dirname, '../docs/index.html'),
 
     // Paths
-    assetsRoot: path.resolve(__dirname, '../dist'),
+    assetsRoot: path.resolve(__dirname, '../docs'),
     // assetsRoot: path.resolve(__dirname, '../docs'),
-    assetsSubDirectory: 'static',
+    // assetsSubDirectory: 'static',
     assetsSubDirectory: 'src/assets',
     // assetsPublicPath: '/',
-    assetsPublicPath: 'ydl-v2-front/',
+    assetsPublicPath: '/',
     // publicPath: "ydl-v2-front/",
     // outputDir: "./docs",
 
