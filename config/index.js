@@ -10,6 +10,7 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
+    publicPath: "ydl-v2-front/",
     /* Proxy for removing the cross origin error */
     /*proxyTable: ({
       "/api": {
@@ -60,7 +61,7 @@ module.exports = {
     assetsSubDirectory: 'src/assets',
     // assetsPublicPath: '/',
     assetsPublicPath: '/',
-    // publicPath: "ydl-v2-front/",
+    publicPath: "ydl-front/",
     // outputDir: "./docs",
 
     /**
