@@ -131,6 +131,7 @@ export default {
   // height: 100%;
   padding-left: 15px;
   padding-right: 15px;
+  background-color: #0689b3;
 
   @include media-breakpoint-down(md) {
     // disable the overflow to move the scroll component to the top
