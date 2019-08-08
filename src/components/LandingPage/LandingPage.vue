@@ -1,6 +1,6 @@
 <template>
   <div class="landing-page">
-    <img style="padding-top: 30px;" src="https://ydlearning.com/.media/logo-ydl/PNG/YDL-Logo_white_in_borders.png" height="250" alt="YDL-Logo">
+    <img style="padding-top: 30px;" src="@/assets/img/YDL-Logo.svg" height="250" alt="YDL-Logo">
     <h1 class="text-center">Young&Digital Learning</h1>
     <div class="ydl-article-container">
       <ydl-article v-for="announcement in this.announcements" v-bind:article_entry='announcement' v-bind:key="announcement.id"></ydl-article>

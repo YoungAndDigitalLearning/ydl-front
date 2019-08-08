@@ -4,7 +4,7 @@
 
 ### ydl-front submodule frontend
 
-Website for Y&D Learning made Vue.
+Website for Y&D Learning made in Vue.
 
 This project was completed for the module "Programming Lab: Social Networking" at TU Berlin.
 
@@ -14,9 +14,22 @@ This project was completed for the module "Programming Lab: Social Networking" a
 ## Links 
 Our organization: [YoungAndDigitalLearning](https://github.com/YoungAndDigitalLearning)
 
-Homepage: [www.ydlearning.com](https://ydlearning.com/)
+Homepage: [https://YoungAndDigitalLearning.github.io/ydl-front](https://YoungAndDigitalLearning.github.io/ydl-front/)
 
 Wikipage: [wiki](https://github.com/YoungAndDigitalLearning/ydl/wiki)
+
+### API-Documentation: 
+
+- [swagger](https://YoungAndDigitalLearning.github.io/ydl-api/)
+- [redoc](https://YoungAndDigitalLearning.github.io/ydl-api/redoc/)
+
+
+## Tech Stack YDL
+
+<img alt="Tech stack" target="_blank" src="/images/stack_features.jpg" href="https://raw.githubusercontent.com/YoungAndDigitalLearning/ydl-front/master/images/stack_features.jpg">
+
+View bigger image file: [Image Link](https://raw.githubusercontent.com/YoungAndDigitalLearning/ydl-front/master/images/stack_features.jpg)
+
 
 ## Modules
 
@@ -26,5 +39,5 @@ Wikipage: [wiki](https://github.com/YoungAndDigitalLearning/ydl/wiki)
   
 ---
 
-Other Names:
+Other names:
 YD Learning, Y&D Learning, Young & Digital Learning

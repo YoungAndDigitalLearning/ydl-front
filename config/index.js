@@ -55,8 +55,11 @@ module.exports = {
 
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
+    // assetsRoot: path.resolve(__dirname, '../docs'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
+    publicPath: "ydl-v2-front/",
+    outputDir: "./docs",
 
     /**
      * Source Maps
