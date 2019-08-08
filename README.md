@@ -1,4 +1,4 @@
-# Young And Digital Learning <img src="https://raw.githubusercontent.com/ydlearning/ydl-v2-front/master/images/YDL-Logo-35px.png" height="35">
+# Young And Digital Learning <img src="https://raw.githubusercontent.com/YoungAndDigitalLearning/ydl-front/master/images/YDL-Logo-35px.png" height="35">
 
 ## Frontend
 
