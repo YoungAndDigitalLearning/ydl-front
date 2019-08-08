@@ -60,8 +60,8 @@ module.exports = {
     // assetsSubDirectory: 'static',
     assetsSubDirectory: 'src/assets',
     // assetsPublicPath: '/',
-    assetsPublicPath: '/',
-    publicPath: "ydl-front/",
+    assetsPublicPath: '/ydl-front/docs/',
+    // publicPath: "ydl-front/",
     // outputDir: "./docs",
 
     /**
