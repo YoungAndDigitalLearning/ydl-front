@@ -1,4 +1,4 @@
-# Young And Digital Learning <img src="https://raw.githubusercontent.com/YoungAndDigitalLearning/ydl-front/master/images/YDL-Logo-35px.svg" height="35">
+# Young And Digital Learning <img src="https://raw.githubusercontent.com/YoungAndDigitalLearning/ydl-front/master/images/YDL-Logo-220px.png" height="35">
 
 ## Frontend
 
@@ -17,12 +17,6 @@ Our organization: [YoungAndDigitalLearning](https://github.com/YoungAndDigitalLe
 Homepage: [YoungAndDigitalLearning.github.io/ydl-front](https://YoungAndDigitalLearning.github.io/ydl-front/)
 
 Wikipage: [wiki](https://github.com/YoungAndDigitalLearning/ydl/wiki)
-
-### API-Documentation: 
-
-- [swagger](https://YoungAndDigitalLearning.github.io/ydl-api/)
-- [redoc](https://YoungAndDigitalLearning.github.io/ydl-api/redoc/)
-
 
 ## Tech Stack YDL
 
