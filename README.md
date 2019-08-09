@@ -1,4 +1,4 @@
-# Young And Digital Learning <img src="https://raw.githubusercontent.com/YoungAndDigitalLearning/ydl-front/master/images/YDL-Logo-35px.png" height="35">
+# Young And Digital Learning <img src="https://raw.githubusercontent.com/YoungAndDigitalLearning/ydl-front/master/images/YDL-Logo-35px.svg" height="35">
 
 ## Frontend
 
@@ -14,7 +14,7 @@ This project was completed for the module "Programming Lab: Social Networking" a
 ## Links 
 Our organization: [YoungAndDigitalLearning](https://github.com/YoungAndDigitalLearning)
 
-Homepage: [https://YoungAndDigitalLearning.github.io/ydl-front](https://YoungAndDigitalLearning.github.io/ydl-front/)
+Homepage: [YoungAndDigitalLearning.github.io/ydl-front](https://YoungAndDigitalLearning.github.io/ydl-front/)
 
 Wikipage: [wiki](https://github.com/YoungAndDigitalLearning/ydl/wiki)
 
