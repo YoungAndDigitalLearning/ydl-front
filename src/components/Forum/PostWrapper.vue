@@ -5,14 +5,14 @@
 </template>
 
 <script>
-import Post from "@/components/Forum/Post"
+import Post from "@/components/Forum/Post";
 
 export default {
   name: "PostWrapper",
   components: {
-    "ydl-post": Post
-  }
-}
+    "ydl-post": Post,
+  },
+};
 </script>
 
 <style lang="scss" scoped>
