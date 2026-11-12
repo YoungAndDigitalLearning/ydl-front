@@ -1,252 +1,147 @@
 <template>
-  <div class="forum">
-    <h1>Hello Forum</h1>
-    <div class="container post-list">
-      <ul
-        class="list-group"
-        v-for="post in forum.posts"
-        v-bind:key="post.header.id"
-        v-bind:post="post"
-      >
-        <a
-          class="post-entry"
-          v-bind:href="'/#' + $route.fullPath + '/post/' + post.header.id"
-        >
-          <div class="meta">
-            <span class="meta"
-              >{{ post.header.author }}, {{ post.header.date }}</span
-            >
-            <br />
-          </div>
-          <div class="title">
-            <span class="title">Betreff: {{ post.header.title }}</span>
-          </div>
-        </a>
-      </ul>
+  <section class="forum">
+    <header class="forum-heading">
+      <h1>Course Forum</h1>
+      <p>Questions, resources and conversations from our language courses.</p>
+    </header>
+
+    <div v-if="loading" class="forum-status">Loading discussions…</div>
+    <div v-else-if="error" class="forum-status error" role="alert">
+      {{ error }}
     </div>
-  </div>
+    <div v-else-if="!threads.length" class="forum-status">
+      No discussions yet. Course conversations will appear here.
+    </div>
+    <div v-else class="post-list">
+      <router-link
+        v-for="thread in threads"
+        :key="thread.id"
+        :to="$route.path + '/post/' + thread.id"
+        class="post-entry"
+      >
+        <div class="post-title">{{ thread.title }}</div>
+        <p class="post-excerpt">{{ thread.text }}</p>
+        <div class="post-meta">
+          <span>{{ thread.author_name || "Course participant" }}</span>
+          <span>{{ formatDate(thread.date) }}</span>
+          <span>{{ replyCount(thread) }} replies</span>
+        </div>
+      </router-link>
+    </div>
+  </section>
 </template>
 
 <script>
+import api from "@/store/api";
+
 export default {
   name: "forum",
   data() {
     return {
-      forum: {
-        posts: [
-          {
-            header: {
-              id: "0",
-              title: "Hello World",
-              date: "99.99.99",
-              author: "peter",
-            },
-            content: {
-              text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-              data: "",
-            },
-            answers: [
-              {
-                header: {
-                  id: "0-0",
-                  tilte: "Re: Hello World",
-                  date: "99.99.99",
-                  author: "heinz",
-                },
-                content: {
-                  text: "WAS HAST DU GESAGT??",
-                  data: "",
-                },
-                answers: [],
-              },
-              {
-                header: {
-                  id: "0-0",
-                  tilte: "Re: Hello World",
-                  date: "99.99.99",
-                  author: "heinz",
-                },
-                content: {
-                  text: "Test Test Test Test Test Test Test",
-                  data: "",
-                },
-                answers: [
-                  {
-                    header: {
-                      id: "0-0",
-                      tilte: "Re: Hello World",
-                      date: "99.99.99",
-                      author: "heinz",
-                    },
-                    content: {
-                      text: "Genug getestet, reicht fü heute !!",
-                      data: "",
-                    },
-                    answers: [],
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            header: {
-              id: "0",
-              title: "Hello World",
-              date: "99.99.99",
-              author: "peter",
-            },
-            content: {
-              text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-              data: "",
-            },
-            answers: [
-              {
-                header: {
-                  id: "0-0",
-                  tilte: "Re: Hello World",
-                  date: "99.99.99",
-                  author: "heinz",
-                },
-                content: {
-                  text: "WAS HAST DU GESAGT??",
-                  data: "",
-                },
-                answers: [],
-              },
-              {
-                header: {
-                  id: "0-0",
-                  tilte: "Re: Hello World",
-                  date: "99.99.99",
-                  author: "heinz",
-                },
-                content: {
-                  text: "Test Test Test Test Test Test Test",
-                  data: "",
-                },
-                answers: [
-                  {
-                    header: {
-                      id: "0-0",
-                      tilte: "Re: Hello World",
-                      date: "99.99.99",
-                      author: "heinz",
-                    },
-                    content: {
-                      text: "Genug getestet, reicht fü heute !!",
-                      data: "",
-                    },
-                    answers: [],
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            header: {
-              id: "1",
-              title: "Hello World",
-              date: "99.99.99",
-              author: "peter",
-            },
-            content: {
-              text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-              data: "",
-            },
-            answers: [
-              {
-                header: {
-                  id: "1-0",
-                  tilte: "Re: Hello World",
-                  date: "99.99.99",
-                  author: "heinz",
-                },
-                content: {
-                  text: "WAS HAST DU GESAGT??",
-                  data: "",
-                },
-                answers: [],
-              },
-              {
-                header: {
-                  id: "1-1",
-                  tilte: "Re: Hello World",
-                  date: "99.99.99",
-                  author: "heinz",
-                },
-                content: {
-                  text: "Test Test Test Test Test Test Test",
-                  data: "",
-                },
-                answers: [
-                  {
-                    header: {
-                      id: "1-1-0",
-                      tilte: "Re: Hello World",
-                      date: "99.99.99",
-                      author: "heinz",
-                    },
-                    content: {
-                      text: "Genug getestet, reicht fü heute !!",
-                      data: "",
-                    },
-                    answers: [],
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
+      loading: true,
+      error: "",
+      threads: [],
     };
   },
   mounted() {
-    console.log(this.$route.fullPath);
+    api
+      .get("posts/")
+      .then((response) => {
+        const posts = Array.isArray(response.data)
+          ? response.data
+          : response.data.results || [];
+        // Replies also exist as posts in Django. Display only root threads.
+        const childIds = new Set();
+        posts.forEach((post) => {
+          (post.childs || []).forEach((id) => childIds.add(Number(id)));
+        });
+        this.threads = posts
+          .filter((post) => !childIds.has(Number(post.id)))
+          .sort((a, b) => new Date(b.date) - new Date(a.date));
+      })
+      .catch(() => {
+        this.error = "Discussions could not be loaded. Please try again.";
+      })
+      .then(() => {
+        this.loading = false;
+      });
+  },
+  methods: {
+    replyCount(thread) {
+      return (thread.childs || []).length;
+    },
+    formatDate(value) {
+      if (!value) return "";
+      return new Date(value).toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      });
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 @import "styles/global";
-
 .forum {
-  background-color: lightblue;
-
-  .post-list {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    text-align: left;
-
-    .post-entry {
-      margin-bottom: 10px;
-      background-color: white;
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
-
-      .title {
-        font-size: 18px;
-        padding: 5px;
-        color: $ydl-primary;
-      }
-
-      .meta {
-        color: white;
-        padding: 5px;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-        background-color: $ydl-primary;
-        font-size: 12px;
-      }
-    }
-
-    .post-entry:hover {
-      text-decoration: none;
-      .title {
-        background-color: rgb(228, 228, 228);
-        transition: 300ms;
-      }
-    }
-  }
+  background: #f6f9fb;
+  padding: 24px;
+  text-align: left;
+  min-height: 320px;
+}
+.forum-heading {
+  margin-bottom: 20px;
+}
+.forum-heading h1 {
+  font-size: 30px;
+  margin: 0 0 6px;
+  color: #223344;
+}
+.forum-heading p {
+  margin: 0;
+  color: #5a6876;
+}
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.post-entry {
+  display: block;
+  background: white;
+  padding: 18px 22px;
+  border-radius: 6px;
+  border-left: 4px solid $ydl-primary;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  color: #223344;
+}
+.post-entry:hover {
+  text-decoration: none;
+  background: #fbfdff;
+}
+.post-title {
+  font-weight: 600;
+  font-size: 19px;
+  color: $ydl-primary;
+}
+.post-excerpt {
+  margin: 8px 0;
+  color: #34495e;
+}
+.post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  font-size: 12px;
+  color: #6a7785;
+}
+.forum-status {
+  padding: 24px;
+  background: white;
+  border-radius: 6px;
+}
+.error {
+  color: #b23b3b;
 }
 </style>

@@ -1,137 +1,88 @@
 <template>
-  <div
-    class="col-10 container"
-    v-bind:class="{ bdr: !hasAnswers, mainbdr: mainThread }"
-  >
-    <div class="main-post">
-      <div class="header">
-        <span class="title">{{ post.header.title }}</span> <br />
-        <span class="meta"
-          >{{ post.header.author }}, {{ post.header.date }}</span
-        >
+  <article class="discussion">
+    <h1 v-if="mainThread" class="discussion-title">{{ post.title }}</h1>
+    <div class="post-card">
+      <div class="post-header">
+        <strong>{{ post.author_name || "Course participant" }}</strong>
+        <span>{{ formatDate(post.date) }}</span>
       </div>
-      <div class="content">
-        {{ post.content.text }}
-      </div>
-      <div class="footer">
-        <a href="#">Antworten</a>
-        <span> | </span>
-        <a href="#">Melden</a>
-      </div>
+      <div class="post-content">{{ post.text }}</div>
     </div>
-    <div class="answer">
-      <ydl-post
-        v-for="answer in post.answers"
-        v-bind:key="answer.header.id"
-        v-bind:post="answer"
-      ></ydl-post>
-    </div>
-  </div>
+    <section v-if="mainThread" class="replies">
+      <h2>Replies ({{ replies.length }})</h2>
+      <div v-if="!replies.length" class="empty-replies">No replies yet.</div>
+      <ydl-post v-for="reply in replies" :key="reply.id" :post="reply" />
+    </section>
+  </article>
 </template>
 
 <script>
-import Post from "@/components/Forum/Post";
-import axios from "axios";
-
 export default {
   name: "ydl-post",
-  props: ["post"],
-  components: {
-    "ydl-post": Post,
+  props: {
+    post: { type: Object, required: true },
+    replies: { type: Array, default: () => [] },
+    mainThread: { type: Boolean, default: false },
   },
-  data() {
-    return {
-      hasAnswers: this.post.answers.length === 0,
-      mainThread: false,
-    };
-  },
-  mounted() {
-    if (this.post === undefined) {
-      console.log("post is undefined");
-      axios.get("http://jsontest/forum/post.json").then((respone) => {
-        console.log(respone.data);
-        this.post = respone.data;
-        this.mainThread = true;
+  methods: {
+    formatDate(value) {
+      if (!value) return "";
+      return new Date(value).toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
       });
-    }
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 @import "styles/global";
-
-.container {
-  display: block;
-  border-collapse: collapse;
-  margin: 0 0 10px 0;
-  padding: 0;
-  float: right;
+.discussion {
+  width: 100%;
 }
-
-.main-post {
-  text-align: left;
-  margin-bottom: 10px;
+.discussion-title {
+  font-size: 27px;
+  color: #223344;
+  margin: 0 0 16px;
 }
-
-.answer {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  // margin-right: 5px;
+.post-card {
+  background: white;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
-
-.header {
-  background-color: $ydl-primary;
+.post-header {
+  background: $ydl-primary;
   color: white;
-  border-top-left-radius: 10px;
-  // border-top-right-radius: 10px;
-
-  .title {
-    padding-left: 10px;
-    padding-right: 10px;
-    font-size: 16px;
-  }
-
-  .meta {
-    padding-left: 10px;
-    padding-right: 10px;
-    font-size: 14px;
-  }
+  padding: 10px 16px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
 }
-
-.content {
-  background-color: $ydl-primary-background;
-  padding: 10px;
-  font-size: 14px;
+.post-header span {
+  font-size: 12px;
+  opacity: 0.9;
 }
-
-.footer {
-  background-color: $ydl-primary;
-  color: white;
-  text-align: right;
-
-  a {
-    padding-left: 10px;
-    padding-right: 10px;
-    color: white;
-  }
-  a:hover {
-    text-decoration: underline;
-  }
+.post-content {
+  padding: 20px 16px;
+  white-space: pre-line;
+  line-height: 1.6;
+  color: #263849;
 }
-
-.bdr {
-  border-top: 2px solid $ydl-primary;
-  border-left: 2px solid $ydl-primary;
-  border-bottom: 2px solid $ydl-primary;
-  // border-right: 2px solid $ydl-primary;
-  border-top-left-radius: 12px;
+.replies {
+  padding: 8px 0 0 22px;
 }
-
-.mainbdr {
-  border-right: 2px solid $ydl-primary;
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-  border-top-right-radius: 10px;
+.replies h2 {
+  font-size: 20px;
+  color: #263849;
+  margin-bottom: 12px;
+}
+.empty-replies {
+  color: #667;
+  padding: 15px;
+  background: white;
 }
 </style>
