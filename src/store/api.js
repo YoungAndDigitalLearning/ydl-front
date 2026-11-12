@@ -8,4 +8,3 @@ const apiBaseURL =
 export default axios.create({
   baseURL: apiBaseURL
 })
-
