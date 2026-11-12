@@ -1,96 +1,96 @@
 <template>
   <div id="app">
     <notifications position="bottom right" classes="vue-notification notify" />
-    <ydl-navbar/>
+    <ydl-navbar />
     <section class="ydl-content">
-      <router-view/>
+      <router-view />
     </section>
   </div>
 </template>
 
 <script>
-import "bootstrap/dist/css/bootstrap.css"
-import "bootstrap-vue/dist/bootstrap-vue.css"
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
 
-import Navbar from "@/components/Navigation/Navbar.vue"
-import Footer from "@/components/LandingPage/Footer.vue"
+import Navbar from "@/components/Navigation/Navbar.vue";
+import Footer from "@/components/LandingPage/Footer.vue";
 
-import jwtDecode from "jwt-decode"
-import axios from "axios"
-import axiosInstance from "@/store/api"
-import { mapState } from "vuex"
+import jwtDecode from "jwt-decode";
+import axiosInstance from "@/store/api";
+import { mapState } from "vuex";
 
 export default {
   name: "App",
   computed: mapState({
-    user: state => state.users.user
+    user: (state) => state.users.user,
   }),
-  created () {
+  created() {
     /* load token */
-    var token = this.$localStorage.get("token", false)
+    var token = this.$localStorage.get("token", false);
 
     /* check if token has expired */
     if (token) {
-      axios
-        .post("https://api.ydlearning.com/token/verify/", {
-          token: token.replace("JWT ", "")
+      axios;
+      axiosInstance
+        .post("token/verify/", {
+          token: token.replace("JWT ", ""),
         })
-        .catch(error => {
-          if (error.response.status === 400) {
+        .catch((error) => {
+          if (error.response && error.response.status === 400) {
             /* notify user that the token has been expired */
             this.$notify({
               title: "Authentication",
               text: "token has expired",
-              type: "error"
-            })
+              type: "error",
+            });
 
-            this.$store.dispatch("logout")
-            this.$router.push("/")
+            this.$store.dispatch("logout");
+            this.$router.push("/");
 
             /* remove the token from the storage */
-            console.log("remove token")
-            this.$localStorage.remove("token")
-            console.log(this.$localStorage.get("token", false))
+            console.log("remove token");
+            this.$localStorage.remove("token");
+            console.log(this.$localStorage.get("token", false));
           }
-        })
+        });
     }
 
     /* load token */
-    token = this.$localStorage.get("token", false)
-    console.log("token from storage")
-    console.log(token)
+    token = this.$localStorage.get("token", false);
+    console.log("token from storage");
+    console.log(token);
 
     if (token) {
-      console.log("mounted")
+      console.log("mounted");
       /* TODO: improve the logic verify token still valid */
-      console.log(token)
+      console.log(token);
 
-      console.log("found token in local storage")
-      const decodedToken = jwtDecode(token)
+      console.log("found token in local storage");
+      const decodedToken = jwtDecode(token);
       /* get the user from the user id */
       this.$store
         .dispatch("getUser", { params: { id: decodedToken.user_id } })
         .then(() => {
-          console.log("success getUser")
+          console.log("success getUser");
         })
-        .catch(error => {
-          console.log(error)
-        })
+        .catch((error) => {
+          console.log(error);
+        });
 
-      console.log(token)
-      axiosInstance.defaults.headers.common["Authorization"] = token
-      console.log("token was added to axios instance")
-      console.log(axiosInstance)
+      console.log(token);
+      axiosInstance.defaults.headers.common["Authorization"] = token;
+      console.log("token was added to axios instance");
+      console.log(axiosInstance);
     } else {
-      console.log("removed token from header")
-      delete axiosInstance.defaults.headers.common["Authorization"]
+      console.log("removed token from header");
+      delete axiosInstance.defaults.headers.common["Authorization"];
     }
   },
   components: {
     "ydl-navbar": Navbar,
-    "ydl-footer": Footer
-  }
-}
+    "ydl-footer": Footer,
+  },
+};
 </script>
 
 <style lang="scss">
