@@ -6,55 +6,63 @@
         <ydl-titleheader color="green">NAVIGATION</ydl-titleheader>
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a
-              class="nav-link active badge-link"
-              :href="'/#/profile/' + user.id + '/courses/'"
+            <router-link
+              class="nav-link"
+              :to="'/profile/' + user.id + '/allcourses'"
+            >
+              All Courses
+            </router-link>
+          </li>
+          <li class="nav-divider" role="separator"></li>
+          <li class="nav-item">
+            <router-link
+              class="nav-link badge-link"
+              :to="'/profile/' + user.id + '/courses'"
             >
               <span>My Courses</span>
               <span class="ydl-badge">
-                <b-badge>{{
-                  [...own_courses, ...joined_courses].length
-                }}</b-badge>
+                <b-badge>{{ displayedCourses.length }}</b-badge>
               </span>
-              <span v-if="user.is_teacher" class="ydl-badge-add">
-                <b-badge :href="'/#/profile/' + user.id + '/createcourse'">
-                  <fa-icon icon="plus" />
-                </b-badge>
-              </span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" :href="'/#/profile/' + user.id + '/allcourses/'"
-              >All Courses</a
-            >
+            </router-link>
           </li>
           <li class="nav-item" v-if="user.is_teacher">
-            <a class="nav-link" :href="'/#/profile/' + user.id + '/resources/'"
-              >All Resources</a
-            >
-          </li>
-          <li class="nav-item" v-if="user.is_teacher">
-            <a
+            <router-link
               class="nav-link"
-              :href="'/#/profile/' + user.id + '/createresource/'"
-              >Create Resource</a
+              :to="'/profile/' + user.id + '/createcourse'"
             >
+              Create Course
+            </router-link>
           </li>
           <li
-            v-for="course in [...own_courses, ...joined_courses]"
-            v-bind:key="course.id"
+            v-for="course in displayedCourses"
+            :key="course.id"
             class="nav-item"
           >
             <router-link
               class="nav-link"
-              v-bind:to="'/profile/' + user.id + '/courses/' + course.id"
+              :to="'/profile/' + user.id + '/courses/' + course.id"
             >
               <fa-icon
                 v-if="course.id === currentViewingCourse"
                 icon="caret-right"
               />
-              {{ " " + course.name }}
+              {{ course.name }}
             </router-link>
+          </li>
+          <li class="nav-divider" v-if="user.is_teacher" role="separator"></li>
+          <li class="nav-item" v-if="user.is_teacher">
+            <router-link
+              class="nav-link"
+              :to="'/profile/' + user.id + '/resources'"
+              >All Resources</router-link
+            >
+          </li>
+          <li class="nav-item" v-if="user.is_teacher">
+            <router-link
+              class="nav-link"
+              :to="'/profile/' + user.id + '/createresource'"
+              >Create Resource</router-link
+            >
           </li>
         </ul>
       </div>
@@ -117,12 +125,25 @@ export default {
     "ydl-titleheader": TitleHeader,
     "ydl-events": Events,
   },
-  computed: mapState({
-    own_courses: (state) => state.api.ownCourses,
-    joined_courses: (state) => state.api.joinedCourses,
-    user: (state) => state.api.user,
-    currentViewingCourse: (state) => state.api.viewingCourse,
-  }),
+  computed: {
+    ...mapState({
+      own_courses: (state) => state.api.ownCourses,
+      joined_courses: (state) => state.api.joinedCourses,
+      user: (state) => state.api.user,
+      currentViewingCourse: (state) => state.api.viewingCourse,
+    }),
+    displayedCourses() {
+      const unique = {};
+      return [
+        ...(this.own_courses || []),
+        ...(this.joined_courses || []),
+      ].filter((course) => {
+        if (!course || unique[course.id]) return false;
+        unique[course.id] = true;
+        return true;
+      });
+    },
+  },
 };
 </script>
 
@@ -135,6 +156,11 @@ a:hover {
 }
 
 /* navigation style (new components) */
+.nav-divider {
+  border-top: 1px solid #e1e6eb;
+  margin: 8px 16px;
+  list-style: none;
+}
 
 .badge-link {
   position: relative;

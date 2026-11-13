@@ -2,7 +2,11 @@
   <div>
     <ydl-titleheader color="pink">EVENTS</ydl-titleheader>
     <div class="ydl-event-container">
-      <div class="ydl-event" v-for="event in eventsFromCurses" :key="event.id">
+      <div
+        class="ydl-event"
+        v-for="event in eventsFromCourses"
+        :key="event.displayId"
+      >
         <div class="ydl-event__entry">{{ event.matter }}</div>
         <div class="ydl-event__entry">
           {{ moment(event.date).format("DD.MM.YYYY") }}
@@ -30,16 +34,22 @@ export default {
       own_courses: (state) => state.api.ownCourses,
       joined_courses: (state) => state.api.joinedCourses,
     }),
-    eventsFromCurses() {
-      let courses = [...this.own_courses, ...this.joined_courses];
-      let events = [];
+    eventsFromCourses() {
+      const courses = [
+        ...(this.own_courses || []),
+        ...(this.joined_courses || []),
+      ];
+      const events = [];
       courses.forEach((course) => {
-        if (course.events.length !== 0) {
-          events.push(...course.events);
-        }
+        const courseEvents = course.events || [];
+        courseEvents.forEach((event) => {
+          events.push({
+            ...event,
+            displayId: String(course.id) + "-" + String(event.id),
+          });
+        });
       });
-
-      return events;
+      return events.sort((a, b) => new Date(a.date) - new Date(b.date));
     },
   },
   components: {
