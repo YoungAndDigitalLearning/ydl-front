@@ -6,22 +6,32 @@
         <div class="centered-text-ydl">
           <h4>{{ course.name }}</h4>
         </div>
-        <div
-          v-if="!isRegistered(course.id)"
-          class="btn btn-danger"
+        <button
+          v-if="
+            user &&
+            !isRegistered(course.id) &&
+            !(user.is_teacher && user.id === course.teacher)
+          "
+          type="button"
+          class="btn btn-primary"
+          :disabled="updatingCourseId !== null"
           @click="registerToCourse(course.id)"
-          title="einschreiben"
+          title="Join course"
         >
           <fa-icon icon="sign-in-alt" />
-        </div>
-        <div
-          v-else-if="isRegistered(course.id) && user.id !== course.teacher"
+        </button>
+        <button
+          v-else-if="
+            user && isRegistered(course.id) && user.id !== course.teacher
+          "
+          type="button"
           class="btn btn-success"
+          :disabled="updatingCourseId !== null"
           @click="unregisterFromCourse(course.id)"
-          title="austreten"
+          title="Leave course"
         >
           <fa-icon icon="sign-out-alt" />
-        </div>
+        </button>
         <div v-else class="btn" title="eingeschrieben">
           <fa-icon icon="user" />
         </div>
@@ -37,6 +47,11 @@ import TitleHeader from "@/components/Util/TitleHeader";
 
 export default {
   name: "AllCourses",
+  data() {
+    return {
+      updatingCourseId: null,
+    };
+  },
   computed: mapState({
     courses: (state) => state.api.freeCourses,
     user: (state) => state.api.user,
@@ -48,51 +63,57 @@ export default {
     "ydl-titleheader": TitleHeader,
   },
   methods: {
-    registerToCourse(id) {
-      let courses = this.user.courses;
-      courses.push(id);
+    async updateRegistration(id, shouldJoin) {
+      if (!this.user || this.updatingCourseId !== null) return;
+      const current = Array.isArray(this.user.courses)
+        ? this.user.courses.slice()
+        : [];
+      const courses = shouldJoin
+        ? current.filter((courseId) => courseId !== id).concat(id)
+        : current.filter((courseId) => courseId !== id);
+      if (
+        courses.length === current.length &&
+        courses.every((value, index) => value === current[index])
+      )
+        return;
 
-      axiosInstance
-        .put("students/" + this.user.id, {
+      this.updatingCourseId = id;
+      try {
+        await axiosInstance.put("students/" + this.user.id, {
           courses: courses,
-        })
-        .then((response) => {
-          console.log(response);
-          if (response.status === 200) {
-            this.$notify({
-              title: "Student Update",
-              text: "successfully registered for the course",
-              type: "success",
-            });
-          }
         });
+        await this.$store.dispatch("getUser", { params: { id: this.user.id } });
+        await this.$store.dispatch("getCourses");
+        this.$notify({
+          title: "Course enrollment",
+          text: shouldJoin
+            ? "Successfully joined the course"
+            : "Successfully left the course",
+          type: "success",
+        });
+      } catch (error) {
+        console.error("Could not update enrollment", error);
+        this.$notify({
+          title: "Course enrollment",
+          text: "Could not update your courses. Please try again.",
+          type: "error",
+        });
+      } finally {
+        this.updatingCourseId = null;
+      }
+    },
+    registerToCourse(id) {
+      return this.updateRegistration(id, true);
     },
     unregisterFromCourse(id) {
-      let courses = this.user.courses;
-      let index = courses.indexOf(id);
-      if (index > -1) {
-        courses.splice(index, 1);
-      }
-
-      axiosInstance
-        .put("students/" + this.user.id, {
-          courses: courses,
-        })
-        .then((response) => {
-          console.log(response);
-          if (response.status === 200) {
-            this.$notify({
-              title: "Student Update",
-              text: "successfully unregistered for the course",
-              type: "success",
-            });
-          }
-        });
+      return this.updateRegistration(id, false);
     },
     isRegistered(id) {
-      console.log(this.user.courses);
-      console.log(id);
-      return this.user.courses.includes(id);
+      return Boolean(
+        this.user &&
+        Array.isArray(this.user.courses) &&
+        this.user.courses.includes(id),
+      );
     },
   },
 };

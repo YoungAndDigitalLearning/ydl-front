@@ -14,10 +14,7 @@
         <div>
           <h6>Verantwortliche/r</h6>
           <ul>
-            <li>
-              {{ teacher.first_name + " " + teacher.last_name }} <br />
-              <span> E-Mail: [email] </span>
-            </li>
+            <li>{{ teacher.first_name + " " + teacher.last_name }} <br /></li>
           </ul>
         </div>
       </div>
@@ -100,7 +97,7 @@ export default {
         console.log("error while getting course");
         console.log(error.response);
       });
-    this.$store.dispatch("viewCourse", this.course.id);
+    this.$store.dispatch("viewCourse", Number(cid));
 
     axiosInstance
       .get("users/" + uid)
