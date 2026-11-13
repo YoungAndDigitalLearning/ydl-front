@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>{{event.matter}}</div>
+    <div>{{ event.matter }}</div>
     <div></div>
     <div></div>
   </div>
@@ -12,8 +12,8 @@ export default {
   props: {
     event: {
       type: Object,
-      required: true
-    }
-  }
-}
+      required: true,
+    },
+  },
+};
 </script>
