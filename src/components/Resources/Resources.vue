@@ -1,11 +1,22 @@
 <template>
   <div>
     <ydl-titleheader v-if="!embed" color="darkgreen">RESOURCES</ydl-titleheader>
-    <div class="ydl-resource-container" id="resource-container">
-      <div class="ydl-resource list-group-item" v-for="resource in resources" :key="resource.id">
-        <div class="ydl-resource__entry"><div class="centered-text-ydl"><h5>{{resource.name}}</h5></div></div>
-        <div class="ydl-resource__entry push-left"><div class="centered-text-ydl"><h5>{{resource.uploader_name}}</h5></div></div>
-        <div class="ydl-resource__entry"><div class="btn btn-primary" @click="copyToClipboard(resource.content)"><fa-icon icon="link"/></div></div>
+    <div class="ydl-resource-container">
+      <p v-if="!displayedResources.length" class="empty-resources">No resources available for your courses.</p>
+      <div v-for="resource in displayedResources" :key="resource.id" class="ydl-resource list-group-item">
+        <div class="ydl-resource__entry resource-name">
+          <strong>{{ resource.name }}</strong>
+          <small v-if="resource.courseName" class="course-name">{{ resource.courseName }}</small>
+        </div>
+        <div class="ydl-resource__entry uploader">{{ resource.uploader_name }}</div>
+        <div class="ydl-resource__entry">
+          <a v-if="resource.file" class="btn btn-primary" :href="resource.file" target="_blank" rel="noopener noreferrer" :aria-label="'Open ' + resource.name">
+            <fa-icon icon="link" /> Open
+          </a>
+          <button v-else type="button" class="btn btn-primary" @click="copyToClipboard(resource.content)">
+            <fa-icon icon="link" /> Copy link
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -13,78 +24,58 @@
 
 <script>
 import TitleHeader from "@/components/Util/TitleHeader"
+import demoResources from "@/demo/resources"
 import { mapState } from "vuex"
-var moment = require("moment")
 
 export default {
   name: "Resources",
   props: ["embed"],
-  data () {
-    return {
-      moment: moment
+  computed: {
+    ...mapState({
+      resources: state => state.api.resources,
+      user: state => state.api.user,
+      ownCourses: state => state.api.ownCourses,
+      joinedCourses: state => state.api.joinedCourses
+    }),
+    displayedResources () {
+      if (process.env.NODE_ENV === "production") {
+        return Array.isArray(this.resources) ? this.resources : []
+      }
+      const courses = this.ownCourses.concat(this.joinedCourses)
+      const names = courses.map(course => course.name)
+      return demoResources.filter(resource => names.indexOf(resource.courseName) !== -1)
     }
   },
   created () {
-    this.$store.dispatch("getResources")
+    if (process.env.NODE_ENV === "production") {
+      this.$store.dispatch("getResources")
+    } else if (!this.ownCourses.length && !this.joinedCourses.length && this.user) {
+      this.$store.dispatch("getCourses")
+    }
   },
-  computed: mapState({
-    resources: state => state.api.resources
-  }),
   components: {
     "ydl-titleheader": TitleHeader
   },
   methods: {
     copyToClipboard (link) {
-      let resourceLink = document.createElement("input")
-      resourceLink.style = "position: absolute; left: -1000px; top: -1000px"
-      resourceLink.value = link
-      document.body.appendChild(resourceLink)
-      resourceLink.select()
+      const input = document.createElement("input")
+      input.style = "position: absolute; left: -1000px; top: -1000px"
+      input.value = link || ""
+      document.body.appendChild(input)
+      input.select()
       document.execCommand("copy")
-      document.body.removeChild(resourceLink)
-
-      this.$notify({
-        title: "Copied Link!",
-        text: link,
-        type: "success"
-      })
+      document.body.removeChild(input)
+      this.$notify({ title: "Copied link", text: input.value, type: "success" })
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-
-.list-group-item {
-  border-radius: 0;
-}
-
-h5 {
-  margin: 0px;
-}
-
-.push-left {
-  margin-right: 20px;
-}
-
-.centered-text-ydl {
-    height: 100%;
-    width:100%;
-    display:flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.ydl-resource {
-  display: flex;
-  flex-direction: row;
-
-  &__entry {
-    padding: 5px;
-
-    &:first-child {
-      flex: 1;
-    }
-  }
-}
+.ydl-resource { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 16px; }
+.ydl-resource__entry { padding: 5px; }
+.resource-name { flex: 1; min-width: 180px; }
+.uploader { min-width: 130px; }
+.course-name { display: block; color: #69798b; margin-top: 4px; }
+.empty-resources { padding: 18px; color: #69798b; }
 </style>
