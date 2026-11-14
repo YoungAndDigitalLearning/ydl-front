@@ -45,10 +45,10 @@
 </template>
 
 <script>
-import TitleHeader from "@/components/Util/TitleHeader";
-import demoResources from "@/demo/resources";
-import { isDemo } from "@/demo/session";
-import { mapState } from "vuex";
+import TitleHeader from "@/components/Util/TitleHeader"
+import demoResources from "@/demo/resources"
+import { isDemo } from "@/demo/session"
+import { mapState } from "vuex"
 
 export default {
   name: "Resources",
@@ -58,59 +58,59 @@ export default {
       resources: (state) => state.api.resources,
       user: (state) => state.api.user,
       ownCourses: (state) => state.api.ownCourses,
-      joinedCourses: (state) => state.api.joinedCourses,
+      joinedCourses: (state) => state.api.joinedCourses
     }),
-    displayedResources() {
+    displayedResources () {
       if (isDemo) {
         const courses = (this.ownCourses || []).concat(
-          this.joinedCourses || [],
-        );
-        const ids = courses.map((course) => Number(course.id));
+          this.joinedCourses || []
+        )
+        const ids = courses.map((course) => Number(course.id))
         return (Array.isArray(this.resources) ? this.resources : []).filter(
-          (resource) => ids.indexOf(Number(resource.course_id)) !== -1,
-        );
+          (resource) => ids.indexOf(Number(resource.course_id)) !== -1
+        )
       }
       if (process.env.NODE_ENV === "production") {
-        return Array.isArray(this.resources) ? this.resources : [];
+        return Array.isArray(this.resources) ? this.resources : []
       }
-      const courses = this.ownCourses.concat(this.joinedCourses);
-      const names = courses.map((course) => course.name);
+      const courses = this.ownCourses.concat(this.joinedCourses)
+      const names = courses.map((course) => course.name)
       return demoResources.filter(
-        (resource) => names.indexOf(resource.courseName) !== -1,
-      );
-    },
+        (resource) => names.indexOf(resource.courseName) !== -1
+      )
+    }
   },
-  created() {
+  created () {
     if (isDemo || process.env.NODE_ENV === "production") {
-      this.$store.dispatch("getResources");
+      this.$store.dispatch("getResources")
     } else if (
       !this.ownCourses.length &&
       !this.joinedCourses.length &&
       this.user
     ) {
-      this.$store.dispatch("getCourses");
+      this.$store.dispatch("getCourses")
     }
   },
   components: {
-    "ydl-titleheader": TitleHeader,
+    "ydl-titleheader": TitleHeader
   },
   methods: {
-    copyToClipboard(link) {
-      const input = document.createElement("input");
-      input.style = "position: absolute; left: -1000px; top: -1000px";
-      input.value = link || "";
-      document.body.appendChild(input);
-      input.select();
-      document.execCommand("copy");
-      document.body.removeChild(input);
+    copyToClipboard (link) {
+      const input = document.createElement("input")
+      input.style = "position: absolute; left: -1000px; top: -1000px"
+      input.value = link || ""
+      document.body.appendChild(input)
+      input.select()
+      document.execCommand("copy")
+      document.body.removeChild(input)
       this.$notify({
         title: "Copied link",
         text: input.value,
-        type: "success",
-      });
-    },
-  },
-};
+        type: "success"
+      })
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

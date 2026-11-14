@@ -8,7 +8,7 @@ export default [
     date: "2019-08-09T16:43:00+02:00",
     content: "The archived frontend can be explored at:",
     link: "https://younganddigitallearning.github.io/ydl-front/",
-    linkLabel: "Young & Digital Learning on GitHub Pages",
+    linkLabel: "Young & Digital Learning on GitHub Pages"
   },
   {
     id: "demo-announcement-2",
@@ -16,7 +16,7 @@ export default [
     authorName: "Admin",
     date: "2019-08-09T14:32:00+02:00",
     content:
-      "Historical update: at that time only the frontend was hosted online; the original backend was offline.",
+      "Historical update: at that time only the frontend was hosted online; the original backend was offline."
   },
   {
     id: "demo-announcement-3",
@@ -24,6 +24,6 @@ export default [
     authorName: "Admin",
     date: "2019-08-08T23:10:00+02:00",
     content:
-      "Historical update: the frontend was published using GitHub Pages.",
-  },
-];
+      "Historical update: the frontend was published using GitHub Pages."
+  }
+]

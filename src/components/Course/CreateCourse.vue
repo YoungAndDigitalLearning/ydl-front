@@ -61,40 +61,40 @@
 </template>
 
 <script>
-import TitleHeader from "@/components/Util/TitleHeader";
-import FormLabel from "@/components/Util/FormLabel";
+import TitleHeader from "@/components/Util/TitleHeader"
+import FormLabel from "@/components/Util/FormLabel"
 
 export default {
   name: "createcourse",
-  data() {
+  data () {
     return {
       form: {
         course: {
           name: "",
           description: "",
-          deadline: "",
-        },
-      },
-    };
+          deadline: ""
+        }
+      }
+    }
   },
   methods: {
-    handleSubmit() {
+    handleSubmit () {
       this.$store
         .dispatch("createCourse", { data: this.form.course })
         .then(() => {
-          const user = this.$store.state.api.user;
+          const user = this.$store.state.api.user
           return Promise.all([
             this.$store.dispatch("getCourses"),
-            this.$store.dispatch("getFreeCourses"),
-          ]).then(() => this.$router.push("/profile/" + user.id + "/courses/"));
-        });
-    },
+            this.$store.dispatch("getFreeCourses")
+          ]).then(() => this.$router.push("/profile/" + user.id + "/courses/"))
+        })
+    }
   },
   components: {
     "ydl-label": FormLabel,
-    "ydl-titleheader": TitleHeader,
-  },
-};
+    "ydl-titleheader": TitleHeader
+  }
+}
 </script>
 
 <style lang="scss" scoped>

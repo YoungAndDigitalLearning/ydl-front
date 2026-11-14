@@ -32,54 +32,54 @@
 </template>
 
 <script>
-import api from "@/store/api";
+import api from "@/store/api"
 
 export default {
   name: "forum",
-  data() {
+  data () {
     return {
       loading: true,
       error: "",
-      threads: [],
-    };
+      threads: []
+    }
   },
-  mounted() {
+  mounted () {
     api
       .get("posts/")
       .then((response) => {
         const posts = Array.isArray(response.data)
           ? response.data
-          : response.data.results || [];
+          : response.data.results || []
         // Replies also exist as posts in Django. Display only root threads.
-        const childIds = new Set();
+        const childIds = new Set()
         posts.forEach((post) => {
-          (post.childs || []).forEach((id) => childIds.add(Number(id)));
-        });
+          (post.childs || []).forEach((id) => childIds.add(Number(id)))
+        })
         this.threads = posts
           .filter((post) => !childIds.has(Number(post.id)))
-          .sort((a, b) => new Date(b.date) - new Date(a.date));
+          .sort((a, b) => new Date(b.date) - new Date(a.date))
       })
       .catch(() => {
-        this.error = "Discussions could not be loaded. Please try again.";
+        this.error = "Discussions could not be loaded. Please try again."
       })
       .then(() => {
-        this.loading = false;
-      });
+        this.loading = false
+      })
   },
   methods: {
-    replyCount(thread) {
-      return (thread.childs || []).length;
+    replyCount (thread) {
+      return (thread.childs || []).length
     },
-    formatDate(value) {
-      if (!value) return "";
+    formatDate (value) {
+      if (!value) return ""
       return new Date(value).toLocaleDateString("en-GB", {
         day: "2-digit",
         month: "short",
-        year: "numeric",
-      });
-    },
-  },
-};
+        year: "numeric"
+      })
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

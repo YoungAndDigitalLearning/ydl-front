@@ -65,112 +65,112 @@
 </template>
 
 <script>
-import axiosInstance from "@/store/api";
+import axiosInstance from "@/store/api"
 
 export default {
   name: "TimeTable",
-  data() {
+  data () {
     return {
       events: [],
       loading: true,
       error: "",
       month: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
-      weekDays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-    };
+      weekDays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    }
   },
   computed: {
-    monthLabel() {
+    monthLabel () {
       return this.month.toLocaleDateString("en-GB", {
         month: "long",
-        year: "numeric",
-      });
+        year: "numeric"
+      })
     },
-    cells() {
+    cells () {
       const first = new Date(
         this.month.getFullYear(),
         this.month.getMonth(),
-        1,
-      );
-      const offset = (first.getDay() + 6) % 7;
-      const start = new Date(first.getFullYear(), first.getMonth(), 1 - offset);
-      const today = new Date();
+        1
+      )
+      const offset = (first.getDay() + 6) % 7
+      const start = new Date(first.getFullYear(), first.getMonth(), 1 - offset)
+      const today = new Date()
       return Array.from({ length: 42 }, (_, i) => {
         const date = new Date(
           start.getFullYear(),
           start.getMonth(),
-          start.getDate() + i,
-        );
+          start.getDate() + i
+        )
         return {
           date: date,
           inMonth: date.getMonth() === first.getMonth(),
-          isToday: date.toDateString() === today.toDateString(),
-        };
-      });
+          isToday: date.toDateString() === today.toDateString()
+        }
+      })
     },
-    sortedEvents() {
+    sortedEvents () {
       return this.events
         .slice()
-        .sort((a, b) => new Date(a.date) - new Date(b.date));
-    },
+        .sort((a, b) => new Date(a.date) - new Date(b.date))
+    }
   },
-  mounted() {
+  mounted () {
     axiosInstance
       .get("courses/")
       .then((response) => {
         const courses = Array.isArray(response.data)
           ? response.data
-          : response.data.results || [];
+          : response.data.results || []
         this.events = courses.reduce((all, course) => {
           const next = (course.events || []).map((event) =>
             Object.assign({}, event, {
               id: String(course.id) + "-" + String(event.id),
-              courseName: course.name,
-            }),
-          );
-          return all.concat(next);
-        }, []);
+              courseName: course.name
+            })
+          )
+          return all.concat(next)
+        }, [])
         if (this.events.length) {
           const nextDate = this.sortedEvents.find(
-            (event) => new Date(event.date) >= new Date(),
-          );
-          const date = new Date((nextDate || this.sortedEvents[0]).date);
-          this.month = new Date(date.getFullYear(), date.getMonth(), 1);
+            (event) => new Date(event.date) >= new Date()
+          )
+          const date = new Date((nextDate || this.sortedEvents[0]).date)
+          this.month = new Date(date.getFullYear(), date.getMonth(), 1)
         }
       })
       .catch(() => {
-        this.error = "Could not load calendar events.";
+        this.error = "Could not load calendar events."
       })
       .then(() => {
-        this.loading = false;
-      });
+        this.loading = false
+      })
   },
   methods: {
-    changeMonth(offset) {
+    changeMonth (offset) {
       this.month = new Date(
         this.month.getFullYear(),
         this.month.getMonth() + offset,
-        1,
-      );
+        1
+      )
     },
-    eventsForDate(date) {
+    eventsForDate (date) {
       return this.events.filter((event) => {
-        const d = new Date(event.date);
+        const d = new Date(event.date)
         return (
           d.getFullYear() === date.getFullYear() &&
           d.getMonth() === date.getMonth() &&
           d.getDate() === date.getDate()
-        );
-      });
+        )
+      })
     },
-    formatDate(value) {
+    formatDate (value) {
       return new Date(value).toLocaleDateString("en-GB", {
         day: "2-digit",
         month: "short",
-        year: "numeric",
-      });
-    },
-  },
-};
+        year: "numeric"
+      })
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

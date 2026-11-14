@@ -20,62 +20,62 @@
 </template>
 
 <script>
-import api from "@/store/api";
-import Post from "@/components/Forum/Post";
+import api from "@/store/api"
+import Post from "@/components/Forum/Post"
 
 export default {
   name: "PostWrapper",
   components: { "ydl-post": Post },
-  data() {
-    return { thread: null, replies: [], loading: true, error: "" };
+  data () {
+    return { thread: null, replies: [], loading: true, error: "" }
   },
-  mounted() {
-    this.loadThread();
+  mounted () {
+    this.loadThread()
   },
   watch: {
-    "$route.params.pid": "loadThread",
+    "$route.params.pid": "loadThread"
   },
   methods: {
-    loadThread() {
-      this.loading = true;
-      this.error = "";
+    loadThread () {
+      this.loading = true
+      this.error = ""
       api
         .get("posts/")
         .then((response) => {
           const posts = Array.isArray(response.data)
             ? response.data
-            : response.data.results || [];
-          const children = new Set();
+            : response.data.results || []
+          const children = new Set()
           posts.forEach((post) =>
-            (post.childs || []).forEach((id) => children.add(Number(id))),
-          );
+            (post.childs || []).forEach((id) => children.add(Number(id)))
+          )
           const roots = posts
             .filter((post) => !children.has(Number(post.id)))
-            .sort((a, b) => new Date(b.date) - new Date(a.date));
+            .sort((a, b) => new Date(b.date) - new Date(a.date))
           // Legacy /post/0 links resolve to the first available demo thread.
-          const requested = Number(this.$route.params.pid);
+          const requested = Number(this.$route.params.pid)
           const selected =
             requested === 0
               ? roots[0]
-              : roots.find((post) => Number(post.id) === requested);
+              : roots.find((post) => Number(post.id) === requested)
           if (!selected) {
-            this.error = "This discussion does not exist.";
-            return;
+            this.error = "This discussion does not exist."
+            return
           }
-          this.thread = selected;
+          this.thread = selected
           this.replies = (selected.childs || [])
             .map((id) => posts.find((post) => Number(post.id) === Number(id)))
-            .filter(Boolean);
+            .filter(Boolean)
         })
         .catch(() => {
-          this.error = "The discussion could not be loaded.";
+          this.error = "The discussion could not be loaded."
         })
         .then(() => {
-          this.loading = false;
-        });
-    },
-  },
-};
+          this.loading = false
+        })
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

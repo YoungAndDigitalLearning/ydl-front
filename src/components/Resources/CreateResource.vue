@@ -91,15 +91,15 @@
 </template>
 
 <script>
-import TitleHeader from "@/components/Util/TitleHeader";
-import FormLabel from "@/components/Util/FormLabel";
-import { isDemo } from "@/demo/session";
-import { mapState } from "vuex";
+import TitleHeader from "@/components/Util/TitleHeader"
+import FormLabel from "@/components/Util/FormLabel"
+import { isDemo } from "@/demo/session"
+import { mapState } from "vuex"
 
 export default {
   name: "createresource",
   computed: mapState({ ownCourses: (state) => state.api.ownCourses }),
-  data() {
+  data () {
     return {
       isDemo: isDemo,
       form: {
@@ -108,51 +108,51 @@ export default {
           effective_from: "",
           expires: "",
           content: "",
-          course_id: 1,
-        },
-      },
-    };
+          course_id: 1
+        }
+      }
+    }
   },
   components: {
     "ydl-titleheader": TitleHeader,
-    "ydl-label": FormLabel,
+    "ydl-label": FormLabel
   },
   methods: {
-    fileChanged() {
-      console.log(this.$refs.file.files[0]);
-      this.form.resource.content = this.$refs.file.files[0];
+    fileChanged () {
+      console.log(this.$refs.file.files[0])
+      this.form.resource.content = this.$refs.file.files[0]
     },
-    handleSubmit() {
-      let formData = new FormData();
-      formData.append("name", this.form.resource.name);
-      formData.append("effective_from", this.form.resource.effective_from);
-      formData.append("expires", this.form.resource.expires);
-      formData.append("content", this.form.resource.content);
-      if (isDemo) formData.append("course_id", this.form.resource.course_id);
+    handleSubmit () {
+      let formData = new FormData()
+      formData.append("name", this.form.resource.name)
+      formData.append("effective_from", this.form.resource.effective_from)
+      formData.append("expires", this.form.resource.expires)
+      formData.append("content", this.form.resource.content)
+      if (isDemo) formData.append("course_id", this.form.resource.course_id)
 
       this.$store
         .dispatch("createResource", { data: formData })
         .then(() => {
           if (isDemo) {
-            this.$store.dispatch("getResources");
+            this.$store.dispatch("getResources")
             this.$notify({
               title: "Demo resource",
               text: "Saved locally in your browser",
-              type: "success",
-            });
-            this.$router.push("/profile/1/resources");
+              type: "success"
+            })
+            this.$router.push("/profile/1/resources")
           }
         })
         .catch(() =>
           this.$notify({
             title: "Resource",
             text: "Could not save resource",
-            type: "error",
-          }),
-        );
-    },
-  },
-};
+            type: "error"
+          })
+        )
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

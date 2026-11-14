@@ -22,19 +22,19 @@ export default {
   props: {
     post: { type: Object, required: true },
     replies: { type: Array, default: () => [] },
-    mainThread: { type: Boolean, default: false },
+    mainThread: { type: Boolean, default: false }
   },
   methods: {
-    formatDate(value) {
-      if (!value) return "";
+    formatDate (value) {
+      if (!value) return ""
       return new Date(value).toLocaleDateString("en-GB", {
         day: "2-digit",
         month: "short",
-        year: "numeric",
-      });
-    },
-  },
-};
+        year: "numeric"
+      })
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

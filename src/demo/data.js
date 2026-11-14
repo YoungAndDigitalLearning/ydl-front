@@ -1,21 +1,42 @@
 // Fictional portfolio data. Do not import the historic database dumps.
 // IDs and field shapes match the Django REST serializers used by this Vue app.
 const teacher = {
-  id: 1, username: "demo_teacher", first_name: "Alex", last_name: "Morgan",
-  is_teacher: true, is_student: false, isEmailActivated: true,
-  email: "demo_teacher@example.invalid", courses: [1, 2, 3], messages: {},
+  id: 1,
+  username: "demo_teacher",
+  first_name: "Alex",
+  last_name: "Morgan",
+  is_teacher: true,
+  is_student: false,
+  isEmailActivated: true,
+  email: "demo_teacher@example.invalid",
+  courses: [1, 2, 3],
+  messages: {},
   date_joined: "2026-11-12T09:00:00Z"
 }
 const student = {
-  id: 2, username: "demo_student", first_name: "Sam", last_name: "Taylor",
-  is_teacher: false, is_student: true, isEmailActivated: true,
-  email: "demo_student@example.invalid", courses: [1, 2], messages: { "1": [{ id: 1, sender: 1, receiver: 2, text: "Welcome to your German conversation course!", date: "2026-11-12T16:00:00Z" }] },
+  id: 2,
+  username: "demo_student",
+  first_name: "Sam",
+  last_name: "Taylor",
+  is_teacher: false,
+  is_student: true,
+  isEmailActivated: true,
+  email: "demo_student@example.invalid",
+  courses: [1, 2],
+  messages: { "1": [{ id: 1, sender: 1, receiver: 2, text: "Welcome to your German conversation course!", date: "2026-11-12T16:00:00Z" }] },
   date_joined: "2026-11-12T09:00:00Z"
 }
 const learner = {
-  id: 3, username: "demo_learner", first_name: "Jamie", last_name: "Rivera",
-  is_teacher: false, is_student: true, isEmailActivated: true,
-  email: "demo_learner@example.invalid", courses: [2], messages: {},
+  id: 3,
+  username: "demo_learner",
+  first_name: "Jamie",
+  last_name: "Rivera",
+  is_teacher: false,
+  is_student: true,
+  isEmailActivated: true,
+  email: "demo_learner@example.invalid",
+  courses: [2],
+  messages: {},
   date_joined: "2026-11-12T09:00:00Z"
 }
 
@@ -23,27 +44,55 @@ export const seedData = {
   users: [teacher, student, learner],
   courses: [
     {
-      id: 1, name: "German Conversation A2", teacher: 1, price: 0, paid: false,
+      id: 1,
+      name: "German Conversation A2",
+      teacher: 1,
+      price: 0,
+      paid: false,
       description: "An interactive A2 conversation course focused on practical German for university and everyday life. Learners practise introducing opinions, making plans, describing experiences and asking follow-up questions through guided discussions, partner exercises and short presentations. Each session includes useful expressions and constructive speaking feedback.",
-      deadline: "2027-06-30T18:00:00+02:00", student_count: 14,
-      created: "2026-11-12T13:00:00Z", resources: [1, 2], posts: [2, 3], tests: [1], weeks: [],
+      deadline: "2027-06-30T18:00:00+02:00",
+      student_count: 14,
+      created: "2026-11-12T13:00:00Z",
+      resources: [1, 2],
+      posts: [2, 3],
+      tests: [1],
+      weeks: [],
       events: [
         { id: 1, matter: "HOMEWORK", date: "2027-03-08T15:00:00+01:00", course: 1 },
         { id: 2, matter: "PRESENTATION", date: "2027-03-15T14:00:00+01:00", course: 1 }
       ]
     },
     {
-      id: 2, name: "Introduction to Spanish", teacher: 1, price: 0, paid: false,
+      id: 2,
+      name: "Introduction to Spanish",
+      teacher: 1,
+      price: 0,
+      paid: false,
       description: "A beginner-friendly introduction to Spanish language and culture. The course builds confidence with greetings, introductions, numbers, everyday vocabulary and simple present-tense sentences. Lessons combine listening activities, short dialogues, pronunciation practice and small exercises that prepare learners for real-life conversations.",
-      deadline: "2027-06-30T18:00:00+02:00", student_count: 12,
-      created: "2026-11-12T13:00:00Z", resources: [3, 4], posts: [4], tests: [], weeks: [],
+      deadline: "2027-06-30T18:00:00+02:00",
+      student_count: 12,
+      created: "2026-11-12T13:00:00Z",
+      resources: [3, 4],
+      posts: [4],
+      tests: [],
+      weeks: [],
       events: [{ id: 3, matter: "EXAM", date: "2027-04-12T10:00:00+02:00", course: 2 }]
     },
     {
-      id: 3, name: "Intercultural Communication", teacher: 1, price: 0, paid: false,
+      id: 3,
+      name: "Intercultural Communication",
+      teacher: 1,
+      price: 0,
+      paid: false,
       description: "Explore how cultural expectations shape communication in international study and work settings. Through short case studies, group discussions and role-playing activities, learners practise active listening, giving feedback, resolving misunderstandings and collaborating effectively across cultural contexts.",
-      deadline: "2027-06-30T18:00:00+02:00", student_count: 9,
-      created: "2026-11-12T13:00:00Z", resources: [5], posts: [], tests: [], weeks: [], events: []
+      deadline: "2027-06-30T18:00:00+02:00",
+      student_count: 9,
+      created: "2026-11-12T13:00:00Z",
+      resources: [5],
+      posts: [],
+      tests: [],
+      weeks: [],
+      events: []
     }
   ],
   announcements: [
@@ -59,8 +108,16 @@ export const seedData = {
     { id: 7, title: "My presentation topic", text: "I will prepare a short presentation about my favourite park and why I enjoy spending time there.", date: "2026-11-12T15:00:00Z", author: 3, author_name: "demo_learner", course: 1, childs: [] }
   ],
   quizzes: [
-    { id: 1, course: 1, t_id: 1, scored_by: 2, score: 0, max_score: 1,
-      tasks: [{ id: 1, test: 1, render_type: "MC", question: "Which phrase is a polite greeting in German?",
+    { id: 1,
+      course: 1,
+      t_id: 1,
+      scored_by: 2,
+      score: 0,
+      max_score: 1,
+      tasks: [{ id: 1,
+        test: 1,
+        render_type: "MC",
+        question: "Which phrase is a polite greeting in German?",
         answers: [
           { id: 1, task: 1, answer: "Gute Nacht", checked: false, correct_answer: "Guten Morgen", max_score: 0, score: 0, order: 1 },
           { id: 2, task: 1, answer: "Auf Wiedersehen", checked: false, correct_answer: "Guten Morgen", max_score: 0, score: 0, order: 2 },

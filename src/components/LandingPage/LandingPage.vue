@@ -35,51 +35,51 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import demoAnnouncements from "@/demo/announcements";
+import { mapState } from "vuex"
+import demoAnnouncements from "@/demo/announcements"
 
 export default {
   name: "LandingPage",
   computed: {
     ...mapState({
-      announcements: (state) => state.api.announcements,
+      announcements: (state) => state.api.announcements
     }),
-    displayedAnnouncements() {
+    displayedAnnouncements () {
       const value = Array.isArray(this.announcements)
         ? this.announcements
-        : (this.announcements && this.announcements.results) || [];
+        : (this.announcements && this.announcements.results) || []
       return process.env.NODE_ENV !== "production"
         ? value.concat(demoAnnouncements)
-        : value;
-    },
+        : value
+    }
   },
-  mounted() {
-    this.$store.dispatch("getAnnouncements");
+  mounted () {
+    this.$store.dispatch("getAnnouncements")
   },
   methods: {
-    authorName(announcement) {
-      const author = announcement.author;
+    authorName (announcement) {
+      const author = announcement.author
       if (author && typeof author === "object") {
         return author.first_name && author.last_name
           ? author.first_name + " " + author.last_name
-          : author.username || "Demo Team";
+          : author.username || "Demo Team"
       }
-      return announcement.authorName || "Y&D Learning Team";
+      return announcement.authorName || "Y&D Learning Team"
     },
-    formatDate(value) {
-      if (!value) return "";
-      const date = new Date(value);
-      if (isNaN(date.getTime())) return "";
+    formatDate (value) {
+      if (!value) return ""
+      const date = new Date(value)
+      if (isNaN(date.getTime())) return ""
       return date.toLocaleString("en-GB", {
         day: "2-digit",
         month: "2-digit",
         year: "numeric",
         hour: "2-digit",
-        minute: "2-digit",
-      });
-    },
-  },
-};
+        minute: "2-digit"
+      })
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

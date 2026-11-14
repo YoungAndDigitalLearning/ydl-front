@@ -17,47 +17,47 @@
 </template>
 
 <script>
-import TitleHeader from "@/components/Util/TitleHeader";
-import Event from "@/components/Profile/Event/Event";
-import { mapState } from "vuex";
-var moment = require("moment");
+import TitleHeader from "@/components/Util/TitleHeader"
+import Event from "@/components/Profile/Event/Event"
+import { mapState } from "vuex"
+var moment = require("moment")
 
 export default {
   name: "events",
-  data() {
+  data () {
     return {
-      moment: moment,
-    };
+      moment: moment
+    }
   },
   computed: {
     ...mapState({
       own_courses: (state) => state.api.ownCourses,
-      joined_courses: (state) => state.api.joinedCourses,
+      joined_courses: (state) => state.api.joinedCourses
     }),
-    eventsFromCourses() {
+    eventsFromCourses () {
       const courses = [
         ...(this.own_courses || []),
-        ...(this.joined_courses || []),
-      ];
-      const events = [];
+        ...(this.joined_courses || [])
+      ]
+      const events = []
       courses.forEach((course) => {
-        const courseEvents = course.events || [];
+        const courseEvents = course.events || []
         courseEvents.forEach((event) => {
           events.push({
             ...event,
-            displayId: String(course.id) + "-" + String(event.id),
-          });
-        });
-      });
-      return events.sort((a, b) => new Date(a.date) - new Date(b.date));
-    },
+            displayId: String(course.id) + "-" + String(event.id)
+          })
+        })
+      })
+      return events.sort((a, b) => new Date(a.date) - new Date(b.date))
+    }
   },
   components: {
     "ydl-titleheader": TitleHeader,
-    "ydl-event": Event,
+    "ydl-event": Event
   },
-  mounted() {},
-};
+  mounted () {}
+}
 </script>
 
 <style lang="scss" scoped>

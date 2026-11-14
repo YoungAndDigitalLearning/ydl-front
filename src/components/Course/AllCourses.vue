@@ -41,82 +41,81 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import axiosInstance from "@/store/api";
-import TitleHeader from "@/components/Util/TitleHeader";
+import { mapState } from "vuex"
+import axiosInstance from "@/store/api"
+import TitleHeader from "@/components/Util/TitleHeader"
 
 export default {
   name: "AllCourses",
-  data() {
+  data () {
     return {
-      updatingCourseId: null,
-    };
+      updatingCourseId: null
+    }
   },
   computed: mapState({
     courses: (state) => state.api.freeCourses,
-    user: (state) => state.api.user,
+    user: (state) => state.api.user
   }),
-  mounted() {
-    this.$store.dispatch("getFreeCourses");
+  mounted () {
+    this.$store.dispatch("getFreeCourses")
   },
   components: {
-    "ydl-titleheader": TitleHeader,
+    "ydl-titleheader": TitleHeader
   },
   methods: {
-    async updateRegistration(id, shouldJoin) {
-      if (!this.user || this.updatingCourseId !== null) return;
+    async updateRegistration (id, shouldJoin) {
+      if (!this.user || this.updatingCourseId !== null) return
       const current = Array.isArray(this.user.courses)
         ? this.user.courses.slice()
-        : [];
+        : []
       const courses = shouldJoin
         ? current.filter((courseId) => courseId !== id).concat(id)
-        : current.filter((courseId) => courseId !== id);
+        : current.filter((courseId) => courseId !== id)
       if (
         courses.length === current.length &&
         courses.every((value, index) => value === current[index])
-      )
-        return;
+      ) { return }
 
-      this.updatingCourseId = id;
+      this.updatingCourseId = id
       try {
         await axiosInstance.put("students/" + this.user.id, {
-          courses: courses,
-        });
-        await this.$store.dispatch("getUser", { params: { id: this.user.id } });
-        await this.$store.dispatch("getCourses");
+          courses: courses
+        })
+        await this.$store.dispatch("getUser", { params: { id: this.user.id } })
+        await this.$store.dispatch("getCourses")
         this.$notify({
           title: "Course enrollment",
           text: shouldJoin
             ? "Successfully joined the course"
             : "Successfully left the course",
-          type: "success",
-        });
+          type: "success"
+        })
       } catch (error) {
-        console.error("Could not update enrollment", error);
+        console.error("Could not update enrollment", error)
         this.$notify({
           title: "Course enrollment",
           text: "Could not update your courses. Please try again.",
-          type: "error",
-        });
+          type: "error"
+        })
       } finally {
-        this.updatingCourseId = null;
+        this.updatingCourseId = null
       }
     },
-    registerToCourse(id) {
-      return this.updateRegistration(id, true);
+    registerToCourse (id) {
+      return this.updateRegistration(id, true)
     },
-    unregisterFromCourse(id) {
-      return this.updateRegistration(id, false);
+    unregisterFromCourse (id) {
+      return this.updateRegistration(id, false)
     },
-    isRegistered(id) {
+    isRegistered (id) {
       return Boolean(
         this.user &&
         Array.isArray(this.user.courses) &&
-        this.user.courses.includes(id),
-      );
-    },
-  },
-};
+        this.user.courses.includes(id)
+      )
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

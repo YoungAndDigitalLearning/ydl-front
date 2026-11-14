@@ -34,101 +34,101 @@
 </template>
 
 <script>
-import MCTask from "@/components/Quiz/MCTask";
-import VTTask from "@/components/Quiz/VTTask";
-import TitleHeader from "@/components/Util/TitleHeader";
-import axiosInstance from "@/store/api";
+import MCTask from "@/components/Quiz/MCTask"
+import VTTask from "@/components/Quiz/VTTask"
+import TitleHeader from "@/components/Util/TitleHeader"
+import axiosInstance from "@/store/api"
 
 export default {
   name: "Quiz",
   components: {
     "ydl-mcquestion": MCTask,
     "ydl-vtquestion": VTTask,
-    "ydl-titleheader": TitleHeader,
+    "ydl-titleheader": TitleHeader
   },
-  data() {
+  data () {
     return {
       test: null,
       loading: true,
       error: "",
       submitted: false,
       score: 0,
-      total: 0,
-    };
+      total: 0
+    }
   },
-  mounted() {
-    this.loadQuiz();
+  mounted () {
+    this.loadQuiz()
   },
   watch: {
-    "$route.params.cid"() {
-      this.loadQuiz();
-    },
+    "$route.params.cid" () {
+      this.loadQuiz()
+    }
   },
   methods: {
-    loadQuiz() {
-      this.loading = true;
-      this.error = "";
-      this.test = null;
-      this.submitted = false;
-      const courseId = Number(this.$route.params.cid);
+    loadQuiz () {
+      this.loading = true
+      this.error = ""
+      this.test = null
+      this.submitted = false
+      const courseId = Number(this.$route.params.cid)
       // The route parameter is a COURSE id, not necessarily a quiz Test id.
       axiosInstance
         .get("quiz/tests/")
         .then((response) => {
           const tests = Array.isArray(response.data)
             ? response.data
-            : response.data.results || [];
-          const match = tests.find((item) => Number(item.course) === courseId);
+            : response.data.results || []
+          const match = tests.find((item) => Number(item.course) === courseId)
           if (!match) {
-            this.error = "No quiz has been created for this course yet.";
+            this.error = "No quiz has been created for this course yet."
           } else {
             return axiosInstance
               .get("quiz/tests/" + match.id)
               .then((detail) => {
-                this.test = detail.data;
+                this.test = detail.data
                 // Never preselect saved answer flags from the shared database.
                 this.test.tasks.forEach((task) => {
                   task.answers.forEach((answer) => {
-                    answer.checked = false;
-                  });
-                });
-              });
+                    answer.checked = false
+                  })
+                })
+              })
           }
         })
         .catch(() => {
-          this.error = "The quiz could not be loaded. Please try again.";
+          this.error = "The quiz could not be loaded. Please try again."
         })
         .then(() => {
-          this.loading = false;
-        });
+          this.loading = false
+        })
     },
-    submitQuiz() {
-      let score = 0;
-      let total = 0;
+    submitQuiz () {
+      let score = 0
+      let total = 0
       this.test.tasks.forEach((task) => {
         if (task.render_type === "MC") {
-          const answers = task.answers || [];
+          const answers = task.answers || []
           const correct = answers.filter(
-            (answer) => answer.answer === answer.correct_answer,
-          );
+            (answer) => answer.answer === answer.correct_answer
+          )
           const valid = answers.every(
             (answer) =>
-              !!answer.checked === (answer.answer === answer.correct_answer),
-          );
+              !!answer.checked === (answer.answer === answer.correct_answer)
+          )
           const points = correct.reduce(
             (sum, answer) => sum + Number(answer.max_score || 0),
-            0,
-          );
-          total += points;
-          if (valid) score += points;
+            0
+          )
+          total += points
+          if (valid) score += points
         }
-      });
-      this.score = score;
-      this.total = total;
-      this.submitted = true;
-    },
-  },
-};
+      })
+      this.score = score
+      this.total = total
+      this.submitted = true
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

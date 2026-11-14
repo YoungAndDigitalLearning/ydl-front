@@ -51,15 +51,15 @@
 </template>
 
 <script>
-import CourseWeek from "@/components/Course/CourseWeek";
-import axiosInstance from "@/store/api";
-import { VueEditor } from "vue2-editor";
-import Resources from "@/components/Resources/Resources";
+import CourseWeek from "@/components/Course/CourseWeek"
+import axiosInstance from "@/store/api"
+import { VueEditor } from "vue2-editor"
+import Resources from "@/components/Resources/Resources"
 
 export default {
   name: "course-edit",
   props: ["value"],
-  data() {
+  data () {
     return {
       toRender: this.course,
       course: {},
@@ -67,73 +67,73 @@ export default {
       userID: -1,
       cID: -1,
       editorContent: "<h1>!!! initial Content !!!</h1>",
-      loading: true,
-    };
+      loading: true
+    }
   },
   components: {
     "ydl-courseweek": CourseWeek,
     "ydl-editor": VueEditor,
-    "ydl-resource": Resources,
+    "ydl-resource": Resources
   },
-  created() {
-    this.cID = this.$route.params.cid;
-    this.userID = this.$route.params.id;
+  created () {
+    this.cID = this.$route.params.cid
+    this.userID = this.$route.params.id
     axiosInstance.get("courses/" + this.cID).then((response) => {
-      this.course = response.data;
-      console.log(this.course);
+      this.course = response.data
+      console.log(this.course)
       axiosInstance.get("users/" + this.course.teacher).then((response) => {
-        this.teacher = response.data;
-      });
-      this.editorContent = this.course.description;
-      this.loading = false;
-    });
+        this.teacher = response.data
+      })
+      this.editorContent = this.course.description
+      this.loading = false
+    })
   },
   methods: {
-    handleSubmit() {
-      console.log(this.course.description);
+    handleSubmit () {
+      console.log(this.course.description)
       axiosInstance
         .put("courses/" + this.course.id, this.course)
         .then((response) => {
-          console.log("Teeeest");
-          console.log(response.data);
+          console.log("Teeeest")
+          console.log(response.data)
           if (response.status === 200) {
             this.$notify({
               title: "Course Update",
               text: "successfully updated your course data",
-              type: "success",
-            });
+              type: "success"
+            })
             this.$router.push(
-              "/profile/" + this.userID + "/courses/" + this.course.id,
-            );
+              "/profile/" + this.userID + "/courses/" + this.course.id
+            )
           } else {
             this.$notify({
               title: "Course Update",
               text: "Error while saving your changes",
-              type: "error",
-            });
+              type: "error"
+            })
           }
-        });
+        })
     },
-    saveContent() {
-      this.course.description = this.editorContent;
+    saveContent () {
+      this.course.description = this.editorContent
       this.$store
         .dispatch("editCourse", { params: { id: this.cID }, data: this.course })
         .then((response) => {
-          console.log(this.userID);
+          console.log(this.userID)
           this.$router.push(
-            "/profile/" + this.userID + "/courses/" + this.course.id,
-          );
-        });
+            "/profile/" + this.userID + "/courses/" + this.course.id
+          )
+        })
       // this.handleSubmit()
     },
-    generateQuiz() {
+    generateQuiz () {
       // todo: create empty quiz skeleton that can be filled
       this.$router.push(
-        "/profile/" + this.userID + "/courses/" + this.cID + "/quiz/edit",
-      );
-    },
-  },
-};
+        "/profile/" + this.userID + "/courses/" + this.cID + "/quiz/edit"
+      )
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

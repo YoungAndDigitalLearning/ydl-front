@@ -44,9 +44,11 @@ export default {
   },
   methods: {
     addQuestion () {
-      this.quiz.tasks.push({ render_type: "MC", question: "", answers: [
-        { answer: "", max_score: 1 }, { answer: "", max_score: 0 }
-      ] })
+      this.quiz.tasks.push({ render_type: "MC",
+        question: "",
+        answers: [
+          { answer: "", max_score: 1 }, { answer: "", max_score: 0 }
+        ] })
     },
     addAnswer (task) {
       task.answers.push({ answer: "", max_score: 0 })

@@ -10,60 +10,60 @@
 </template>
 
 <script>
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap-vue/dist/bootstrap-vue.css";
-import Navbar from "@/components/Navigation/Navbar.vue";
-import DemoToolbar from "@/components/Demo/DemoToolbar.vue";
-import jwtDecode from "jwt-decode";
-import axiosInstance from "@/store/api";
-import { isDemo, getDemoUserId } from "@/demo/session";
+import "bootstrap/dist/css/bootstrap.css"
+import "bootstrap-vue/dist/bootstrap-vue.css"
+import Navbar from "@/components/Navigation/Navbar.vue"
+import DemoToolbar from "@/components/Demo/DemoToolbar.vue"
+import jwtDecode from "jwt-decode"
+import axiosInstance from "@/store/api"
+import { isDemo, getDemoUserId } from "@/demo/session"
 
 export default {
   name: "App",
-  data() {
-    return { isDemo: isDemo };
+  data () {
+    return { isDemo: isDemo }
   },
   components: {
     "ydl-navbar": Navbar,
-    "demo-toolbar": DemoToolbar,
+    "demo-toolbar": DemoToolbar
   },
-  async created() {
+  async created () {
     if (isDemo) {
-      const demoId = getDemoUserId();
+      const demoId = getDemoUserId()
       if (demoId) {
         try {
-          await this.$store.dispatch("getUser", { params: { id: demoId } });
-          await this.$store.dispatch("getCourses");
+          await this.$store.dispatch("getUser", { params: { id: demoId } })
+          await this.$store.dispatch("getCourses")
         } catch (error) {
           // The toolbar allows the visitor to start a new session.
-          console.warn("Could not restore demo session", error);
+          console.warn("Could not restore demo session", error)
         }
       }
-      return;
+      return
     }
 
-    const token = this.$localStorage.get("token", false);
+    const token = this.$localStorage.get("token", false)
     if (!token) {
-      delete axiosInstance.defaults.headers.common["Authorization"];
-      return;
+      delete axiosInstance.defaults.headers.common["Authorization"]
+      return
     }
 
     try {
-      const rawToken = token.replace(/^JWT\s+/, "");
-      await axiosInstance.post("token/verify/", { token: rawToken });
-      const userId = jwtDecode(rawToken).user_id;
-      axiosInstance.defaults.headers.common["Authorization"] = token;
-      await this.$store.dispatch("getUser", { params: { id: userId } });
+      const rawToken = token.replace(/^JWT\s+/, "")
+      await axiosInstance.post("token/verify/", { token: rawToken })
+      const userId = jwtDecode(rawToken).user_id
+      axiosInstance.defaults.headers.common["Authorization"] = token
+      await this.$store.dispatch("getUser", { params: { id: userId } })
     } catch (error) {
-      delete axiosInstance.defaults.headers.common["Authorization"];
-      this.$localStorage.remove("token");
-      await this.$store.dispatch("logout");
+      delete axiosInstance.defaults.headers.common["Authorization"]
+      this.$localStorage.remove("token")
+      await this.$store.dispatch("logout")
       if (this.$route.matched.some((record) => record.meta.requiresAuth)) {
-        this.$router.replace("/login");
+        this.$router.replace("/login")
       }
     }
-  },
-};
+  }
+}
 </script>
 
 <style lang="scss">

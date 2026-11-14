@@ -36,43 +36,43 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import { isDemo, clearDemoUserId } from "@/demo/session";
+import { mapState } from "vuex"
+import { isDemo, clearDemoUserId } from "@/demo/session"
 
 export default {
   name: "navbar",
-  data() {
-    return { isDemo: isDemo };
+  data () {
+    return { isDemo: isDemo }
   },
   computed: {
     ...mapState({
       isLoggedIn: (state) => !!state.api.user,
-      user: (state) => state.api.user,
+      user: (state) => state.api.user
     }),
-    getUserProfile() {
+    getUserProfile () {
       if (this.user) {
-        return "/#/profile/" + this.user.id + "/courses/";
+        return "/#/profile/" + this.user.id + "/courses/"
       } else {
-        return "";
+        return ""
       }
     },
-    getUserSettings() {
+    getUserSettings () {
       if (this.user) {
-        return "/#/profile/" + this.user.id + "/settings/";
+        return "/#/profile/" + this.user.id + "/settings/"
       } else {
-        return "";
+        return ""
       }
-    },
+    }
   },
   methods: {
-    logout() {
-      if (isDemo) clearDemoUserId();
+    logout () {
+      if (isDemo) clearDemoUserId()
       this.$store.dispatch("logout").then(() => {
-        this.$router.push("/");
-      });
-    },
-  },
-};
+        this.$router.push("/")
+      })
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -94,57 +94,57 @@
 </template>
 
 <script>
-import TitleHeader from "@/components/Util/TitleHeader";
-import Events from "@/components/Profile/Event/Events";
-import { mapState } from "vuex";
+import TitleHeader from "@/components/Util/TitleHeader"
+import Events from "@/components/Profile/Event/Events"
+import { mapState } from "vuex"
 
 export default {
   name: "ProfilePage",
-  mounted() {
-    console.log("loaded profile");
+  mounted () {
+    console.log("loaded profile")
     if (this.user !== null) {
-      console.log("fetching courses in mounted!");
-      this.$store.dispatch("getCourses");
+      console.log("fetching courses in mounted!")
+      this.$store.dispatch("getCourses")
     }
   },
   watch: {
-    "$store.state.api.user"(val) {
+    "$store.state.api.user" (val) {
       if (val !== null) {
-        console.log("fetching courses in watch!");
-        this.$store.dispatch("getCourses");
+        console.log("fetching courses in watch!")
+        this.$store.dispatch("getCourses")
       }
-    },
+    }
   },
   methods: {
-    goToCourse(id) {
-      console.log("goto course " + id);
-      this.$router.push("/profile/" + this.user.id + "/courses/" + id);
-    },
+    goToCourse (id) {
+      console.log("goto course " + id)
+      this.$router.push("/profile/" + this.user.id + "/courses/" + id)
+    }
   },
   components: {
     "ydl-titleheader": TitleHeader,
-    "ydl-events": Events,
+    "ydl-events": Events
   },
   computed: {
     ...mapState({
       own_courses: (state) => state.api.ownCourses,
       joined_courses: (state) => state.api.joinedCourses,
       user: (state) => state.api.user,
-      currentViewingCourse: (state) => state.api.viewingCourse,
+      currentViewingCourse: (state) => state.api.viewingCourse
     }),
-    displayedCourses() {
-      const unique = {};
+    displayedCourses () {
+      const unique = {}
       return [
         ...(this.own_courses || []),
-        ...(this.joined_courses || []),
+        ...(this.joined_courses || [])
       ].filter((course) => {
-        if (!course || unique[course.id]) return false;
-        unique[course.id] = true;
-        return true;
-      });
-    },
-  },
-};
+        if (!course || unique[course.id]) return false
+        unique[course.id] = true
+        return true
+      })
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

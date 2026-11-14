@@ -175,11 +175,20 @@ export function createDemoAdapter () {
         if (!isTeacher(user)) return bad(403, "Only teachers can create courses")
         if (!body.name || !String(body.name).trim()) return bad(400, "Course name is required")
         const newCourse = {
-          id: nextId(data.courses), name: String(body.name).slice(0, 100),
-          description: safeText(body.description), teacher: user.id,
+          id: nextId(data.courses),
+          name: String(body.name).slice(0, 100),
+          description: safeText(body.description),
+          teacher: user.id,
           deadline: body.deadline || "2027-06-30T18:00:00+02:00",
-          created: new Date().toISOString(), price: 0, paid: false,
-          student_count: 0, resources: [], posts: [], tests: [], weeks: [], events: []
+          created: new Date().toISOString(),
+          price: 0,
+          paid: false,
+          student_count: 0,
+          resources: [],
+          posts: [],
+          tests: [],
+          weeks: [],
+          events: []
         }
         data.courses.push(newCourse)
         user.courses.push(newCourse.id)
@@ -225,12 +234,19 @@ export function createDemoAdapter () {
           const taskId = Number(task.id) || (index + 1 + id * 1000)
           const options = Array.isArray(task.answers) ? task.answers : []
           return {
-            id: taskId, test: id, render_type: task.render_type || "MC", question: String(task.question || "").slice(0, 512),
+            id: taskId,
+            test: id,
+            render_type: task.render_type || "MC",
+            question: String(task.question || "").slice(0, 512),
             answers: options.map((option, offset) => ({
-              id: Number(option.id) || (taskId * 10 + offset + 1), task: taskId,
-              answer: String(option.answer || ""), checked: false,
+              id: Number(option.id) || (taskId * 10 + offset + 1),
+              task: taskId,
+              answer: String(option.answer || ""),
+              checked: false,
               correct_answer: String(option.correct_answer || ""),
-              max_score: Number(option.max_score) || 0, score: 0, order: offset + 1
+              max_score: Number(option.max_score) || 0,
+              score: 0,
+              order: offset + 1
             }))
           }
         })
@@ -254,9 +270,13 @@ export function createDemoAdapter () {
         const target = getCourse(data, body.course_id) || data.courses.find(course => course.teacher === user.id)
         if (!target || target.teacher !== user.id) return bad(403, "No course available")
         const entry = {
-          id: nextId(data.resources), name: String(body.name || "Untitled resource").slice(0, 100),
-          course_id: target.id, courseName: target.name, file: url,
-          uploader: user.id, uploader_name: user.username,
+          id: nextId(data.resources),
+          name: String(body.name || "Untitled resource").slice(0, 100),
+          course_id: target.id,
+          courseName: target.name,
+          file: url,
+          uploader: user.id,
+          uploader_name: user.username,
           effective_from: body.effective_from || "2027-01-01T12:00:00+01:00",
           expires: body.expires || "2027-06-30T12:00:00+02:00",
           uploaded: new Date().toISOString()
@@ -274,8 +294,11 @@ export function createDemoAdapter () {
       if (method === "post") {
         const recipient = Number(body.receiver)
         if (!data.users.some(item => item.id === recipient)) return bad(400, "Unknown message recipient")
-        const entry = { id: nextId(data.messages), sender: user.id, receiver: recipient,
-          text: String(body.text || "").slice(0, 4096), date: new Date().toISOString() }
+        const entry = { id: nextId(data.messages),
+          sender: user.id,
+          receiver: recipient,
+          text: String(body.text || "").slice(0, 4096),
+          date: new Date().toISOString() }
         data.messages.push(entry)
         saveData(data)
         return ok(entry, 201)
