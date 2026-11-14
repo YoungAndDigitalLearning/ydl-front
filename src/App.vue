@@ -24,66 +24,38 @@ export default {
   computed: mapState({
     user: (state) => state.users.user,
   }),
-  created() {
-    /* load token */
-    var token = this.$localStorage.get("token", false);
+  async created () {
+  const token = this.$localStorage.get("token", false)
 
-    /* check if token has expired */
-    if (token) {
-      axios;
-      axiosInstance
-        .post("token/verify/", {
-          token: token.replace("JWT ", ""),
-        })
-        .catch((error) => {
-          if (error.response && error.response.status === 400) {
-            /* notify user that the token has been expired */
-            this.$notify({
-              title: "Authentication",
-              text: "token has expired",
-              type: "error",
-            });
+  if (!token) {
+    delete axiosInstance.defaults.headers.common["Authorization"]
+    return
+  }
 
-            this.$store.dispatch("logout");
-            this.$router.push("/");
+  try {
+    const rawToken = token.replace(/^JWT\s+/, "")
 
-            /* remove the token from the storage */
-            console.log("remove token");
-            this.$localStorage.remove("token");
-            console.log(this.$localStorage.get("token", false));
-          }
-        });
-    }
+    await axiosInstance.post("token/verify/", {
+      token: rawToken
+    })
 
-    /* load token */
-    token = this.$localStorage.get("token", false);
-    console.log("token from storage");
-    console.log(token);
+    const decodedToken = jwtDecode(rawToken)
 
-    if (token) {
-      console.log("mounted");
-      /* TODO: improve the logic verify token still valid */
-      console.log(token);
+    axiosInstance.defaults.headers.common["Authorization"] = token
 
-      console.log("found token in local storage");
-      const decodedToken = jwtDecode(token);
-      /* get the user from the user id */
-      this.$store
-        .dispatch("getUser", { params: { id: decodedToken.user_id } })
-        .then(() => {
-          console.log("success getUser");
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    await this.$store.dispatch("getUser", {
+      params: { id: decodedToken.user_id }
+    })
+      } catch (error) {
+      delete axiosInstance.defaults.headers.common["Authorization"]
+      this.$localStorage.remove("token")
+      await this.$store.dispatch("logout")
 
-      console.log(token);
-      axiosInstance.defaults.headers.common["Authorization"] = token;
-      console.log("token was added to axios instance");
-      console.log(axiosInstance);
-    } else {
-      console.log("removed token from header");
-      delete axiosInstance.defaults.headers.common["Authorization"];
+      if (this.$route.matched.some(
+        record => record.meta.requiresAuth
+      )) {
+        this.$router.replace("/login")
+      }
     }
   },
   components: {
