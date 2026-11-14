@@ -1,10 +1,20 @@
 import axios from "axios";
+import { isDemo } from "@/demo/session";
+import { createDemoAdapter } from "@/demo/mockApi";
 
-const apiBaseURL =
-  process.env.NODE_ENV === "production"
+const apiBaseURL = isDemo
+  ? "/"
+  : process.env.NODE_ENV === "production"
     ? "https://api.ydlearning.com/"
     : "/api/";
 
-export default axios.create({
-  baseURL: apiBaseURL,
-});
+const api = axios.create({ baseURL: apiBaseURL });
+
+if (isDemo) {
+  // Reject rather than forward unknown requests; never contact the old API.
+  const adapter = createDemoAdapter();
+  api.defaults.adapter = adapter;
+  axios.defaults.adapter = adapter;
+}
+
+export default api;

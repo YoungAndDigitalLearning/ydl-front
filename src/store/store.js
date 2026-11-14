@@ -76,9 +76,8 @@ const api = new Vapi({
       // seperate own and joined courses
       var ownCourses = [];
       var joinedCourses = [];
-      console.log(payload.data);
       payload.data.forEach((course) => {
-        if (course.teacher === state.user.id) {
+        if (state.user && course.teacher === state.user.id) {
           ownCourses.push(course);
         } else {
           joinedCourses.push(course);
@@ -139,7 +138,7 @@ storeApi.actions.login = async (context, object) => {
     console.log(error);
     context.commit("LOGIN_FAILED", error);
   }
-  console.log("success auth");
+  // Authentication state is represented in Vuex and local storage.
 };
 
 storeApi.mutations.VIEW_COURSE = (state, id) => {
@@ -151,12 +150,16 @@ storeApi.actions.viewCourse = async (context, id) => {
 };
 
 storeApi.mutations.LOGOUT = (state) => {
-  console.log(state);
   state.user = null;
+  state.ownCourses = [];
+  state.joinedCourses = [];
+  state.courses = [];
+  state.freeCourses = [];
 };
 
 storeApi.actions.logout = async (context) => {
   Vue.localStorage.remove("token");
+  delete axiosInstance.defaults.headers.common["Authorization"];
   context.commit("LOGOUT");
 };
 
