@@ -2,6 +2,7 @@
   <div id="app">
     <notifications position="bottom right" classes="vue-notification notify" />
     <ydl-navbar />
+    <demo-toolbar v-if="isDemo" />
     <section class="ydl-content">
       <router-view />
     </section>
@@ -11,22 +12,37 @@
 <script>
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
-
 import Navbar from "@/components/Navigation/Navbar.vue";
-import Footer from "@/components/LandingPage/Footer.vue";
-
+import DemoToolbar from "@/components/Demo/DemoToolbar.vue";
 import jwtDecode from "jwt-decode";
 import axiosInstance from "@/store/api";
-import { mapState } from "vuex";
+import { isDemo, getDemoUserId } from "@/demo/session";
 
 export default {
   name: "App",
-  computed: mapState({
-    user: (state) => state.users.user,
-  }),
+  data() {
+    return { isDemo: isDemo };
+  },
+  components: {
+    "ydl-navbar": Navbar,
+    "demo-toolbar": DemoToolbar,
+  },
   async created() {
-    const token = this.$localStorage.get("token", false);
+    if (isDemo) {
+      const demoId = getDemoUserId();
+      if (demoId) {
+        try {
+          await this.$store.dispatch("getUser", { params: { id: demoId } });
+          await this.$store.dispatch("getCourses");
+        } catch (error) {
+          // The toolbar allows the visitor to start a new session.
+          console.warn("Could not restore demo session", error);
+        }
+      }
+      return;
+    }
 
+    const token = this.$localStorage.get("token", false);
     if (!token) {
       delete axiosInstance.defaults.headers.common["Authorization"];
       return;
@@ -34,31 +50,18 @@ export default {
 
     try {
       const rawToken = token.replace(/^JWT\s+/, "");
-
-      await axiosInstance.post("token/verify/", {
-        token: rawToken,
-      });
-
-      const decodedToken = jwtDecode(rawToken);
-
+      await axiosInstance.post("token/verify/", { token: rawToken });
+      const userId = jwtDecode(rawToken).user_id;
       axiosInstance.defaults.headers.common["Authorization"] = token;
-
-      await this.$store.dispatch("getUser", {
-        params: { id: decodedToken.user_id },
-      });
+      await this.$store.dispatch("getUser", { params: { id: userId } });
     } catch (error) {
       delete axiosInstance.defaults.headers.common["Authorization"];
       this.$localStorage.remove("token");
       await this.$store.dispatch("logout");
-
       if (this.$route.matched.some((record) => record.meta.requiresAuth)) {
         this.$router.replace("/login");
       }
     }
-  },
-  components: {
-    "ydl-navbar": Navbar,
-    "ydl-footer": Footer,
   },
 };
 </script>
