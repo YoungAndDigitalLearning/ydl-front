@@ -1,32 +1,41 @@
 <template>
   <div>
-    <ydl-titleheader color="darkgreen">EDIT QUIZ</ydl-titleheader>
-    <div class="container-fluid">
-      <hr />
-      <form @submit.prevent="submitToServer">
-        <div v-for="t in test.tasks" v-bind:key="t.id">
-          <div v-if="t.render_type === 'MC'">
-            <ydl-mcquestion v-bind:task="t"></ydl-mcquestion>
+    <demo-quiz-editor v-if="isDemo" />
+    <div v-else>
+      <ydl-titleheader color="darkgreen">EDIT QUIZ</ydl-titleheader>
+      <div class="container-fluid">
+        <hr />
+        <form @submit.prevent="submitToServer">
+          <div v-for="t in test.tasks" v-bind:key="t.id">
+            <div v-if="t.render_type === 'MC'">
+              <ydl-mcquestion v-bind:task="t"></ydl-mcquestion>
+            </div>
+            <div v-else>
+              <ydl-vtquestion v-bind:task="t"></ydl-vtquestion>
+            </div>
           </div>
-          <div v-else>
-            <ydl-vtquestion v-bind:task="t"></ydl-vtquestion>
-          </div>
-        </div>
-        <input type="button" value="MC Frage erstellen" @click="createMCTask" />
-        <input
-          type="button"
-          value="Vokabel Frage erstellen"
-          @click="createVTTask"
-        />
-        <br />
-        <input type="submit" value="Erstellen" />
-      </form>
+          <input
+            type="button"
+            value="MC Frage erstellen"
+            @click="createMCTask"
+          />
+          <input
+            type="button"
+            value="Vokabel Frage erstellen"
+            @click="createVTTask"
+          />
+          <br />
+          <input type="submit" value="Erstellen" />
+        </form>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import EditMCTask from "@/components/Quiz/EditMCTask";
+import DemoQuizEditor from "@/components/Demo/DemoQuizEditor";
+import { isDemo } from "@/demo/session";
 import VTTask from "@/components/Quiz/EditVTTask";
 import TitleHeader from "@/components/Util/TitleHeader";
 import axiosInstance from "@/store/api";
@@ -35,6 +44,7 @@ export default {
   name: "Quiz",
   data() {
     return {
+      isDemo: isDemo,
       test: {
         id: 11,
         tasks: [],
@@ -51,8 +61,10 @@ export default {
     "ydl-mcquestion": EditMCTask,
     "ydl-vtquestion": VTTask,
     "ydl-titleheader": TitleHeader,
+    "demo-quiz-editor": DemoQuizEditor,
   },
   mounted() {
+    if (isDemo) return;
     // todo: get request to Post
     const cid = this.$route.params.cid;
     console.log(cid);
