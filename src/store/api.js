@@ -1,10 +1,10 @@
-import axios from "axios"
+import axios from "axios";
 
 const apiBaseURL =
   process.env.NODE_ENV === "production"
     ? "https://api.ydlearning.com/"
-    : "/api/"
+    : "/api/";
 
 export default axios.create({
-  baseURL: apiBaseURL
-})
+  baseURL: apiBaseURL,
+});
