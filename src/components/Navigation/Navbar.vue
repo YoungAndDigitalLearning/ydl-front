@@ -21,13 +21,13 @@
           <b-dropdown-item :href="getUserSettings"
             ><fa-icon icon="cog" /> Settings</b-dropdown-item
           >
-          <b-dropdown-divider></b-dropdown-divider>
-          <b-dropdown-item href="#" @click="logout"
+          <b-dropdown-divider v-if="!isDemo"></b-dropdown-divider>
+          <b-dropdown-item v-if="!isDemo" href="#" @click="logout"
             ><fa-icon icon="ambulance" /> Signout</b-dropdown-item
           >
         </b-nav-item-dropdown>
       </b-navbar-nav>
-      <b-navbar-nav v-else class="ml-auto">
+      <b-navbar-nav v-else-if="!isDemo" class="ml-auto">
         <b-nav-item href="#/signup"><fa-icon icon="edit" /> Sign up</b-nav-item>
         <b-nav-item href="#/login"><fa-icon icon="unlock" /> Login</b-nav-item>
       </b-navbar-nav>
@@ -37,9 +37,13 @@
 
 <script>
 import { mapState } from "vuex";
+import { isDemo, clearDemoUserId } from "@/demo/session";
 
 export default {
   name: "navbar",
+  data() {
+    return { isDemo: isDemo };
+  },
   computed: {
     ...mapState({
       isLoggedIn: (state) => !!state.api.user,
@@ -62,6 +66,7 @@ export default {
   },
   methods: {
     logout() {
+      if (isDemo) clearDemoUserId();
       this.$store.dispatch("logout").then(() => {
         this.$router.push("/");
       });
