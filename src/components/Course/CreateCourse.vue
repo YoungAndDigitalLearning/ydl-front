@@ -7,7 +7,7 @@
           <div class="form-group">
             <input
               class="form-control"
-              v-validate="'required|alpha_dash'"
+              v-validate="'required'"
               id="courseName"
               type="text"
               name="courseName"
@@ -22,7 +22,7 @@
           <div class="form-group">
             <input
               class="form-control"
-              v-validate="'required|alpha_dash'"
+              v-validate="'required'"
               id="name"
               type="text"
               name="name"
@@ -82,8 +82,11 @@ export default {
       this.$store
         .dispatch("createCourse", { data: this.form.course })
         .then(() => {
-          console.log("1337");
-          this.$router.push("/profile/6");
+          const user = this.$store.state.api.user;
+          return Promise.all([
+            this.$store.dispatch("getCourses"),
+            this.$store.dispatch("getFreeCourses"),
+          ]).then(() => this.$router.push("/profile/" + user.id + "/courses/"));
         });
     },
   },

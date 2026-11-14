@@ -2,7 +2,7 @@
   <div class="card" v-if="!loading">
     <div class="card-header">
       <h1>{{ course.name }}</h1>
-      A1.1
+      <small>Edit course content</small>
     </div>
     <div class="card-body">
       <div class="leader-board flex-container">
@@ -13,7 +13,6 @@
               <span>
                 Name: {{ teacher.first_name + " " + teacher.last_name }}</span
               >
-              <span> E-Mail: [email] </span>
             </li>
           </ul>
         </div>
@@ -104,7 +103,7 @@ export default {
               type: "success",
             });
             this.$router.push(
-              "/profile/" + this.userId + "/courses/" + this.course.id,
+              "/profile/" + this.userID + "/courses/" + this.course.id,
             );
           } else {
             this.$notify({
