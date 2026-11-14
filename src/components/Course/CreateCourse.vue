@@ -5,22 +5,54 @@
       <div>
         <form @submit.prevent="handleSubmit">
           <div class="form-group">
-            <input class="form-control" v-validate="'required|alpha_dash'" id="courseName" type="text" name="courseName" v-model="form.course.name" required>
+            <input
+              class="form-control"
+              v-validate="'required|alpha_dash'"
+              id="courseName"
+              type="text"
+              name="courseName"
+              v-model="form.course.name"
+              required
+            />
             <ydl-label inputID="name">Name</ydl-label>
-            <span v-show="errors.has('courseName')" class="required">{{ errors.first("courseName") }}</span>
+            <span v-show="errors.has('courseName')" class="required">{{
+              errors.first("courseName")
+            }}</span>
           </div>
           <div class="form-group">
-            <input class="form-control" v-validate="'required|alpha_dash'" id="name" type="text" name="name" v-model="form.course.description" required>
+            <input
+              class="form-control"
+              v-validate="'required|alpha_dash'"
+              id="name"
+              type="text"
+              name="name"
+              v-model="form.course.description"
+              required
+            />
             <ydl-label inputID="name">Description</ydl-label>
-            <span v-show="errors.has('name')" class="required">{{ errors.first("name") }}</span>
+            <span v-show="errors.has('name')" class="required">{{
+              errors.first("name")
+            }}</span>
           </div>
           <div class="form-group">
-            <input class="form-control" v-validate="'required'" id="name" type="text" name="name" v-model="form.course.deadline" required>
+            <input
+              class="form-control"
+              v-validate="'required'"
+              id="name"
+              type="text"
+              name="name"
+              v-model="form.course.deadline"
+              required
+            />
             <ydl-label inputID="name">Deadline</ydl-label>
-            <span v-show="errors.has('name')" class="required">{{ errors.first("name") }}</span>
+            <span v-show="errors.has('name')" class="required">{{
+              errors.first("name")
+            }}</span>
           </div>
           <div class="form-group">
-            <button class="btn btn-primary btn-block" type="submit">Create Course</button>
+            <button class="btn btn-primary btn-block" type="submit">
+              Create Course
+            </button>
           </div>
         </form>
       </div>
@@ -29,36 +61,37 @@
 </template>
 
 <script>
-import TitleHeader from "@/components/Util/TitleHeader"
-import FormLabel from "@/components/Util/FormLabel"
+import TitleHeader from "@/components/Util/TitleHeader";
+import FormLabel from "@/components/Util/FormLabel";
 
 export default {
   name: "createcourse",
-  data () {
+  data() {
     return {
       form: {
         course: {
           name: "",
           description: "",
-          deadline: ""
-        }
-      }
-    }
+          deadline: "",
+        },
+      },
+    };
   },
   methods: {
-    handleSubmit () {
-      this.$store.dispatch("createCourse", { data: this.form.course })
+    handleSubmit() {
+      this.$store
+        .dispatch("createCourse", { data: this.form.course })
         .then(() => {
-          console.log("1337")
-          this.$router.push("/profile/6")
-        })
-    }
+          console.log("1337");
+          this.$router.push("/profile/6");
+        });
+    },
   },
   components: {
     "ydl-label": FormLabel,
-    "ydl-titleheader": TitleHeader
-  }
-}
+    "ydl-titleheader": TitleHeader,
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -72,7 +105,8 @@ export default {
 
 // for the animation if input is selected
 .form-control {
-  &:focus + label, &:valid + label {
+  &:focus + label,
+  &:valid + label {
     transform: translateY(-100%);
     font-size: 75%;
   }
@@ -102,11 +136,11 @@ export default {
 
 /* Login */
 .settings-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-top: 20px;
 
   /* contains the icons and the form */
   .form-container {
@@ -117,8 +151,7 @@ export default {
     width: 350px;
     height: 500px;
 
-    @include media-breakpoint-down(sm)
-    {
+    @include media-breakpoint-down(sm) {
       // make form container full screen
       width: 100%;
       height: 100%;

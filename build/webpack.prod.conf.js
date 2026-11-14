@@ -16,6 +16,11 @@ const env =
     ? require("../config/test.env")
     : require("../config/prod.env");
 
+// Build-only flag: no local data or backend requests in the Pages bundle.
+env.YDL_DEMO = JSON.stringify(
+  process.env.YDL_BUILD_TARGET === "pages" ? "true" : "false",
+);
+
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({
