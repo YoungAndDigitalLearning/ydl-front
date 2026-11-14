@@ -1,4 +1,5 @@
 import Vue from "vue";
+import { isDemo, getDemoUserId } from "@/demo/session";
 import Router from "vue-router";
 import BootstrapVue from "bootstrap-vue";
 import VeeValidate from "vee-validate";
@@ -181,6 +182,27 @@ export const router = new Router({
 
 /* guard every site which requires login  */
 router.beforeEach((to, from, next) => {
+  if (isDemo) {
+    if (to.path === "/login" || to.path === "/signup") return next("/");
+    const id = getDemoUserId();
+    const teacherRoutes = [
+      "skbcourse-edit",
+      "skbquiz-edit",
+      "createcourse",
+      "createresource",
+    ];
+    if (id === 2 && teacherRoutes.indexOf(to.name) !== -1) {
+      return next("/profile/2/courses/");
+    }
+    if (to.matched.some((record) => record.meta.requiresAuth)) {
+      if (!id) return next("/");
+      if (Number(to.params.id) !== id && to.path.indexOf("/profile/") === 0) {
+        return next(to.path.replace(/^\/profile\/[^/]+/, "/profile/" + id));
+      }
+    }
+    return next();
+  }
+
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     console.log(to);
     console.log("teeeest");
