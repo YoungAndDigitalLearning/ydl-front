@@ -160,5 +160,6 @@ export default {
   display: flex;
   flex-direction: column;
   font-size: 12px;
+  white-space: pre-wrap;
 }
 </style>
