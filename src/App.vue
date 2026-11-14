@@ -24,37 +24,35 @@ export default {
   computed: mapState({
     user: (state) => state.users.user,
   }),
-  async created () {
-  const token = this.$localStorage.get("token", false)
+  async created() {
+    const token = this.$localStorage.get("token", false);
 
-  if (!token) {
-    delete axiosInstance.defaults.headers.common["Authorization"]
-    return
-  }
+    if (!token) {
+      delete axiosInstance.defaults.headers.common["Authorization"];
+      return;
+    }
 
-  try {
-    const rawToken = token.replace(/^JWT\s+/, "")
+    try {
+      const rawToken = token.replace(/^JWT\s+/, "");
 
-    await axiosInstance.post("token/verify/", {
-      token: rawToken
-    })
+      await axiosInstance.post("token/verify/", {
+        token: rawToken,
+      });
 
-    const decodedToken = jwtDecode(rawToken)
+      const decodedToken = jwtDecode(rawToken);
 
-    axiosInstance.defaults.headers.common["Authorization"] = token
+      axiosInstance.defaults.headers.common["Authorization"] = token;
 
-    await this.$store.dispatch("getUser", {
-      params: { id: decodedToken.user_id }
-    })
-      } catch (error) {
-      delete axiosInstance.defaults.headers.common["Authorization"]
-      this.$localStorage.remove("token")
-      await this.$store.dispatch("logout")
+      await this.$store.dispatch("getUser", {
+        params: { id: decodedToken.user_id },
+      });
+    } catch (error) {
+      delete axiosInstance.defaults.headers.common["Authorization"];
+      this.$localStorage.remove("token");
+      await this.$store.dispatch("logout");
 
-      if (this.$route.matched.some(
-        record => record.meta.requiresAuth
-      )) {
-        this.$router.replace("/login")
+      if (this.$route.matched.some((record) => record.meta.requiresAuth)) {
+        this.$router.replace("/login");
       }
     }
   },
