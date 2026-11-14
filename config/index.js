@@ -62,7 +62,8 @@ module.exports = {
     // assetsSubDirectory: 'static',
     assetsSubDirectory: "src/assets",
     // assetsPublicPath: '/',
-    assetsPublicPath: "/ydl-front/",
+    assetsPublicPath:
+      process.env.YDL_BUILD_TARGET === "pages" ? "/" : "/ydl-front/",
     // publicPath: "ydl-front/",
     // outputDir: "./docs",
 
