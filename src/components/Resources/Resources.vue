@@ -47,6 +47,7 @@
 <script>
 import TitleHeader from "@/components/Util/TitleHeader";
 import demoResources from "@/demo/resources";
+import { isDemo } from "@/demo/session";
 import { mapState } from "vuex";
 
 export default {
@@ -60,6 +61,15 @@ export default {
       joinedCourses: (state) => state.api.joinedCourses,
     }),
     displayedResources() {
+      if (isDemo) {
+        const courses = (this.ownCourses || []).concat(
+          this.joinedCourses || [],
+        );
+        const ids = courses.map((course) => Number(course.id));
+        return (Array.isArray(this.resources) ? this.resources : []).filter(
+          (resource) => ids.indexOf(Number(resource.course_id)) !== -1,
+        );
+      }
       if (process.env.NODE_ENV === "production") {
         return Array.isArray(this.resources) ? this.resources : [];
       }
@@ -71,7 +81,7 @@ export default {
     },
   },
   created() {
-    if (process.env.NODE_ENV === "production") {
+    if (isDemo || process.env.NODE_ENV === "production") {
       this.$store.dispatch("getResources");
     } else if (
       !this.ownCourses.length &&

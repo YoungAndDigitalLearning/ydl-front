@@ -18,6 +18,22 @@
             errors.first("resourceName")
           }}</span>
         </div>
+        <div v-if="isDemo" class="form-group">
+          <label for="demoCourse">Course</label>
+          <select
+            id="demoCourse"
+            class="form-control"
+            v-model="form.resource.course_id"
+          >
+            <option
+              v-for="course in ownCourses"
+              :key="course.id"
+              :value="course.id"
+            >
+              {{ course.name }}
+            </option>
+          </select>
+        </div>
         <div class="form-group">
           <label for="resourceEffectiveFrom">Effective From</label>
           <input
@@ -77,17 +93,22 @@
 <script>
 import TitleHeader from "@/components/Util/TitleHeader";
 import FormLabel from "@/components/Util/FormLabel";
+import { isDemo } from "@/demo/session";
+import { mapState } from "vuex";
 
 export default {
   name: "createresource",
+  computed: mapState({ ownCourses: (state) => state.api.ownCourses }),
   data() {
     return {
+      isDemo: isDemo,
       form: {
         resource: {
           name: "",
           effective_from: "",
           expires: "",
           content: "",
+          course_id: 1,
         },
       },
     };
@@ -107,8 +128,28 @@ export default {
       formData.append("effective_from", this.form.resource.effective_from);
       formData.append("expires", this.form.resource.expires);
       formData.append("content", this.form.resource.content);
+      if (isDemo) formData.append("course_id", this.form.resource.course_id);
 
-      this.$store.dispatch("createResource", { data: formData });
+      this.$store
+        .dispatch("createResource", { data: formData })
+        .then(() => {
+          if (isDemo) {
+            this.$store.dispatch("getResources");
+            this.$notify({
+              title: "Demo resource",
+              text: "Saved locally in your browser",
+              type: "success",
+            });
+            this.$router.push("/profile/1/resources");
+          }
+        })
+        .catch(() =>
+          this.$notify({
+            title: "Resource",
+            text: "Could not save resource",
+            type: "error",
+          }),
+        );
     },
   },
 };
