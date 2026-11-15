@@ -1,14 +1,15 @@
 # frontend
+
 YDL submodule frontend
 
 # Y&D Learning - frontend
 
 > SKB Course Manager
-Manage your language courses easily.
+> Manage your language courses easily.
 
 ## Build Setup
 
-``` bash
+```bash
 # install dependencies
 npm install
 
@@ -34,14 +35,17 @@ npm test
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
 ## Tools
-nodejs 10.x
--
+
+## nodejs 10.x
+
 dependencies
-``` bash
+
+```bash
 npm install vue-cli
 ```
 
 project setup with
-``` bash
+
+```bash
 vue init webpack djangoblockchained
 ```
