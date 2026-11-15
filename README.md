@@ -53,6 +53,7 @@
       src="https://img.shields.io/uptimerobot/ratio/7/m784129797-7749dd35a60d2d59a8715daa.svg?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+CiAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgIDxjaXJjbGUgY3g9IjI1NiIgY3k9IjI1NiIgcj0iMjU2IiBmaWxsPSIjMkE4QzAwIi8+CiAgICA8Y2lyY2xlIGN4PSIyNTYuNSIgY3k9IjI1Ni41IiByPSIxNDEuNSIgZmlsbD0iIzIwMjAxRiIgc3Ryb2tlPSIjRkZGRkZGIiBzdHJva2Utd2lkdGg9IjIwIi8+CiAgPC9nPgo8L3N2Zz4K"
     >
   </a>
+  </br>
   <!-- GitHub - Last commit -->
   <a target="_blank"
     rel="noopener noreferrer"
