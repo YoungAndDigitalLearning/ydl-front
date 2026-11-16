@@ -5,7 +5,7 @@
     src="https://raw.githubusercontent.com/YoungAndDigitalLearning/.github/refs/heads/main/images/branding/ydl-logo.svg"
   >
 </p>
-<h1 align="center">Young & Digital Learning — Interactive Demo</h1>
+<h1 align="center">Young & Digital Learning - Interactive Demo</h1>
 
 <p align="center">
   <!-- Workflow GitHub Actions - Deployment -->
@@ -111,13 +111,17 @@
   </a>
 </p>
 
-## Frontend
+## Interactive Demo
 
-### ydl-front submodule frontend
+The original **Vue 2 frontend** has been restored and adapted to support a fully static demonstration on GitHub Pages.
 
-Website for Y&D Learning made in Vue.
+The public demo replaces Django REST API calls with a browser-based mock adapter and fictional sample data. Visitors can explore the application as students or teachers, interact with course content, complete quizzes, and test course management features.
 
-This project was completed for the module "Programming Lab: Social Networking" at TU Berlin.
+Changes are stored locally in the browser and can be reset. No live backend or database is required.
+
+**[Launch Interactive Demo](https://younganddigitallearning.github.io/)**
+
+For the original full-stack environment and Docker Compose setup, see the [main YDL repository](https://github.com/YoungAndDigitalLearning/ydl).
 
 ## Setup tutorial
 
@@ -127,13 +131,13 @@ This project was completed for the module "Programming Lab: Social Networking" a
 
 Our organization: [YoungAndDigitalLearning](https://github.com/YoungAndDigitalLearning)
 
-Homepage: [YoungAndDigitalLearning.github.io/ydl-front](https://YoungAndDigitalLearning.github.io/ydl-front/)
+Homepage: [YoungAndDigitalLearning.github.io/ydl-front](https://YoungAndDigitalLearning.github.io/)
 
 Wikipage: [wiki](https://github.com/YoungAndDigitalLearning/ydl/wiki)
 
 ## Tech Stack YDL
 
-<img alt="Tech stack" target="_blank" src="./images/stack_features.jpg" href="https://raw.githubusercontent.com/YoungAndDigitalLearning/ydl-front/master/images/stack_features.jpg">
+<img alt="Tech stack" target="_blank" rel="noopener noreferrer" src="./images/stack_features.jpg" href="https://raw.githubusercontent.com/YoungAndDigitalLearning/ydl-front/master/images/stack_features.jpg">
 
 View bigger image file: [Image Link](https://raw.githubusercontent.com/YoungAndDigitalLearning/ydl-front/master/images/stack_features.jpg)
 
