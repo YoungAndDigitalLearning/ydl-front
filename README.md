@@ -123,6 +123,16 @@ Changes are stored locally in the browser and can be reset. No live backend or d
 
 For the original full-stack environment and Docker Compose setup, see the [main YDL repository](https://github.com/YoungAndDigitalLearning/ydl).
 
+## Frontend Documentation
+
+- [Frontend Architecture](https://github.com/YoungAndDigitalLearning/ydl/wiki/Frontend-Architecture)
+- [Public Demo Mode](https://github.com/YoungAndDigitalLearning/ydl/wiki/Public-Demo-Mode)
+- [Feature Showcase](https://github.com/YoungAndDigitalLearning/ydl/wiki/Feature-Showcase)
+- [Complete Project Wiki](https://github.com/YoungAndDigitalLearning/ydl/wiki)
+
+The restored frontend and browser-based mock API are
+maintained on the `feature/local-demo` branch.
+
 ## Setup tutorial
 
 [Setup](https://github.com/YoungAndDigitalLearning/ydl-front/blob/master/Setup.md)
